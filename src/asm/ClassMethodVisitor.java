@@ -9,10 +9,10 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import dot.MethodRecord;
+import dot.records.MethodRecord;
 
 public class ClassMethodVisitor extends ClassVisitor {
-	private ArrayList<MethodRecord> methods;
+	private ArrayList<MethodRecord> methods = new ArrayList<MethodRecord>();
 
 	public ClassMethodVisitor(int arg0) {
 		super(arg0);
@@ -42,7 +42,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 				argTypes,
 				stypes
 				));
-		System.out.println("    method " + symbol + returnType + " " + name + " " + stypes.toString());
+		//System.out.println("    method " + symbol + returnType + " " + name + " " + stypes.toString());
 		return toDecorate;
 	}
 

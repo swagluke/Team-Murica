@@ -1,4 +1,4 @@
-package dot;
+package dot.records;
 
 import java.util.ArrayList;
 

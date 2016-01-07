@@ -8,9 +8,10 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-import dot.ClassRecord;
+import dot.records.ClassRecord;
 
 public class DesignParser {
+	
 	public static void main(String[] args) throws IOException {
 		for (String className : args) {
 			ClassReader reader = new ClassReader(className);
@@ -30,7 +31,7 @@ public class DesignParser {
 	}
 
 	private static void createDigraph(ClassRecord record) {
-		// TODO Actually create the digraph
+		System.out.println("Class Name: " + record.getClassName()+"\n ExtendsName: "+ record.getExtendsName() + "\n Methods: "+record.getMethods() + "\nImplements length" + record.getImplementsList());
 		
 	}
 }

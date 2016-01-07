@@ -20,7 +20,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		
 		String type = Type.getType(desc).getClassName();
-		System.out.println("    " + type + " " + name);
+		//System.out.println("    " + type + " " + name);
 		
 		return toDecorate;
 	}
