@@ -6,7 +6,7 @@ import java.util.Arrays;
 import org.objectweb.asm.ClassVisitor;
 
 public class ClassDeclarationVisitor extends ClassVisitor {
-
+	private String className;
 	public ClassDeclarationVisitor(int arg0) {
 		super(arg0);
 	}
@@ -17,8 +17,12 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 
 	@Override
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-		System.out.println("Class: " + name + " extends " + superName + " implements " + Arrays.toString(interfaces));
+		this.className =  name;// + " extends " + superName + " implements " + Arrays.toString(interfaces));
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
-	
+
+	public String getClassName() {
+		return className;
+	}
+
 }
