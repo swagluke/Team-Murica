@@ -9,7 +9,10 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
+import dot.MethodRecord;
+
 public class ClassMethodVisitor extends ClassVisitor {
+	private ArrayList<MethodRecord> methods;
 
 	public ClassMethodVisitor(int arg0) {
 		super(arg0);
@@ -34,9 +37,17 @@ public class ClassMethodVisitor extends ClassVisitor {
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			symbol = "+";
 		}
-		
+		methods.add(new MethodRecord(
+				returnType,
+				argTypes,
+				stypes
+				));
 		System.out.println("    method " + symbol + returnType + " " + name + " " + stypes.toString());
 		return toDecorate;
+	}
+
+	public ArrayList<MethodRecord> getMethods() {
+		return methods;
 	}
 
 }

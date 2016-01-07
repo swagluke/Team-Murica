@@ -4,9 +4,15 @@ import java.util.ArrayList;
 
 public class ClassRecord {
 	private String className;
-	private ArrayList<String> methods;
+	private ArrayList<MethodRecord> methods;
 	private String extendsName;
 	private ArrayList<String> implementsList;
+	public ClassRecord(String className,  String extendsType, ArrayList<MethodRecord> methods, ArrayList<String> implementsList){
+		this.className = className;
+		this.methods = methods;
+		this.extendsName = extendsType;
+		this.implementsList = implementsList;
+	}
 	public String getClassName() {
 		return className;
 	}
@@ -19,10 +25,10 @@ public class ClassRecord {
 	public void setExtendsName(String extendsName) {
 		this.extendsName = extendsName;
 	}
-	public ArrayList<String> getMethods() {
+	public ArrayList<MethodRecord> getMethods() {
 		return methods;
 	}
-	public void setMethods(ArrayList<String> methods) {
+	public void setMethods(ArrayList<MethodRecord> methods) {
 		this.methods = methods;
 	}
 	public ArrayList<String> getImplementsList() {

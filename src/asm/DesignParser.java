@@ -5,7 +5,10 @@ import java.io.IOException;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+
+import dot.ClassRecord;
 
 public class DesignParser {
 	public static void main(String[] args) throws IOException {
@@ -16,7 +19,18 @@ public class DesignParser {
 			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
 			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			//createDigraph()
+			ClassRecord record = new ClassRecord(
+					((ClassDeclarationVisitor) declVisitor).getClassName(),
+					((ClassDeclarationVisitor) declVisitor).getExtendsName(),
+					((ClassMethodVisitor) methodVisitor).getMethods(),
+					((ClassDeclarationVisitor) declVisitor).getImplementsList()
+					);
+			createDigraph(record);
 		}
+	}
+
+	private static void createDigraph(ClassRecord record) {
+		// TODO Actually create the digraph
+		
 	}
 }
