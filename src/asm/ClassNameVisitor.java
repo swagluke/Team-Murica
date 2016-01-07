@@ -1,11 +1,9 @@
 package asm;
 
-import java.util.Arrays;
-
 import org.objectweb.asm.ClassVisitor;
 
 public class ClassNameVisitor extends ClassVisitor{
-
+	private String name;
 	public ClassNameVisitor(int arg0) {
 		super(arg0);
 		}
@@ -14,8 +12,12 @@ public class ClassNameVisitor extends ClassVisitor{
 	}
 	@Override
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-		System.out.println("Class: " + name + " extends " + superName + " implements " + Arrays.toString(interfaces));
+		this.name = name;
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
+	public String getName() {
+		return name;
+	}
+
 
 }
