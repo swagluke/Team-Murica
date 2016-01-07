@@ -1,0 +1,29 @@
+package asm;
+
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+
+import org.junit.Test;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.Opcodes;
+
+public class ClassNameVisitorTest {
+
+	private static final String CLASS_NAME = "java.util.ArrayList";
+	private ClassNameVisitor classNameVisitor;
+	private ClassReader reader;
+
+	public ClassNameVisitorTest() throws IOException {
+		this.reader = new ClassReader(CLASS_NAME);
+		this.classNameVisitor = new ClassNameVisitor(Opcodes.ASM5);
+	}
+	
+	@Test
+	public void testGettingName() {
+		assertNull(this.classNameVisitor.getName());
+		reader.accept(this.classNameVisitor, ClassReader.EXPAND_FRAMES);
+		assertEquals(this.classNameVisitor.getName(), "java/util/ArrayList");
+	}
+
+}
