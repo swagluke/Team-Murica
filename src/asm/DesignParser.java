@@ -16,6 +16,7 @@ public class DesignParser {
 			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
 			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			//createDigraph()
 		}
 	}
 }
