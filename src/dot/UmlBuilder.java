@@ -60,6 +60,8 @@ public class UmlBuilder {
 		}
 		s.append("|");
 		for(MethodRecord m:record.getMethods()){
+			if(m.getName().replaceAll("<.*?>", "").isEmpty())
+				continue;
 			s.append("+ ");
 			s.append(m.getName().replaceAll("<.*?>", ""));
 			for(Type t:m.getArgTypes()){
