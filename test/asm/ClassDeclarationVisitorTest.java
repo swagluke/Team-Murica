@@ -11,40 +11,68 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
 public class ClassDeclarationVisitorTest {
-
-	private static final String CLASS_NAME = "java.util.ArrayList";
+	@Test
+	public void testClassDeclarationVisitorTestGettingName() throws IOException {
+		assertClassName(this.getClass().getName(), "asm/ClassDeclarationVisitorTest");
+	}
+	@Test
+	public void testClassDeclarationVisitorTestExtendsName() throws IOException {
+		assertExtendsName(this.getClass().getName(), "java/lang/Object");
+	}
+	@Test
+	public void testClassDeclarationVisitorTestImplementsName() throws IOException {
+		ArrayList<String> expectedResult = new ArrayList<String>(
+				Arrays.asList(new String[] {}));
+		assertImplementsName(this.getClass().getName(), expectedResult);
+	}
 
 	@Test
-	public void testGettingName() throws IOException {
-		String EXPECTED_RESULT = "java/util/ArrayList";
-		ClassReader reader = new ClassReader(CLASS_NAME);
-		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+	public void testArrayListGettingName() throws IOException {
+		assertClassName("java.util.ArrayList", "java/util/ArrayList");
+	}
+	@Test
+	public void testArrayListExtendsName() throws IOException {
+		assertExtendsName("java.util.ArrayList", "java/util/AbstractList");
+	}
+	@Test
+	public void testArrayListImplementsName() throws IOException {
+		ArrayList<String> expectedResult = new ArrayList<String>(
+				Arrays.asList(new String[] { "java/util/List",
+						"java/util/RandomAccess", "java/lang/Cloneable",
+						"java/io/Serializable" }));
+		assertImplementsName("java.util.ArrayList", expectedResult);
+	}
+
+	public void assertClassName(String className, String expectedResult)
+			throws IOException {
+		ClassReader reader = new ClassReader(className);
+		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(
+				Opcodes.ASM5);
 
 		assertNull(classNameVisitor.getClassName());
 		reader.accept(classNameVisitor, ClassReader.EXPAND_FRAMES);
-		assertEquals(EXPECTED_RESULT, classNameVisitor.getClassName());
+		assertEquals(expectedResult, classNameVisitor.getClassName());
 	}
-	
-	@Test
-	public void testExtendsName() throws IOException {
-		String EXPECTED_RESULT = "java/util/AbstractList";
-		ClassReader reader = new ClassReader(CLASS_NAME);
-		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+
+	public void assertExtendsName(String className, String expectedResult)
+			throws IOException {
+		ClassReader reader = new ClassReader(className);
+		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(
+				Opcodes.ASM5);
 
 		assertNull(classNameVisitor.getExtendsName());
 		reader.accept(classNameVisitor, ClassReader.EXPAND_FRAMES);
-		assertEquals(EXPECTED_RESULT, classNameVisitor.getExtendsName());
+		assertEquals(expectedResult, classNameVisitor.getExtendsName());
 	}
 
-	@Test
-	public void testImplementsName() throws IOException {
-		ArrayList<String> EXPECTED_RESULT = new ArrayList<String>(Arrays.asList(new String[] {"java/util/List", "java/util/RandomAccess", "java/lang/Cloneable", "java/io/Serializable"}));
-		ClassReader reader = new ClassReader(CLASS_NAME);
-		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+	public void assertImplementsName(String className,
+			ArrayList<String> expectedResult) throws IOException {
+		ClassReader reader = new ClassReader(className);
+		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(
+				Opcodes.ASM5);
 
-		System.out.println(classNameVisitor.getImplementsList());
 		assertNull(classNameVisitor.getImplementsList());
 		reader.accept(classNameVisitor, ClassReader.EXPAND_FRAMES);
-		assertEquals(EXPECTED_RESULT, classNameVisitor.getImplementsList());
+		assertEquals(expectedResult, classNameVisitor.getImplementsList());
 	}
 }
