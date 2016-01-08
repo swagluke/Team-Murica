@@ -18,7 +18,7 @@ public class UmlBuilderTest {
 	private static final String CLASS_NAME = UmlBuilderTest.class.getName();
 	private static final String EXPECTED_RESULT = "UmlBuilderTest [label = \"{UmlBuilderTest|+ CLASS_NAME : java.lang.String \\l\n"
 			+ "+ EXPECTED_RESULT : java.lang.String \\l\n"
-			+ "+ testGettingClassUML : void\\l\n"
+			+ "|+ testGettingClassUML : void\\l\n"
 			+ "}\"]";
 
 	@Test
