@@ -46,14 +46,13 @@ public class UmlBuilder {
 		this.extendsName = record.getExtendsName();
 	}
 	/**
-	 * Animal [
-                label = "{Animal|+ name : string\l+ age : int\l|+ die() : void\l}"
-        ]
 	 * @param record
 	 * @return
 	 */
 	private String createDigraph(ClassRecord record) {
-		StringBuilder s = new StringBuilder(record.getClassName().split("/")[2]+" [label = \"{"+record.getClassName().split("/")[2]+"|");
+		String[] n = record.getClassName().split("/");
+		String name = n[n.length-1];
+		StringBuilder s = new StringBuilder(name+" [label = \"{"+name+"|");
 		for(InstanceVarRecord i:record.getFields()){
 			s.append("+ ");
 			s.append(i.getName()+" : ");
