@@ -2,9 +2,9 @@ package dot;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
@@ -21,6 +21,8 @@ public class UmlBuilder {
 	private String uml="I AM ERROR";
 	private ArrayList<String> implementsList;
 	private String extendsName;
+	private HashSet<String> usesList;
+	
 	
 	public UmlBuilder(String className) {
 		ClassReader reader = null;
@@ -44,6 +46,14 @@ public class UmlBuilder {
 		this.uml = createDigraph(record);
 		this.setImplementsList(record.getImplementsList());
 		this.setExtendsName(record.getExtendsName());
+		this.usesList = new HashSet<String>();
+		for(MethodRecord m:record.getMethods()){
+			for(Type t: m.getArgTypes()){
+				usesList.add(t.getClassName());
+			}
+			usesList.add(m.getReturnType());
+		}
+//		System.out.println("break");
 	}
 	/**
 	 * @param record
@@ -88,5 +98,11 @@ public class UmlBuilder {
 	}
 	private void setExtendsName(String extendsName) {
 		this.extendsName = extendsName;
+	}
+	public HashSet<String> getUsesList() {
+		return usesList;
+	}
+	public void setUsesList(HashSet<String> usesList) {
+		this.usesList = usesList;
 	}
 }

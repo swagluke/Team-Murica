@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,8 +18,9 @@ import dot.UmlBuilder;
 
 public class Runner {
 	private final static String fontName = "Comic Sans MS";
-	private static HashMap<String, String> implementsMap=new HashMap<String, String>();
+	private static HashMap<String, ArrayList<String>> implementsMap=new HashMap<String, ArrayList<String>>();
 	private static HashMap<String, String> extendsMap = new HashMap<String, String>();
+	private static HashMap<String, ArrayList<String>> usesMap = new HashMap<String, ArrayList<String>>();
 	private static HashSet<String> classNames = new HashSet<String>();
 	public static void main(String[] args){
 		StringBuilder s = new StringBuilder();
@@ -30,7 +32,18 @@ public class Runner {
 			UmlBuilder d = new UmlBuilder(className);
 			s.append(d.getClassUML()+"\n");
 			for(String i: d.getImplementsList()){
-				Runner.implementsMap.put(className, i);
+				ArrayList<String> list = implementsMap.get(className);
+				if(list==null)
+					list = new ArrayList<String>();
+				list.add(i);
+				Runner.implementsMap.put(className, list);
+			}
+			for(String u:d.getUsesList().toArray(new String[d.getUsesList().size()])){
+				ArrayList<String> list = usesMap.get(className);
+				if(list==null)
+					list = new ArrayList<String>();
+				list.add(u);
+				Runner.usesMap.put(className, list);
 			}
 			Runner.extendsMap.put(className, d.getExtendsName());
 			classNames.add(className);
@@ -40,10 +53,13 @@ public class Runner {
 		for(String key:implementsMap.keySet()){
 			String[] shortKeyList =key.replace("/", ".").split("\\.");
 			String shortKey = shortKeyList[shortKeyList.length-1];
-			String[] shortValueList = implementsMap.get(key).replace("/", ".").split("\\.");
-			String shortValue = shortValueList[shortValueList.length-1];
-			if(classNames.contains(implementsMap.get(key).replace("/", ".")))
-				s.append(shortKey+" -> "+shortValue+"\n");
+			ArrayList<String> shortValueList = implementsMap.get(key);
+			for(String val:shortValueList){
+				String[] valList = val.replace("/", ".").split("\\.");
+				String shortValue = valList[valList.length-1];
+				if(classNames.contains(val.replace("/", ".")))
+					s.append(shortKey+" -> "+shortValue+"\n");
+			}
 		}
 		//create extends arrows
 		s.append("edge [ style = \"normal\"]\n");
@@ -55,6 +71,20 @@ public class Runner {
 			if(classNames.contains(extendsMap.get(key2).replace("/", ".")))
 				s.append(shortKey+" -> "+shortValue+"\n");
 		}
+		//create uses arrows
+		s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
+		for(String key:usesMap.keySet()){
+			String[] shortKeyList =key.replace("/", ".").split("\\.");
+			String shortKey = shortKeyList[shortKeyList.length-1];
+			ArrayList<String> shortValueList = usesMap.get(key);
+			for(String val:shortValueList){
+				String[] valList = val.replace("/", ".").split("\\.");
+				String shortValue = valList[valList.length-1];
+				if(classNames.contains(val.replace("/", ".")))
+					s.append(shortKey+" -> "+shortValue+"\n");
+			}
+		}
+			
 		//close the digraph
 		s.append("}");
 		
