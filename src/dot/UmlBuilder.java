@@ -63,8 +63,7 @@ public class UmlBuilder {
 				}
 				this.associationList.addAll(fieldRecord.getNestedFields());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//ignore
 			}
 		}
 		System.out.println(this.associationList);
