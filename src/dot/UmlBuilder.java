@@ -18,7 +18,7 @@ import dot.records.MethodRecord;
 public class UmlBuilder {
 	
 	
-	private String uml="TEST";
+	private String uml="I AM ERROR";
 	private ArrayList<String> implementsList;
 	private String extendsName;
 	
@@ -42,8 +42,8 @@ public class UmlBuilder {
 				((ClassFieldVisitor) fieldVisitor).getFields()
 				);
 		this.uml = createDigraph(record);
-		this.implementsList =record.getImplementsList();
-		this.extendsName = record.getExtendsName();
+		this.setImplementsList(record.getImplementsList());
+		this.setExtendsName(record.getExtendsName());
 	}
 	/**
 	 * @param record
@@ -76,5 +76,17 @@ public class UmlBuilder {
 	}
 	public String getClassUML(){
 		return uml;
+	}
+	public ArrayList<String> getImplementsList() {
+		return implementsList;
+	}
+	private void setImplementsList(ArrayList<String> implementsList) {
+		this.implementsList = implementsList;
+	}
+	public String getExtendsName() {
+		return extendsName;
+	}
+	private void setExtendsName(String extendsName) {
+		this.extendsName = extendsName;
 	}
 }
