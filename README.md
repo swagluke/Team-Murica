@@ -25,7 +25,8 @@ Please follow the instruction below.
 1. Download the GraphViz.zip file from <http://www.graphviz.org/Download.php>, then extract into folder.
 2. Add the path of this folder to your PATH system variable
 3. Folk this repository and import the project into Eclipse.
-
+4. Change the run configuration.
+5. Related Graph will show up inside the project folder.
 
 
 # Work Distribution
@@ -36,11 +37,11 @@ README: Lujia Zhang
 
 Implementation: Primary Lucas Miller, Lujia Zhang helped out.
 
-UML Diagram: 
+UML Diagram: Lujia Zhang
 
-Design: 
+Design: All three
 
-UML comparison testing: 
+UML comparison testing: Lujia Zhang
 
 Automated tests: Philip Ross
 
@@ -48,12 +49,12 @@ Milestone 2:
 
 README: Lujia Zhang
 
-Implementation: Primary Lucas Miller, Lujia Zhang helped out.
+Implementation: Primary Lucas Miller, Lujia Zhang and Philip Ross helped out.
 
-UML Diagram: 
+UML Diagram: Lujia Zhang
 
-Design: 
+Design: All three
 
-UML comparison testing: 
+UML comparison testing: Lujia Zhang
 
 Automated tests: Philip Ross
