@@ -1,5 +1,6 @@
 package asm;
 
+import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -16,8 +17,8 @@ public class FieldSignatureVisitor extends SignatureVisitor {
 	public void visitClassType(String name) {
 		try {
 			Class<?> c = Class.forName(Type.getObjectType(name).getClassName());
-			if (!Collection.class.isAssignableFrom(c)) {
-				this.fields.add(name);
+			if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
+				this.fields.add(Type.getObjectType(name).getClassName());
 //				System.out.println(name + " *** ");
 			}
 		} catch (ClassNotFoundException e) {
