@@ -36,7 +36,7 @@ public class Runner {
 			classNames.add(className);
 		}
 		//create implementation arrows
-		s.append("edge [ arrowhead = \"empty\"]\n");
+		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
 		for(String key:implementsMap.keySet()){
 			String[] shortKeyList =key.replace("/", ".").split("\\.");
 			String shortKey = shortKeyList[shortKeyList.length-1];
@@ -46,7 +46,7 @@ public class Runner {
 				s.append(shortKey+" -> "+shortValue+"\n");
 		}
 		//create extends arrows
-		s.append("edge [ arrowhead = \"normal\"]\n");
+		s.append("edge [ style = \"normal\"]\n");
 		for(String key2:extendsMap.keySet()){
 			String[] shortKeyList =key2.replace("/", ".").split("\\.");
 			String shortKey = shortKeyList[shortKeyList.length-1];

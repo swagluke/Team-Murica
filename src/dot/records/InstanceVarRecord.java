@@ -1,6 +1,5 @@
 package dot.records;
 
-import org.objectweb.asm.Type;
 
 public class InstanceVarRecord {
 	private String name;
