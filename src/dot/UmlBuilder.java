@@ -30,16 +30,16 @@ public class UmlBuilder {
 			e.printStackTrace();
 		}
 		
-		ClassVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
-		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
+		ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+		ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
+		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		ClassRecord record = new ClassRecord(
-				((ClassDeclarationVisitor) declVisitor).getClassName(),
-				((ClassDeclarationVisitor) declVisitor).getExtendsName(),
-				((ClassMethodVisitor) methodVisitor).getMethods(),
-				((ClassDeclarationVisitor) declVisitor).getImplementsList(),
-				((ClassFieldVisitor) fieldVisitor).getFields()
+				declVisitor.getClassName(),
+				declVisitor.getExtendsName(),
+				methodVisitor.getMethods(),
+				declVisitor.getImplementsList(),
+				fieldVisitor.getFields()
 				);
 		this.uml = createDigraph(record);
 		this.setImplementsList(record.getImplementsList());

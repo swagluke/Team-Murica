@@ -79,7 +79,7 @@ public class Runner {
 		    Map<String, String> env = pb.environment();
 		   // System.out.println(env.size());
 //		    pb.directory(System.getProperty("user.dir"));
-		    System.out.println(System.getProperty("user.dir"));
+//		    System.out.println(System.getProperty("user.dir"));
 		    try {
 				//Process p = pb.start(); 
 				 File log = new File("log");
