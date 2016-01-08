@@ -24,5 +24,9 @@ public class ClassFieldVisitor extends ClassVisitor {
 		
 		return toDecorate;
 	}
+	
+	public String[] getFieldsNames() {
+		return null;
+	}
 
 }

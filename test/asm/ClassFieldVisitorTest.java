@@ -1,6 +1,7 @@
 package asm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
@@ -11,19 +12,22 @@ import org.objectweb.asm.Opcodes;
 public class ClassFieldVisitorTest {
 
 	private static final String CLASS_NAME = "java.util.ArrayList";
-	private ClassDeclarationVisitor classNameVisitor;
-	private ClassReader reader;
+	private static final String[] EXPECTED_RESULT = { "MIN_VALUE", "MAX_VALUE",
+			"TYPE", "digits", "DigitTens", "DigitOnes", "sizeTable", "value",
+			"SIZE", "BYTES", "serialVersionUID", "serialVersionUID",
+			"DEFAULT_CAPACITY", "EMPTY_ELEMENTDATA",
+			"DEFAULTCAPACITY_EMPTY_ELEMENTDATA", "elementData", "size",
+			"MAX_ARRAY_SIZE" };
 
-	public ClassFieldVisitorTest() throws IOException {
-		this.reader = new ClassReader(CLASS_NAME);
-		this.classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-	}
-	
 	@Test
-	public void testGettingName() {
-		assertNull(this.classNameVisitor.getClassName());
-		reader.accept(this.classNameVisitor, ClassReader.EXPAND_FRAMES);
-		assertEquals(this.classNameVisitor.getClassName(), "java/util/ArrayList");
+	public void testGettingName() throws IOException {
+		ClassReader reader = new ClassReader(CLASS_NAME);
+		ClassFieldVisitor classFieldVisitor = new ClassFieldVisitor(
+				Opcodes.ASM5);
+
+		assertNull(classFieldVisitor.getFieldsNames());
+		reader.accept(classFieldVisitor, ClassReader.EXPAND_FRAMES);
+		assertArrayEquals(EXPECTED_RESULT, classFieldVisitor.getFieldsNames());
 	}
 
 }
