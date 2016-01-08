@@ -38,6 +38,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 			symbol = "+";
 		}
 		methods.add(new MethodRecord(
+				access,
+				name,
 				returnType,
 				argTypes,
 				stypes

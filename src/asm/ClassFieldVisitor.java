@@ -2,12 +2,16 @@ package asm;
 
 
 
+import java.util.ArrayList;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Type;
 
-public class ClassFieldVisitor extends ClassVisitor {
+import dot.records.InstanceVarRecord;
 
+public class ClassFieldVisitor extends ClassVisitor {
+	private ArrayList<InstanceVarRecord> fields;
 	public ClassFieldVisitor(int arg0) {
 		super(arg0);
 	}
@@ -21,8 +25,10 @@ public class ClassFieldVisitor extends ClassVisitor {
 		
 		String type = Type.getType(desc).getClassName();
 		//System.out.println("    " + type + " " + name);
-		
+		fields.add(new InstanceVarRecord(name, type, access));
 		return toDecorate;
 	}
-
+	public ArrayList<InstanceVarRecord> getFields(){
+		return fields;
+	}
 }

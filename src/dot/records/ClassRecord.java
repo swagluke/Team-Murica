@@ -7,11 +7,13 @@ public class ClassRecord {
 	private ArrayList<MethodRecord> methods;
 	private String extendsName;
 	private ArrayList<String> implementsList;
-	public ClassRecord(String className,  String extendsType, ArrayList<MethodRecord> methods, ArrayList<String> implementsList){
+	private ArrayList<InstanceVarRecord> fields;
+	public ClassRecord(String className,  String extendsType, ArrayList<MethodRecord> methods, ArrayList<String> implementsList, ArrayList<InstanceVarRecord> fields){
 		this.className = className;
 		this.methods = methods;
 		this.extendsName = extendsType;
 		this.implementsList = implementsList;
+		this.fields = fields;
 	}
 	public String getClassName() {
 		return className;
@@ -36,5 +38,11 @@ public class ClassRecord {
 	}
 	public void setImplementsList(ArrayList<String> implementsList) {
 		this.implementsList = implementsList;
+	}
+	public ArrayList<InstanceVarRecord> getFields() {
+		return fields;
+	}
+	public void setFields(ArrayList<InstanceVarRecord> fields) {
+		this.fields = fields;
 	}
 }

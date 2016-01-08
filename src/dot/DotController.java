@@ -11,6 +11,7 @@ import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import dot.records.ClassRecord;
+import dot.records.InstanceVarRecord;
 
 public class DotController {
 	
@@ -19,8 +20,13 @@ public class DotController {
 	private ArrayList<String> implementsList;
 	private String extendsName;
 	
-	public void getDotCode(String className) throws IOException{
-		ClassReader reader = new ClassReader(className);
+	public DotController(String className) {
+		ClassReader reader = null;
+		try {
+			reader = new ClassReader(className);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		ClassVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
@@ -30,7 +36,8 @@ public class DotController {
 				((ClassDeclarationVisitor) declVisitor).getClassName(),
 				((ClassDeclarationVisitor) declVisitor).getExtendsName(),
 				((ClassMethodVisitor) methodVisitor).getMethods(),
-				((ClassDeclarationVisitor) declVisitor).getImplementsList()
+				((ClassDeclarationVisitor) declVisitor).getImplementsList(),
+				((ClassFieldVisitor) fieldVisitor).getFields()
 				);
 		this.uml = createDigraph(record);
 		this.implementsList =record.getImplementsList();
