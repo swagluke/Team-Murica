@@ -15,14 +15,14 @@ import dot.records.ClassRecord;
 import dot.records.InstanceVarRecord;
 import dot.records.MethodRecord;
 
-public class DotController {
+public class UmlBuilder {
 	
 	
 	private String uml="TEST";
 	private ArrayList<String> implementsList;
 	private String extendsName;
 	
-	public DotController(String className) {
+	public UmlBuilder(String className) {
 		ClassReader reader = null;
 		try {
 			reader = new ClassReader(className);
@@ -53,23 +53,23 @@ public class DotController {
 	 * @return
 	 */
 	private String createDigraph(ClassRecord record) {
-		StringBuilder s = new StringBuilder(record.getClassName()+"[label = \"{"+record.getClassName()+"|");
+		StringBuilder s = new StringBuilder(record.getClassName().split("/")[2]+" [label = \"{"+record.getClassName().split("/")[2]+"|");
 		for(InstanceVarRecord i:record.getFields()){
-			s.append("+/- ");
-			s.append(i.getName()+" :");
-			s.append(i.getType()+" \\l");
+			s.append("+ ");
+			s.append(i.getName()+" : ");
+			s.append(i.getType()+" \\l\n");
 		}
 		s.append("|");
 		for(MethodRecord m:record.getMethods()){
-			s.append("+/-");
-			s.append(m.getName());
+			s.append("+ ");
+			s.append(m.getName().replaceAll("<.*?>", ""));
 			for(Type t:m.getArgTypes()){
 				s.append(t.getClassName()+ " ");
 			}
 			s.append(" : ");
-			s.append(m.getReturnType() + "\\l");
+			s.append(m.getReturnType() + "\\l\n");
 		}
-		s.append("}\"");
+		s.append("}\"]");
 //		System.out.println("Class Name: " + record.getClassName()+"\n ExtendsName: "+ record.getExtendsName() + "\n Methods: "+record.getMethods() + "\nImplements length" + record.getImplementsList());
 		return s.toString();
 	}
