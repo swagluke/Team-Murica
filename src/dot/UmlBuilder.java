@@ -1,7 +1,10 @@
 package dot;
 
 import java.io.IOException;
+import java.util.AbstractCollection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
@@ -22,6 +25,7 @@ public class UmlBuilder {
 	private ArrayList<String> implementsList;
 	private String extendsName;
 	private HashSet<String> usesList;
+	private HashSet<String> associationList;
 	
 	
 	public UmlBuilder(String className) {
@@ -52,6 +56,22 @@ public class UmlBuilder {
 				usesList.add(t.getClassName());
 			}
 			usesList.add(m.getReturnType());
+		}
+		this.associationList = new HashSet<String>();
+		for (InstanceVarRecord fieldRecord : record.getFields()) {
+			boolean isCollection = false;
+//			try {
+//				Class<?> c = Class.forName(fieldRecord.getType());
+//				isCollection = Collection.class.isAssignableFrom(c);
+//			} catch (ClassNotFoundException e) {
+//				// ignore
+//			}
+			
+//			if (Collection.class.isAssignableFrom(fieldRecord.getType().getClass())){
+//				System.out.println("collection: " + fieldRecord.getName());
+//			} else {
+//				System.out.println(fieldRecord.getName());
+//			}
 		}
 //		System.out.println("break");
 	}

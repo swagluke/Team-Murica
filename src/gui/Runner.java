@@ -17,11 +17,12 @@ import java.util.Map;
 import dot.UmlBuilder;
 
 public class Runner {
+	private static HashSet<String> classNames = new HashSet<String>();
 	private final static String fontName = "Comic Sans MS";
 	private static HashMap<String, ArrayList<String>> implementsMap=new HashMap<String, ArrayList<String>>();
 	private static HashMap<String, String> extendsMap = new HashMap<String, String>();
 	private static HashMap<String, ArrayList<String>> usesMap = new HashMap<String, ArrayList<String>>();
-	private static HashSet<String> classNames = new HashSet<String>();
+	private static ArrayList<Integer> blah;
 	public static void main(String[] args){
 		StringBuilder s = new StringBuilder();
 		//set up digraph information
