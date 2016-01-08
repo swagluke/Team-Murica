@@ -11,19 +11,15 @@ import org.objectweb.asm.Opcodes;
 public class ClassDeclarationVisitorTest {
 
 	private static final String CLASS_NAME = "java.util.ArrayList";
-	private ClassDeclarationVisitor classNameVisitor;
-	private ClassReader reader;
+	private static final String EXPECTED_RESULT = "java.util.ArrayList";
 
-	public ClassDeclarationVisitorTest() throws IOException {
-		this.reader = new ClassReader(CLASS_NAME);
-		this.classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-	}
-	
 	@Test
-	public void testGettingName() {
-		assertNull(this.classNameVisitor.getClassName());
-		reader.accept(this.classNameVisitor, ClassReader.EXPAND_FRAMES);
-		assertEquals(this.classNameVisitor.getClassName(), "java/util/ArrayList");
-	}
+	public void testGettingName() throws IOException {
+		ClassReader reader = new ClassReader(CLASS_NAME);
+		ClassDeclarationVisitor classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 
+		assertNull(classNameVisitor.getClassName());
+		reader.accept(classNameVisitor, ClassReader.EXPAND_FRAMES);
+		assertEquals(EXPECTED_RESULT, classNameVisitor.getClassName());
+	}
 }
