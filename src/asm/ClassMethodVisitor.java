@@ -1,6 +1,5 @@
 package asm;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,35 +20,29 @@ public class ClassMethodVisitor extends ClassVisitor {
 	public ClassMethodVisitor(int arg0, ClassVisitor arg1) {
 		super(arg0, arg1);
 	}
-	
+
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		
+
 		String returnType = Type.getReturnType(desc).getClassName();
 		Type[] argTypes = Type.getArgumentTypes(desc);
 		List<String> stypes = new ArrayList<String>();
 		for (Type t : argTypes) {
 			stypes.add(t.getClassName());
 		}
-		
+
 		String symbol = "";
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			symbol = "+";
 		}
-		methods.add(new MethodRecord(
-				access,
-				name,
-				returnType,
-				argTypes,
-				stypes
-				));
-		//System.out.println("    method " + symbol + returnType + " " + name + " " + stypes.toString());
+		methods.add(new MethodRecord(access, name, returnType, argTypes, stypes));
+		// System.out.println(" method " + symbol + returnType + " " + name + "
+		// " + stypes.toString());
 		return toDecorate;
 	}
 
 	public ArrayList<MethodRecord> getMethods() {
 		return methods;
 	}
-
 }
