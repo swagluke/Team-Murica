@@ -1,0 +1,15 @@
+digraph G {fontname = "Comic Sans MS"  fontsize = 8  node [ fontname = "Comic Sans MS" fontsize = 8 shape = "record"] edge [ fontname = "Comic Sans MS" fontsize = 8 ]
+AppLauncher [label = "{AppLauncher|+ handlers : java.util.List \l
++ watcher : java.nio.file.WatchService \l
++ dir : java.nio.file.Path \l
++ stop : boolean \l
++ processes : java.util.List \l
+|+ registerhandlers : void\l
++ run : void\l
++ clearEverything : void\l
++ stopGracefully : void\l
++ isRunning : boolean\l
++ getApplicationsCount : int\l
++ handleDirectoryEventjava.lang.String java.nio.file.Path  : void\l
++ mainjava.lang.String[]  : void\l
+}"]}
