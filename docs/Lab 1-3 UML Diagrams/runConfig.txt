@@ -1,0 +1,7 @@
+Lab1_3.AppLauncher
+Lab1_3.BackReadHandler
+Lab1_3.DirectoryEventHandler
+Lab1_3.HtmlHandler
+Lab1_3.ModifyHandler
+Lab1_3.TextHandler
+Lab1_3.WordHandler
