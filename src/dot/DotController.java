@@ -16,7 +16,7 @@ import dot.records.InstanceVarRecord;
 public class DotController {
 	
 	
-	private String uml="";
+	private String uml="TEST";
 	private ArrayList<String> implementsList;
 	private String extendsName;
 	
@@ -47,7 +47,7 @@ public class DotController {
 		System.out.println("Class Name: " + record.getClassName()+"\n ExtendsName: "+ record.getExtendsName() + "\n Methods: "+record.getMethods() + "\nImplements length" + record.getImplementsList());
 		return "Stuff comes from here";
 	}
-	public String getUML(){
+	public String getClassUML(){
 		return uml;
 	}
 }
