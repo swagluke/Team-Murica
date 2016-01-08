@@ -1,29 +1,29 @@
 package asm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+
+import dot.records.MethodRecord;
 
 public class ClassMethodVisitorTest {
 
-	private static final String CLASS_NAME = "java.util.ArrayList";
-	private ClassDeclarationVisitor classNameVisitor;
-	private ClassReader reader;
+	private static final String CLASS_NAME = "java.utilArrayList<E>t";
 
-	public ClassMethodVisitorTest() throws IOException {
-		this.reader = new ClassReader(CLASS_NAME);
-		this.classNameVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-	}
-	
 	@Test
-	public void testGettingName() {
-		assertNull(this.classNameVisitor.getClassName());
-		reader.accept(this.classNameVisitor, ClassReader.EXPAND_FRAMES);
-		assertEquals(this.classNameVisitor.getClassName(), "java/util/ArrayList");
-	}
+	public void testGettingName() throws IOException, ClassNotFoundException {
+		ClassReader reader = new ClassReader(CLASS_NAME);
+		ClassMethodVisitor classMethodVisitor = new ClassMethodVisitor(Opcodes.ASM5);
 
+		assertNull(classMethodVisitor.getMethods());
+		reader.accept(classMethodVisitor, ClassReader.EXPAND_FRAMES);
+		assertArrayEquals(EXPECTED_RESULT, classMethodVisitor.getMethods().toArray());
+	}
 }
