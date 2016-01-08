@@ -18,11 +18,11 @@ public class DesignParser {
 
 			// ClassVisitor declVisitor = new
 			// ClassDeclarationVisitor(Opcodes.ASM5);
-			// ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+			 ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5);//,
 			// declVisitor);
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5);// ,
+//			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5);// ,
 																				// fieldVisitor);
-			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			reader.accept(fieldVisitor, ClassReader.EXPAND_FRAMES);
 			// ClassRecord record = new ClassRecord(
 			// ((ClassDeclarationVisitor) declVisitor).getClassName(),
 			// ((ClassDeclarationVisitor) declVisitor).getExtendsName(),
