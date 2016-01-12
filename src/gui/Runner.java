@@ -50,7 +50,7 @@ public class Runner {
 				Runner.usesMap.put(className, list);
 			}
 			associatesMap.put(className, d.getAssociationList());
-			Runner.extendsMap.put(className, d.getExtendsName());
+//			Runner.extendsMap.put(className, d.getExtendsName());
 			classNames.add(className);
 		}
 		// create implementation arrows

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
@@ -14,35 +15,41 @@ import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import dot.records.ClassRecord;
+import dot.records.IClassRecord;
 import dot.records.InstanceVarRecord;
 import dot.records.MethodRecord;
 
-public class UmlBuilder {
+public class UmlBuilder implements IBuilder{
 
 	private String uml = "I AM ERROR";
 	private ArrayList<String> implementsList;
-	private String extendsName;
 	private HashSet<String> usesList;
 	private HashSet<String> associationList;
-
+	ClassReader reader = null;
+	ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+	ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
+	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 	public UmlBuilder(String className) {
-		ClassReader reader = null;
+		
+		
 		try {
 			reader = new ClassReader(className);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-		ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
-		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
+//		ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+//		ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
+//		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+	}
+	public void stuff(){
 		ClassRecord record = new ClassRecord(declVisitor.getClassName(), declVisitor.getExtendsName(),
 				methodVisitor.getMethods(), declVisitor.getImplementsList(), fieldVisitor.getFields());
 		this.uml = createDigraph(record);
 		this.setImplementsList(record.getImplementsList());
-		this.setExtendsName(record.getExtendsName());
 		this.usesList = new HashSet<String>();
+		
 		for (MethodRecord m : record.getMethods()) {
 			for (Type t : m.getArgTypes()) {
 				usesList.add(t.getClassName());
@@ -115,14 +122,7 @@ public class UmlBuilder {
 		this.implementsList = implementsList;
 	}
 
-	public String getExtendsName() {
-		return extendsName;
-	}
-
-	private void setExtendsName(String extendsName) {
-		this.extendsName = extendsName;
-	}
-
+	
 	public HashSet<String> getUsesList() {
 		return usesList;
 	}
@@ -137,5 +137,17 @@ public class UmlBuilder {
 
 	public void setAssociationList(HashSet<String> asociationList) {
 		this.associationList = asociationList;
+	}
+
+	@Override
+	public ClassVisitor getVisitor() {
+		return methodVisitor;
+	}
+
+	@Override
+	public IClassRecord build() {
+		return null;
+		// TODO Auto-generated method stub
+		
 	}
 }

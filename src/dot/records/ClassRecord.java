@@ -2,7 +2,7 @@ package dot.records;
 
 import java.util.ArrayList;
 
-public class ClassRecord {
+public class ClassRecord implements IClassRecord {
 	private String className;
 	private ArrayList<MethodRecord> methods;
 	private String extendsName;
@@ -44,5 +44,10 @@ public class ClassRecord {
 	}
 	public void setFields(ArrayList<InstanceVarRecord> fields) {
 		this.fields = fields;
+	}
+	@Override
+	public String getClassUml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
