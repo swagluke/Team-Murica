@@ -1,22 +1,10 @@
 package dot;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Test;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-
-import asm.ClassDeclarationVisitor;
-import dot.records.ClassRecord;
-import dot.records.ExtendedClassRecord;
-import dot.records.IClassRecord;
-import dot.records.MethodRecord;
-import sun.nio.cs.ext.ExtendedCharsets;
 
 public class ExtensionBuilderTest {
 	@Test
