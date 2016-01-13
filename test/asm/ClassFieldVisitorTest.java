@@ -31,7 +31,7 @@ public class ClassFieldVisitorTest {
 				Arrays.asList(new InstanceVarRecord[] {
 						new InstanceVarRecord("testField", "java.lang.String", 1, new HashSet<String>()),
 						new InstanceVarRecord("privateField", "int", 2, new HashSet<String>()),
-						new InstanceVarRecord("listField", "java.util.ArrayList", 4, new HashSet<String>(Arrays.asList("java/lang/Integer"))) }));
+						new InstanceVarRecord("listField", "java.util.ArrayList", 4, new HashSet<String>(Arrays.asList("java.lang.Integer"))) }));
 		assertFields(this.getClass().getName(), expectedResult);
 	}
 
