@@ -22,7 +22,8 @@ public class FieldSignatureVisitor extends SignatureVisitor {
 //				System.out.println(name + " *** ");
 			}
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+//			assume its not a collection
+			this.fields.add(Type.getObjectType(name).getClassName());
 		}
 	}
 	
