@@ -1,5 +1,7 @@
 package dot;
 
+import java.util.ArrayList;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Type;
 
@@ -30,13 +32,22 @@ public class UsesBuilder implements IBuilder {
 	public IClassRecord build(ClassVisitor visitor) {
 		// TODO Auto-generated method stub
 		UsesClassRecord record = new UsesClassRecord((ClassRecord) implementsBuilder.build(visitor));
-//		for (MethodRecord m : record.getMethods()) {
-//			for (Type t : m.getArgTypes()) {
-//				usesList.add(t.getClassName());
-//			}
-//			usesList.add(m.getReturnType());
-//		}
+		for (MethodRecord m : record.getMethods()) {
+			for (Type t : m.getArgTypes()) {
+				record.addUses(t.getClassName());
+			}
+			record.addUses(m.getReturnType());
+		}
 		return record;
+	}
+	@Override
+	public String getClassUML() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<String> getUsesList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -37,6 +37,11 @@ public class ExtensionBuilder implements IBuilder{
 	public IClassRecord build() {
 		return this.build(visitor);
 	}
+	@Override
+	public String getClassUML() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 

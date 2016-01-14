@@ -16,4 +16,5 @@ public interface IBuilder {
 	 */
 	IClassRecord build();
 	IClassRecord build(ClassVisitor visitor);
+	String getClassUML();
 }

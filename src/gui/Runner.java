@@ -14,7 +14,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import dot.AssociationBuilder;
+import dot.ExtensionBuilder;
+import dot.ImplementsBuilder;
 import dot.UmlBuilder;
+import dot.UsesBuilder;
 
 public class Runner {
 	private final static String fontName = "Comic Sans MS";
@@ -33,22 +37,26 @@ public class Runner {
 		// extensions to the respective lists.
 		for (String className : args) {
 			UmlBuilder d = new UmlBuilder(className);
+			ExtensionBuilder e = new ExtensionBuilder(d);
+			ImplementsBuilder i = new ImplementsBuilder(e);
+			UsesBuilder u = new UsesBuilder(i);
+			AssociationBuilder a = new AssociationBuilder(u);
 			s.append(d.getClassUML() + "\n");
-			for (String i : d.getImplementsList()) {
+			for (String imp : i.implementsList) {
 				ArrayList<String> list = implementsMap.get(className);
 				if (list == null)
 					list = new ArrayList<String>();
-				list.add(i);
+				list.add(imp);
 				Runner.implementsMap.put(className, list);
 			}
-			for (String u : d.getUsesList().toArray(new String[d.getUsesList().size()])) {
+			for (String uses : u.getUsesList().toArray(new String[u.getUsesList().size()])) {
 				ArrayList<String> list = usesMap.get(className);
 				if (list == null)
 					list = new ArrayList<String>();
-				list.add(u);
+				list.add(uses);
 				Runner.usesMap.put(className, list);
 			}
-			associatesMap.put(className, d.getAssociationList());
+			associatesMap.put(className, a.getAssociationList());
 //			Runner.extendsMap.put(className, d.getExtendsName());
 			classNames.add(className);
 		}
@@ -127,9 +135,9 @@ public class Runner {
 		}
 		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o out.png");
 		Map<String, String> env = pb.environment();
-		// System.out.println(env.size());
-		// pb.directory(System.getProperty("user.dir"));
-		// System.out.println(System.getProperty("user.dir"));
+		 System.out.println(env.size());
+		// pb.directory();
+		 System.out.println(System.getProperty("user.dir"));
 		try {
 			// Process p = pb.start();
 			File log = new File("log");

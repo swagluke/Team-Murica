@@ -15,7 +15,7 @@ public class ImplementsBuilder implements IBuilder {
 	public ImplementsBuilder(String className){
 		this(new ExtensionBuilder(className));
 	}
-	private ImplementsBuilder(ExtensionBuilder extensionBuilder) {
+	public ImplementsBuilder(ExtensionBuilder extensionBuilder) {
 		this.builder = extensionBuilder;
 		this.visitor = (ClassDeclarationVisitor) builder.getVisitor();
 	}
@@ -35,6 +35,11 @@ public class ImplementsBuilder implements IBuilder {
 	@Override
 	public IClassRecord build() {
 		return this.build(this.getVisitor());
+	}
+	@Override
+	public String getClassUML() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -47,15 +47,10 @@ public class UmlBuilder implements IBuilder{
 		ClassRecord record = new ClassRecord(declVisitor.getClassName(), declVisitor.getExtendsName(),
 				methodVisitor.getMethods(), declVisitor.getImplementsList(), fieldVisitor.getFields());
 		this.uml = createDigraph(record);
-		this.setImplementsList(record.getImplementsList());
+		
 		this.usesList = new HashSet<String>();
 		
-		for (MethodRecord m : record.getMethods()) {
-			for (Type t : m.getArgTypes()) {
-				usesList.add(t.getClassName());
-			}
-			usesList.add(m.getReturnType());
-		}
+		
 		this.associationList = new HashSet<String>();
 		for (InstanceVarRecord fieldRecord : record.getFields()) {
 			try {
@@ -110,35 +105,6 @@ public class UmlBuilder implements IBuilder{
 		return s.toString();
 	}
 
-	public String getClassUML() {
-		return uml;
-	}
-
-	public ArrayList<String> getImplementsList() {
-		return implementsList;
-	}
-
-	private void setImplementsList(ArrayList<String> implementsList) {
-		this.implementsList = implementsList;
-	}
-
-	
-	public HashSet<String> getUsesList() {
-		return usesList;
-	}
-
-	public void setUsesList(HashSet<String> usesList) {
-		this.usesList = usesList;
-	}
-	
-	public HashSet<String> getAssociationList() {
-		return this.associationList;
-	}
-
-	public void setAssociationList(HashSet<String> asociationList) {
-		this.associationList = asociationList;
-	}
-
 	@Override
 	public ClassVisitor getVisitor() {
 		return declVisitor;
@@ -154,5 +120,10 @@ public class UmlBuilder implements IBuilder{
 	@Override
 	public IClassRecord build() {
 		return this.build(this.getVisitor());
+	}
+	@Override
+	public String getClassUML() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
