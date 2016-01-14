@@ -7,7 +7,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import dot.records.ExtendedClassRecord;
-import dot.records.IClassRecord;
 
 public class ExtensionBuilderTest {
 	@Test
