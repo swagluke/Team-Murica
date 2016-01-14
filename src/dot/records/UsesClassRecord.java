@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class UsesClassRecord implements IClassRecord {
 	private ArrayList<String> usesList = new ArrayList<String>();
-	public UsesClassRecord(ClassRecord build) {
-		// TODO Auto-generated constructor stub
+	private IClassRecord innerRecord;
+
+	public UsesClassRecord(IClassRecord record) {
+		this.innerRecord = record;
 	}
 
 	@Override
@@ -15,8 +17,12 @@ public class UsesClassRecord implements IClassRecord {
 	}
 
 	public ArrayList<MethodRecord> getMethods() {
-		// TODO Auto-generated method stub
-		return null;
+//		return innerRecord.
+		return new ArrayList<MethodRecord>();
+	}
+	
+	public ArrayList<String> getUsesList() {
+		return usesList;
 	}
 	/**
 	 * Adds a thing to the list of uses

@@ -19,8 +19,9 @@ public class UsesBuilder implements IBuilder {
 	}
 	@Override
 	public ClassVisitor getVisitor() {
+		return this.implementsBuilder.getVisitor();
 		// TODO Auto-generated method stub
-		return null;
+//		return null;
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class UsesBuilder implements IBuilder {
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		// TODO Auto-generated method stub
-		UsesClassRecord record = new UsesClassRecord((ClassRecord) implementsBuilder.build(visitor));
+		UsesClassRecord record = new UsesClassRecord(implementsBuilder.build(visitor));
 		for (MethodRecord m : record.getMethods()) {
 			for (Type t : m.getArgTypes()) {
 				record.addUses(t.getClassName());
