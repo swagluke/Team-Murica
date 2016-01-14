@@ -15,11 +15,13 @@ import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import dot.records.ClassRecord;
+import dot.records.ExtendedClassRecord;
 import dot.records.IClassRecord;
 import dot.records.InstanceVarRecord;
 import dot.records.MethodRecord;
 
 public class UmlBuilder implements IBuilder{
+	private ClassRecord record;
 
 	private String uml = "I AM ERROR";
 	private ArrayList<String> implementsList;
@@ -113,8 +115,12 @@ public class UmlBuilder implements IBuilder{
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
-		// TODO Auto-generated method stub
-		return null;
+		record = new ClassRecord();
+		ClassDeclarationVisitor declarationVisitor = (ClassDeclarationVisitor) visitor;
+		record.setClassName(declarationVisitor.getClassName());
+		record.setExtendsName(declarationVisitor.getExtendsName());
+		record.setImplementsList(declarationVisitor.getImplementsList());
+		return record;
 		
 	}
 	@Override
@@ -123,7 +129,9 @@ public class UmlBuilder implements IBuilder{
 	}
 	@Override
 	public String getClassUML() {
+		return this.record.getClassUml();
+//		return this.createDigraph(this.build());
 		// TODO Auto-generated method stub
-		return null;
+//		return null;
 	}
 }
