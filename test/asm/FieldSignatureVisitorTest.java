@@ -29,8 +29,8 @@ public class FieldSignatureVisitorTest {
 		SignatureReader reader = new SignatureReader(signature);
 		FieldSignatureVisitor visitor = new FieldSignatureVisitor(Opcodes.ASM5);
 
-		assertTrue(visitor.getFields().isEmpty());
+		assertTrue(visitor.getNestedFields().isEmpty());
 		reader.accept(visitor);
-		assertEquals(expectedResult, visitor.getFields());
+		assertEquals(expectedResult, visitor.getNestedFields());
 	}
 }
