@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
@@ -29,23 +28,22 @@ public class ClassFieldVisitorTest {
 	public void testClassFieldVisitorTestFields() throws IOException {
 		ArrayList<InstanceVarRecord> expectedResult = new ArrayList<InstanceVarRecord>(
 				Arrays.asList(new InstanceVarRecord[] {
-						new InstanceVarRecord("testField", "java.lang.String", 1, new HashSet<String>()),
-						new InstanceVarRecord("privateField", "int", 2, new HashSet<String>()),
-						new InstanceVarRecord("listField", "java.util.ArrayList", 4, new HashSet<String>(Arrays.asList("java.lang.Integer"))) }));
+						new InstanceVarRecord("testField", "java.lang.String", 1),
+						new InstanceVarRecord("privateField", "int", 2),
+						new InstanceVarRecord("listField", "java.util.ArrayList", 4) }));
 		assertFields(this.getClass().getName(), expectedResult);
 	}
 
 	@Test
 	public void testArrayListFields() throws IOException {
 		ArrayList<InstanceVarRecord> expectedResult = new ArrayList<InstanceVarRecord>(Arrays.asList(
-				new InstanceVarRecord[] { new InstanceVarRecord("serialVersionUID", "long", 26, new HashSet<String>()),
-						new InstanceVarRecord("DEFAULT_CAPACITY", "int", 26, new HashSet<String>()),
-						new InstanceVarRecord("EMPTY_ELEMENTDATA", "java.lang.Object[]", 26, new HashSet<String>()),
-						new InstanceVarRecord("DEFAULTCAPACITY_EMPTY_ELEMENTDATA", "java.lang.Object[]", 26,
-								new HashSet<String>()),
-						new InstanceVarRecord("elementData", "java.lang.Object[]", 128, new HashSet<String>()),
-						new InstanceVarRecord("size", "int", 2, new HashSet<String>()),
-						new InstanceVarRecord("MAX_ARRAY_SIZE", "int", 26, new HashSet<String>()) }));
+				new InstanceVarRecord[] { new InstanceVarRecord("serialVersionUID", "long", 26),
+						new InstanceVarRecord("DEFAULT_CAPACITY", "int", 26),
+						new InstanceVarRecord("EMPTY_ELEMENTDATA", "java.lang.Object[]", 26),
+						new InstanceVarRecord("DEFAULTCAPACITY_EMPTY_ELEMENTDATA", "java.lang.Object[]", 26),
+						new InstanceVarRecord("elementData", "java.lang.Object[]", 128),
+						new InstanceVarRecord("size", "int", 2),
+						new InstanceVarRecord("MAX_ARRAY_SIZE", "int", 26) }));
 		assertFields("java.util.ArrayList", expectedResult);
 	}
 

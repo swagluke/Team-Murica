@@ -3,41 +3,48 @@ package dot;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Opcodes;
 
+import asm.ClassFieldSignatureVisitor;
+import dot.records.AssociationClassRecord;
 import dot.records.IClassRecord;
 
 public class AssociationBuilder implements IBuilder {
-
-	public AssociationBuilder(UsesBuilder u) {
-		// TODO Auto-generated constructor stub
+	private IBuilder builder;
+	private ClassFieldSignatureVisitor visitor;
+	
+	public AssociationBuilder(String className){
+		this(new UmlBuilder(className));
+		
+		
+	}
+	public AssociationBuilder(UmlBuilder umlBuilder){
+		this.builder = umlBuilder;
+		this.visitor = new ClassFieldSignatureVisitor(Opcodes.ASM5, umlBuilder.getVisitor());
+		//this.setExtendsName();
+	}
+	
+	@Override
+	public IClassRecord build(ClassVisitor visitor) {
+		IClassRecord record  = builder.build(visitor);
+		AssociationClassRecord e = new AssociationClassRecord(record);
+		e.setAssociationNames(this.visitor.getAssociationNames());
+		return e;		
 	}
 
 	@Override
 	public ClassVisitor getVisitor() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.visitor;
 	}
-
+	
 	@Override
 	public IClassRecord build() {
-		return this.build(this.getVisitor());
+		return this.build(visitor);
 	}
-
-	@Override
-	public IClassRecord build(ClassVisitor visitor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	
+	@Override 
 	public String getClassUML() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public HashSet<String> getAssociationList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

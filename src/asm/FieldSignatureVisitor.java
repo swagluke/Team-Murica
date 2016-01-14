@@ -9,7 +9,7 @@ import org.objectweb.asm.signature.SignatureVisitor;
 
 public class FieldSignatureVisitor extends SignatureVisitor {
 
-	private HashSet<String> fields = new HashSet<String>();
+	private HashSet<String> nestedFields = new HashSet<String>();
 	public FieldSignatureVisitor(int arg0) {
 		super(arg0);
 	}
@@ -18,17 +18,16 @@ public class FieldSignatureVisitor extends SignatureVisitor {
 		try {
 			Class<?> c = Class.forName(Type.getObjectType(name).getClassName());
 			if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
-				this.fields.add(Type.getObjectType(name).getClassName());
-//				System.out.println(name + " *** ");
+				this.nestedFields.add(Type.getObjectType(name).getClassName());
 			}
 		} catch (ClassNotFoundException e) {
 //			assume its not a collection
-			this.fields.add(Type.getObjectType(name).getClassName());
+			this.nestedFields.add(Type.getObjectType(name).getClassName());
 		}
 	}
 	
-	public HashSet<String> getFields() {
-		return this.fields;
+	public HashSet<String> getNestedFields() {
+		return this.nestedFields;
 	}
 }
 
