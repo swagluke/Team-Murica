@@ -19,6 +19,7 @@ import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
 import dot.UmlBuilder;
 import dot.UsesBuilder;
+import dot.records.AssociationClassRecord;
 
 public class Runner {
 	private final static String fontName = "Comic Sans MS";
@@ -41,79 +42,69 @@ public class Runner {
 			ImplementsBuilder i = new ImplementsBuilder(e);
 			UsesBuilder u = new UsesBuilder(i);
 			AssociationBuilder a = new AssociationBuilder(u);
-			s.append(d.getClassUML() + "\n");
-			for (String imp : i.implementsList) {
-				ArrayList<String> list = implementsMap.get(className);
-				if (list == null)
-					list = new ArrayList<String>();
-				list.add(imp);
-				Runner.implementsMap.put(className, list);
-			}
-			for (String uses : u.getUsesList().toArray(new String[u.getUsesList().size()])) {
-				ArrayList<String> list = usesMap.get(className);
-				if (list == null)
-					list = new ArrayList<String>();
-				list.add(uses);
-				Runner.usesMap.put(className, list);
-			}
-			associatesMap.put(className, a.getAssociationList());
+//			s.append(d.getClassUML() + "\n");
+			d.build();
+			s.append(d.getClassUML());
+			System.out.println(s.toString());
+//			s.append(a.getClassUML());
+//			for (String imp : i.implementsList) {
+//				ArrayList<String> list = implementsMap.get(className);
+//				if (list == null)
+//					list = new ArrayList<String>();
+//				list.add(imp);
+//				Runner.implementsMap.put(className, list);
+//			}
+//			for (String uses : u.getUsesList().toArray(new String[u.getUsesList().size()])) {
+//				ArrayList<String> list = usesMap.get(className);
+//				if (list == null)
+//					list = new ArrayList<String>();
+//				list.add(uses);
+//				Runner.usesMap.put(className, list);
+//			}
+//			associatesMap.put(className, ((AssociationClassRecord) a.build()).getAssociationNames());
 //			Runner.extendsMap.put(className, d.getExtendsName());
-			classNames.add(className);
+//			classNames.add(className);
 		}
 		// create implementation arrows
-		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
-		for (String key : implementsMap.keySet()) {
-			String[] shortKeyList = key.replace("/", ".").split("\\.");
-			String shortKey = shortKeyList[shortKeyList.length - 1];
-			ArrayList<String> shortValueList = implementsMap.get(key);
-			for (String val : shortValueList) {
-				String[] valList = val.replace("/", ".").split("\\.");
-				String shortValue = valList[valList.length - 1];
-				if (classNames.contains(val.replace("/", ".")))
-					s.append(shortKey + " -> " + shortValue + "\n");
-			}
-		}
+//		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
+//		for (String key : implementsMap.keySet()) {
+//			String[] shortKeyList = key.replace("/", ".").split("\\.");
+//			String shortKey = shortKeyList[shortKeyList.length - 1];
+//			ArrayList<String> shortValueList = implementsMap.get(key);
+//			for (String val : shortValueList) {
+//				String[] valList = val.replace("/", ".").split("\\.");
+//				String shortValue = valList[valList.length - 1];
+//				if (classNames.contains(val.replace("/", ".")))
+//					s.append(shortKey + " -> " + shortValue + "\n");
+//			}
+//		}
 		// create extends arrows
-		s.append("edge [ style = \"normal\"]\n");
-		for (String key2 : extendsMap.keySet()) {
-			String[] shortKeyList = key2.replace("/", ".").split("\\.");
-			String shortKey = shortKeyList[shortKeyList.length - 1];
-			String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
-			String shortValue = shortValueList[shortValueList.length - 1];
-			if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
-				s.append(shortKey + " -> " + shortValue + "\n");
-		}
+//		s.append("edge [ style = \"normal\"]\n");
+//		for (String key2 : extendsMap.keySet()) {
+//			String[] shortKeyList = key2.replace("/", ".").split("\\.");
+//			String shortKey = shortKeyList[shortKeyList.length - 1];
+//			String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
+//			String shortValue = shortValueList[shortValueList.length - 1];
+//			if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
+//				s.append(shortKey + " -> " + shortValue + "\n");
+//		}
 		// create uses arrows
-		s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
-		for (String key : usesMap.keySet()) {
-			String[] shortKeyList = key.replace("/", ".").split("\\.");
-			String shortKey = shortKeyList[shortKeyList.length - 1];
-			ArrayList<String> shortValueList = usesMap.get(key);
-			for (String val : shortValueList) {
-				String[] valList = val.replace("/", ".").split("\\.");
-				String shortValue = valList[valList.length - 1];
-				if (classNames.contains(val.replace("/", ".")))
-					s.append(shortKey + " -> " + shortValue + "\n");
-			}
-		}
-		s.append("edge [ style = \"normal\" arrowhead = \"vee\"]\n");
-		for (String key : associatesMap.keySet()) {
-			System.out.println(key);
-			System.out.println(associatesMap.get(key));
-			String[] shortKeyList = key.split("\\.");
-			String shortKey = shortKeyList[shortKeyList.length - 1];
-			HashSet<String> shortValueList = associatesMap.get(key);
-			for (String val : shortValueList) {
-				String[] shortValList = val.replace("/", ".").split("\\.");
-				String shortValue = shortValList[shortValList.length - 1];
-				s.append(shortKey + " -> " + shortValue + "\n");
-//				System.out.println(shortValue);
-
-			}
+//		s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
+//		for (String key : usesMap.keySet()) {
+//			String[] shortKeyList = key.replace("/", ".").split("\\.");
+//			String shortKey = shortKeyList[shortKeyList.length - 1];
+//			ArrayList<String> shortValueList = usesMap.get(key);
+//			for (String val : shortValueList) {
+//				String[] valList = val.replace("/", ".").split("\\.");
+//				String shortValue = valList[valList.length - 1];
+//				if (classNames.contains(val.replace("/", ".")))
+//					s.append(shortKey + " -> " + shortValue + "\n");
+//			}
+//		}
 //			System.out.println(shortKey);
 			// s.append(key)
 
-		}
+//		}
 
 		// close the digraph
 		s.append("}");
@@ -135,7 +126,6 @@ public class Runner {
 		}
 		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o out.png");
 		Map<String, String> env = pb.environment();
-		 System.out.println(env.size());
 		// pb.directory();
 		 System.out.println(System.getProperty("user.dir"));
 		try {

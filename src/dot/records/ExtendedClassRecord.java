@@ -1,5 +1,6 @@
 package dot.records;
 
+import java.util.Arrays;
 
 public class ExtendedClassRecord implements IClassRecord {
 
@@ -12,7 +13,20 @@ public class ExtendedClassRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
-		// TODO Auto-generated method stub
+		StringBuilder s = new StringBuilder();
+		String className = ((ClassRecord) this.record).getClassName();
+		s.append("edge [ style = \"normal\"]\n");
+		String[] shortClassName = className.replace("/", ".").split("\\.");
+		System.out.println(Arrays.toString(shortClassName));
+		
+//		for (String key2 : extendsMap.keySet()) {
+//			String[] shortKeyList = key2.replace("/", ".").split("\\.");
+//			String shortKey = shortKeyList[shortKeyList.length - 1];
+//			String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
+//			String shortValue = shortValueList[shortValueList.length - 1];
+//			if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
+//				s.append(shortKey + " -> " + shortValue + "\n");
+//		}
 		return null;
 	}
 
