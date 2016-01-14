@@ -141,7 +141,7 @@ public class UmlBuilder implements IBuilder{
 
 	@Override
 	public ClassVisitor getVisitor() {
-		return methodVisitor;
+		return declVisitor;
 	}
 
 	@Override

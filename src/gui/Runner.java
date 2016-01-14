@@ -17,7 +17,6 @@ import java.util.Map;
 import dot.UmlBuilder;
 
 public class Runner {
-	private final static Integer fdwontNasdfme = 5;
 	private final static String fontName = "Comic Sans MS";
 	private static HashMap<String, ArrayList<String>> implementsMap = new HashMap<String, ArrayList<String>>();
 	private static HashMap<String, String> extendsMap = new HashMap<String, String>();
