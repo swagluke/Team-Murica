@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import dot.records.ExtendedClassRecord;
+import dot.records.IClassRecord;
+
 public class ExtensionBuilderTest {
 	@Test
 	public void testNoExtend() throws IOException {
@@ -19,12 +22,12 @@ public class ExtensionBuilderTest {
 	
 	@Test
 	public void testExtend() throws IOException {
-		assertExtends("	org/objectweb/asm/ClassVisitor", "asm.ClassDeclarationVisitor");
+		assertExtends("org/objectweb/asm/ClassVisitor", "asm.ClassDeclarationVisitor");
 	}	
 	
 	public void assertExtends(String expectedResult, String className) {
 		ExtensionBuilder builder = new ExtensionBuilder(className);
-		builder.build();
-		assertEquals(expectedResult, builder.getExtendsName());
+		ExtendedClassRecord record = (ExtendedClassRecord) builder.build();
+		assertEquals(expectedResult, record.getExtendsName());
 	}
 }
