@@ -41,7 +41,7 @@ public class UmlBuilder implements IBuilder{
 //		ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 //		ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
 //		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
-		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		
 	}
 	public void stuff(){
 		ClassRecord record = new ClassRecord(declVisitor.getClassName(), declVisitor.getExtendsName(),
@@ -145,9 +145,14 @@ public class UmlBuilder implements IBuilder{
 	}
 
 	@Override
-	public IClassRecord build() {
-		return null;
+	public IClassRecord build(ClassVisitor visitor) {
+		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 		// TODO Auto-generated method stub
+		return null;
 		
+	}
+	@Override
+	public IClassRecord build() {
+		return this.build(this.getVisitor());
 	}
 }

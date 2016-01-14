@@ -26,11 +26,15 @@ public class ImplementsBuilder implements IBuilder {
 	}
 
 	@Override
-	public IClassRecord build() {
-		ImplementsClassRecord record = new ImplementsClassRecord(this.builder.build());
-		this.implementsList = visitor.getImplementsList();
+	public IClassRecord build(ClassVisitor visitor) {
+		ImplementsClassRecord record = new ImplementsClassRecord(this.builder.build(visitor));
+		this.implementsList = ((ClassDeclarationVisitor) visitor).getImplementsList();
 		record.setImplementsList(implementsList);
 		return record;
+	}
+	@Override
+	public IClassRecord build() {
+		return this.build(this.getVisitor());
 	}
 
 }

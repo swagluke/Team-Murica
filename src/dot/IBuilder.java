@@ -14,5 +14,6 @@ public interface IBuilder {
 	 * called once on the outer builder, used to build all builders in the chain
 	 * @return
 	 */
-	public IClassRecord build();
+	IClassRecord build();
+	IClassRecord build(ClassVisitor visitor);
 }
