@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
-import dot.records.InstanceVarRecord;
-
 public class ClassFieldSignatureVisitorTest {
 	public String testField;
 	private int privateField;
