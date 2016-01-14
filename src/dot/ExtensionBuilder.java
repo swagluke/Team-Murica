@@ -26,7 +26,7 @@ public class ExtensionBuilder implements IBuilder{
 		IClassRecord record  = builder.build();
 		ExtendedClassRecord e = new ExtendedClassRecord(record);
 		e.setExtendsName(visitor.getExtendsName());
-		return record;		
+		return e;		
 	}
 
 	@Override
