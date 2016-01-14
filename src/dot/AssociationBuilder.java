@@ -1,7 +1,5 @@
 package dot;
 
-import java.util.HashSet;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
