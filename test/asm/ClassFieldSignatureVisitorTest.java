@@ -27,9 +27,9 @@ public class ClassFieldSignatureVisitorTest {
 	@Test
 	public void testNoNestedFields() throws IOException {
 		HashSet<String> expectedResult = new HashSet<String>(
-				Arrays.asList("dot.IBuilder", "asm.ClassFieldSignatureVisitor"));
+				Arrays.asList("java.lang.String", "int"));
 
-		assertFields("dot.AssociationBuilder", expectedResult);
+		assertFields("dot.records.InstanceVarRecord", expectedResult);
 	}
 
 	@Test
