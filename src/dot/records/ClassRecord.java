@@ -46,7 +46,7 @@ public class ClassRecord implements IClassRecord {
 		StringBuilder s = new StringBuilder();
 		String[] n = className.split("/");
 		String name = n[n.length - 1];
-		s.append(name + " [label = \"{" + className + "|");
+		s.append(name + " [label = \"{" + name + "|");
 		for (InstanceVarRecord f : fieldsList) {
 			s.append("+" + f.getName() + " : " + f.getType() + "\\l\n");
 		}
