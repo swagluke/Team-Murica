@@ -10,7 +10,7 @@ import dot.records.ImplementsClassRecord;
 
 public class ImplementsBuilder implements IBuilder {
 	public HashSet<String> implementsList;
-	ExtensionBuilder builder;
+	IBuilder builder;
 	private ClassDeclarationVisitor visitor;
 	private ImplementsClassRecord record;
 	private String className;
@@ -21,7 +21,7 @@ public class ImplementsBuilder implements IBuilder {
 		this.className = className;
 	}
 
-	public ImplementsBuilder(ExtensionBuilder extensionBuilder) {
+	public ImplementsBuilder(IBuilder extensionBuilder) {
 		this.builder = extensionBuilder;
 		this.visitor = (ClassDeclarationVisitor) builder.getVisitor();
 
@@ -48,7 +48,7 @@ public class ImplementsBuilder implements IBuilder {
 		record = new ImplementsClassRecord(this.builder.build(visitor));
 		this.implementsList = this.visitor.getImplementsList();
 		record.setImplementsList(implementsList);
-		record.setClassList(this.builder.classList);
+		record.setClassList(this.builder.getClassList());
 		record.className = className;
 		// System.out.println(implementsList.size());
 		return record;
