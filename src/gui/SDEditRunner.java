@@ -12,20 +12,16 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Map;
 
+import net.sf.sdedit.ui.components.SystemOut;
+
 public class SDEditRunner {
 	
 	public static void main(String[] args){
-		int callDepth = Integer.parseInt(args[0]);
-		String className = args[1];
-		String methodName = args[2];
-		String methodReturnType = args[3];
-		String[] methodArgTypes = Arrays.copyOfRange(args, 4, args.length);
-		
-		
+		System.out.println(Arrays.toString(args));
 		createDiagram("");
 	}
 	public static void createDiagram(String diagram){
-		final Path path = Paths.get("temp.sd");
+		final Path path = Paths.get("test.sd");
 
 		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
 				StandardOpenOption.CREATE);) {
@@ -35,7 +31,9 @@ public class SDEditRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar sdedit-4.2-beta1.jar", "-o SDout.png", "-t png", "temp.sd");
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar sdedit-4.2-beta1.jar", "-o SDout.png", "-t png", "test.sd");
+//		Map<String, String> env = pb.environment();
+		// pb.directory();
 		System.out.println(System.getProperty("user.dir"));
 		try {
 			// Process p = pb.start();
