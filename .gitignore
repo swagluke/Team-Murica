@@ -14,3 +14,11 @@
 >>>>>>> Stashed changes
 
 *.xml
+
+.idea/.name
+
+.idea/misc.xml
+
+.idea/workspace.xml
+
+Team-Murica.iml
