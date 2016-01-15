@@ -8,7 +8,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import dot.records.MethodRecord;
+import records.MethodRecord;
 
 public class ClassMethodInsVisitor extends ClassVisitor {
 	private HashSet<MethodRecord> methods = new HashSet<MethodRecord>();
@@ -36,7 +36,7 @@ public class ClassMethodInsVisitor extends ClassVisitor {
 			returnParams.add(t.getClassName());
 		}
 
-		String symbol = "";
+		String symbol = "-";
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			symbol = "+";
 		}

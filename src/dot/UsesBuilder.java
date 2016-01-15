@@ -8,11 +8,11 @@ import org.objectweb.asm.Type;
 
 import asm.ClassMethodInsVisitor;
 import asm.MethodInsVisitor;
-import dot.records.ClassRecord;
-import dot.records.IClassRecord;
-import dot.records.ImplementsClassRecord;
-import dot.records.MethodRecord;
-import dot.records.UsesClassRecord;
+import records.ClassRecord;
+import records.IClassRecord;
+import records.ImplementsClassRecord;
+import records.MethodRecord;
+import records.UsesClassRecord;
 
 public class UsesBuilder implements IBuilder {
 	private IBuilder builder;

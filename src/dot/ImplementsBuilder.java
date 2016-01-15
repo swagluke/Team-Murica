@@ -5,8 +5,8 @@ import java.util.HashSet;
 import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
-import dot.records.IClassRecord;
-import dot.records.ImplementsClassRecord;
+import records.IClassRecord;
+import records.ImplementsClassRecord;
 
 public class ImplementsBuilder implements IBuilder {
 	public HashSet<String> implementsList;

@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
 
-import dot.records.IClassRecord;
+import records.IClassRecord;
 
 public interface IBuilder {
 	/**

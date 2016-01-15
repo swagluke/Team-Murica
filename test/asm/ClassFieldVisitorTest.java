@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
-import dot.records.InstanceVarRecord;
+import records.InstanceVarRecord;
 
 public class ClassFieldVisitorTest {
 	public String testField;

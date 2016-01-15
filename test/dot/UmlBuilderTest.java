@@ -10,9 +10,9 @@ import java.util.HashSet;
 import org.junit.Test;
 import org.objectweb.asm.Type;
 
-import dot.records.ClassRecord;
-import dot.records.InstanceVarRecord;
-import dot.records.MethodRecord;
+import records.ClassRecord;
+import records.InstanceVarRecord;
+import records.MethodRecord;
 
 public class UmlBuilderTest {
 

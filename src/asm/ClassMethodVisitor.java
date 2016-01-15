@@ -8,7 +8,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import dot.records.MethodRecord;
+import records.MethodRecord;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	private HashSet<MethodRecord> methods = new HashSet<MethodRecord>();

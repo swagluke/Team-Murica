@@ -9,11 +9,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Map;
 
 public class SDEditRunner {
 	
 	public static void main(String[] args){
+		int callDepth = Integer.parseInt(args[0]);
+		String className = args[1];
+		String methodName = args[2];
+		String methodReturnType = args[3];
+		String[] methodArgTypes = Arrays.copyOfRange(args, 4, args.length);
+		
+		
 		createDiagram("");
 	}
 	public static void createDiagram(String diagram){
@@ -28,8 +36,6 @@ public class SDEditRunner {
 			e.printStackTrace();
 		}
 		ProcessBuilder pb = new ProcessBuilder("java", "-jar sdedit-4.2-beta1.jar", "-o SDout.png", "-t png", "temp.sd");
-//		Map<String, String> env = pb.environment();
-		// pb.directory();
 		System.out.println(System.getProperty("user.dir"));
 		try {
 			// Process p = pb.start();

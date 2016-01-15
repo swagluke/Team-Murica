@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import dot.records.AssociationClassRecord;
+import records.AssociationClassRecord;
 
 public class AssociationBuilderTest {
 	@Test

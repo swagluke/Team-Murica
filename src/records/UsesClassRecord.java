@@ -1,4 +1,4 @@
-package dot.records;
+package records;
 
 import java.util.HashSet;
 

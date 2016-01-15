@@ -6,7 +6,7 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Type;
 
-import dot.records.InstanceVarRecord;
+import records.InstanceVarRecord;
 
 public class ClassFieldVisitor extends ClassVisitor {
 	private HashSet<InstanceVarRecord> fields = new HashSet<InstanceVarRecord>();

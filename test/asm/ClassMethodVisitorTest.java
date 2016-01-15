@@ -13,7 +13,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import dot.records.MethodRecord;
+import records.MethodRecord;
 
 public class ClassMethodVisitorTest {
 	@Test

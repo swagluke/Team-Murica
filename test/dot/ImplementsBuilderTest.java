@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import dot.records.ImplementsClassRecord;
+import records.ImplementsClassRecord;
 
 public class ImplementsBuilderTest {
 	@Test

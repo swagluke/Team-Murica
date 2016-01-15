@@ -10,8 +10,8 @@ import org.objectweb.asm.Opcodes;
 import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
-import dot.records.ClassRecord;
-import dot.records.IClassRecord;
+import records.ClassRecord;
+import records.IClassRecord;
 
 public class UmlBuilder implements IBuilder {
 	private ClassRecord record;

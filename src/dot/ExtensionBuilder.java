@@ -5,9 +5,9 @@ import java.util.HashSet;
 import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
-import dot.records.ClassRecord;
-import dot.records.ExtendedClassRecord;
-import dot.records.IClassRecord;
+import records.ClassRecord;
+import records.ExtendedClassRecord;
+import records.IClassRecord;
 
 public class ExtensionBuilder implements IBuilder {
 	IBuilder builder;

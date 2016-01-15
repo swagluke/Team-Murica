@@ -6,8 +6,8 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
 import asm.ClassFieldSignatureVisitor;
-import dot.records.AssociationClassRecord;
-import dot.records.IClassRecord;
+import records.AssociationClassRecord;
+import records.IClassRecord;
 
 public class AssociationBuilder implements IBuilder {
 	private IBuilder builder;

@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import dot.records.UsesClassRecord;
+import records.UsesClassRecord;
 
 public class UsesBuilderTest {
 	@Test

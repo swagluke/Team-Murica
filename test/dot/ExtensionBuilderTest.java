@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import dot.records.ExtendedClassRecord;
+import records.ExtendedClassRecord;
 
 public class ExtensionBuilderTest {
 	@Test
