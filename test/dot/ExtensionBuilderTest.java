@@ -3,6 +3,8 @@ package dot;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -25,7 +27,7 @@ public class ExtensionBuilderTest {
 	}	
 	
 	public void assertExtends(String expectedResult, String className) {
-		ExtensionBuilder builder = new ExtensionBuilder(className);
+		ExtensionBuilder builder = new ExtensionBuilder(className, new ArrayList<String>(Arrays.asList(className)));
 		ExtendedClassRecord record = (ExtendedClassRecord) builder.build();
 		assertEquals(expectedResult, record.getExtendsName());
 	}

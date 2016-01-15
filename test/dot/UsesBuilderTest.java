@@ -34,7 +34,7 @@ public class UsesBuilderTest {
 	}
 
 	public void assertUses(ArrayList<String> expectedResult, String className) {
-		UsesBuilder builder = new UsesBuilder(new ImplementsBuilder(className));
+		UsesBuilder builder = new UsesBuilder(new ImplementsBuilder(className, new ArrayList<String>(Arrays.asList(className))));
 		UsesClassRecord record = (UsesClassRecord) builder.build();
 		assertEquals(expectedResult, record.getUsesList());
 	}
