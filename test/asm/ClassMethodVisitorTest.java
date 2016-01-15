@@ -17,8 +17,8 @@ import dot.records.MethodRecord;
 public class ClassMethodVisitorTest {
 	@Test
 	public void testNoMethods() throws IOException, ClassNotFoundException {
-		HashSet<MethodRecord> expectedResult = new HashSet<MethodRecord>(Arrays.asList(
-				new MethodRecord[] { new MethodRecord(1, "<init>", "void", new Type[0], new HashSet<String>()), }));
+		HashSet<MethodRecord> expectedResult = new HashSet<MethodRecord>();
+		expectedResult.add(new MethodRecord(1, "<init>", "void", new Type[0], new HashSet<String>()));
 		assertMethods("asm.NoMethods", expectedResult);
 	}
 
@@ -143,8 +143,8 @@ public class ClassMethodVisitorTest {
 						new HashSet<String>(Arrays.asList(new String[] { "java.util.function.UnaryOperator" }))),
 				new MethodRecord(1, "sort", "void", Type.getArgumentTypes("(Ljava/util/Comparator;)V"),
 						new HashSet<String>(Arrays.asList(new String[] { "java.util.Comparator" }))),
-				new MethodRecord(4104, "access$100", "int", Type.getArgumentTypes("(Ljava/util/HashSet;)I"),
-						new HashSet<String>(Arrays.asList(new String[] { "java.util.HashSet" }))),
+				new MethodRecord(4104, "access$100", "int", Type.getArgumentTypes("(Ljava/util/ArrayList;)I"),
+						new HashSet<String>(Arrays.asList(new String[] { "java.util.ArrayList" }))),
 				new MethodRecord(8, "<clinit>", "void", Type.getArgumentTypes("()V"),
 						new HashSet<String>(Arrays.asList(new String[] {}))) }));
 		assertMethods("java.util.ArrayList", expectedResult);
@@ -156,6 +156,7 @@ public class ClassMethodVisitorTest {
 
 		assertTrue(classMethodVisitor.getMethods().isEmpty());
 		reader.accept(classMethodVisitor, ClassReader.EXPAND_FRAMES);
+		HashSet<MethodRecord> methods = classMethodVisitor.getMethods();
 		assertEquals(expectedResult, classMethodVisitor.getMethods());
 	}
 

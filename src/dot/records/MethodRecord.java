@@ -72,6 +72,13 @@ public class MethodRecord {
 	
 	@Override
 	public int hashCode() {
-		return this.access + this.name.hashCode() + this.returnType.hashCode() + this.argTypes.hashCode() + this.stypes.hashCode();
+		int collectionHashCode = 0;
+		for (String stype : this.stypes) {
+			collectionHashCode += stype.hashCode();
+		}
+		for (Type t : this.argTypes) {
+			collectionHashCode += t.hashCode();
+		}
+		return this.access + this.name.hashCode() + this.returnType.hashCode() + collectionHashCode;
 	}
 }
