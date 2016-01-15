@@ -25,6 +25,7 @@ public class ExtendedClassRecord implements IClassRecord {
 
 		String[] shortExtendNameList = this.extendsName.replace("/", ".").split("\\.");
 		String shortExtendName = shortExtendNameList[shortExtendNameList.length - 1];
+		System.out.println(this.getClassList());
 		if (this.getClassList().contains(extendsName.replace("/", "."))) {
 			s.append("edge [ style = \"normal\"]\n");
 			s.append(shortClassName + " -> " + shortExtendName + "\n");
