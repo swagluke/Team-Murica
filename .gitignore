@@ -3,5 +3,22 @@
 *.xml
 
 *.xml
+<<<<<<< Updated upstream
 
 .idea/workspace.xml
+=======
+
+*.iml
+
+*.xml
+>>>>>>> Stashed changes
+
+*.xml
+
+.idea/.name
+
+.idea/misc.xml
+
+.idea/workspace.xml
+
+Team-Murica.iml
