@@ -12,7 +12,7 @@ public class AssociationBuilder implements IBuilder {
 	private ClassFieldSignatureVisitor visitor;
 
 	public AssociationBuilder(String className) {
-		//this(new UmlBuilder(className));
+		// this(new UmlBuilder(className));
 
 	}
 

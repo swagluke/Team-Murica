@@ -1,15 +1,15 @@
 package dot.records;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.objectweb.asm.Type;
 
 public class ClassRecord implements IClassRecord {
 	public String className;
 	private String extendsName;
-	private ArrayList<MethodRecord> methodsList;
-	private ArrayList<InstanceVarRecord> fieldsList; 
-	private ArrayList<String> implementsList;
+	private HashSet<MethodRecord> methodsList;
+	private HashSet<InstanceVarRecord> fieldsList;
+	private HashSet<String> implementsList;
 
 	public ClassRecord() {
 
@@ -31,11 +31,11 @@ public class ClassRecord implements IClassRecord {
 		this.extendsName = extendsName;
 	}
 
-	public ArrayList<String> getImplementsList() {
+	public HashSet<String> getImplementsList() {
 		return implementsList;
 	}
 
-	public void setImplementsList(ArrayList<String> implementsList) {
+	public void setImplementsList(HashSet<String> implementsList) {
 		this.implementsList = implementsList;
 	}
 
@@ -45,11 +45,11 @@ public class ClassRecord implements IClassRecord {
 		String[] n = className.split("/");
 		String name = n[n.length - 1];
 		s.append(name + " [label = \"{" + className + "|");
-		for(InstanceVarRecord f: fieldsList){
-			s.append("+"+f.getName()+" : "+f.getType()+"\\l\n");
+		for (InstanceVarRecord f : fieldsList) {
+			s.append("+" + f.getName() + " : " + f.getType() + "\\l\n");
 		}
 		s.append("|");
-		for(MethodRecord m: methodsList){
+		for (MethodRecord m : methodsList) {
 			if (m.getName().replaceAll("<.*?>", "").isEmpty())
 				continue;
 			s.append("+ ");
@@ -65,19 +65,19 @@ public class ClassRecord implements IClassRecord {
 		return s.toString();
 	}
 
-	public ArrayList<MethodRecord> getMethodsList() {
+	public HashSet<MethodRecord> getMethodsList() {
 		return methodsList;
 	}
 
-	public void setMethodsList(ArrayList<MethodRecord> methodsList) {
+	public void setMethodsList(HashSet<MethodRecord> methodsList) {
 		this.methodsList = methodsList;
 	}
 
-	public ArrayList<InstanceVarRecord> getFieldsList() {
+	public HashSet<InstanceVarRecord> getFieldsList() {
 		return fieldsList;
 	}
 
-	public void setFieldsList(ArrayList<InstanceVarRecord> fieldsList) {
+	public void setFieldsList(HashSet<InstanceVarRecord> fieldsList) {
 		this.fieldsList = fieldsList;
 	}
 }

@@ -1,18 +1,18 @@
 package dot.records;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 
 import org.objectweb.asm.Type;
 
 public class MethodRecord {
 	private String returnType;
 	private Type[] argTypes;
-	private List<String> stypes;
+	private HashSet<String> stypes;
 	private String name;
 	private int access;
 
-	public MethodRecord(int access, String name, String returnType, Type[] argTypes, List<String> stypes) {
+	public MethodRecord(int access, String name, String returnType, Type[] argTypes, HashSet<String> stypes) {
 		this.setAccess(access);
 		this.setName(name);
 		this.returnType = returnType;
@@ -36,11 +36,11 @@ public class MethodRecord {
 		this.returnType = returnType;
 	}
 
-	public List<String> getStypes() {
+	public HashSet<String> getStypes() {
 		return stypes;
 	}
 
-	public void setStypes(List<String> stypes) {
+	public void setStypes(HashSet<String> stypes) {
 		this.stypes = stypes;
 	}
 
@@ -60,11 +60,18 @@ public class MethodRecord {
 		this.access = access;
 	}
 
-	// int access, String name, String returnType, Type[] argTypes, List<String>
+	// int access, String name, String returnType, Type[] argTypes, HashSet<String>
 	// stypes
+	@Override
 	public boolean equals(Object other) {
 		MethodRecord o = (MethodRecord) other;
-		return o.getAccess() == this.access && o.getName().equals(this.name) && o.getReturnType().equals(this.returnType)
-				&& Arrays.equals(o.getArgTypes(), this.argTypes) && o.getStypes().equals(this.stypes);
+		return o.getAccess() == this.access && o.getName().equals(this.name)
+				&& o.getReturnType().equals(this.returnType) && Arrays.equals(o.getArgTypes(), this.argTypes)
+				&& o.getStypes().equals(this.stypes);
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.access + this.name.hashCode() + this.returnType.hashCode() + this.argTypes.hashCode() + this.stypes.hashCode();
 	}
 }

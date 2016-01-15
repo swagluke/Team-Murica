@@ -1,7 +1,6 @@
 package asm;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -11,7 +10,7 @@ import org.objectweb.asm.Type;
 import dot.records.MethodRecord;
 
 public class ClassMethodVisitor extends ClassVisitor {
-	private ArrayList<MethodRecord> methods = new ArrayList<MethodRecord>();
+	private HashSet<MethodRecord> methods = new HashSet<MethodRecord>();
 
 	public ClassMethodVisitor(int arg0) {
 		super(arg0);
@@ -27,7 +26,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 		String returnType = Type.getReturnType(desc).getClassName();
 		Type[] argTypes = Type.getArgumentTypes(desc);
-		List<String> stypes = new ArrayList<String>();
+		HashSet<String> stypes = new HashSet<String>();
 		for (Type t : argTypes) {
 			stypes.add(t.getClassName());
 		}
@@ -42,7 +41,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		return toDecorate;
 	}
 
-	public ArrayList<MethodRecord> getMethods() {
+	public HashSet<MethodRecord> getMethods() {
 		return methods;
 	}
 }

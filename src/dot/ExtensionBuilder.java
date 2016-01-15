@@ -1,6 +1,6 @@
 package dot;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
 
@@ -13,9 +13,9 @@ public class ExtensionBuilder implements IBuilder {
 	UmlBuilder builder;
 	private ClassDeclarationVisitor visitor;
 	private ExtendedClassRecord extendedRecord;
-	ArrayList<String> classList;
+	HashSet<String> classList;
 
-	public ExtensionBuilder(String className, ArrayList<String> classNames) {
+	public ExtensionBuilder(String className, HashSet<String> classNames) {
 		this(new UmlBuilder(className, classNames));
 
 	}
@@ -23,7 +23,7 @@ public class ExtensionBuilder implements IBuilder {
 	public ExtensionBuilder(UmlBuilder umlBuilder) {
 		this.builder = umlBuilder;
 		this.visitor = (ClassDeclarationVisitor) umlBuilder.getVisitor();
-		this.classList = ((UmlBuilder)builder).classList;
+		this.classList = ((UmlBuilder) builder).classList;
 	}
 
 	@Override
@@ -49,13 +49,12 @@ public class ExtensionBuilder implements IBuilder {
 	public String getClassUML() {
 		StringBuilder s = new StringBuilder();
 		s.append(this.extendedRecord.getClassUml());
-//		s.append(this.builder.getClassUML());
-//		s.append("\n");
-//		s.append(extendedRecord.getExtendsName());
-//		System.out.println("** " + s.toString() + " **");
-//		System.out.println("** " + s.toString() + " **");
+		// s.append(this.builder.getClassUML());
+		// s.append("\n");
+		// s.append(extendedRecord.getExtendsName());
+		// System.out.println("** " + s.toString() + " **");
+		// System.out.println("** " + s.toString() + " **");
 
-		
 		return s.toString();
 	}
 

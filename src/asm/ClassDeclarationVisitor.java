@@ -1,6 +1,6 @@
 package asm;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Arrays;
 
 import org.objectweb.asm.ClassVisitor;
@@ -8,7 +8,7 @@ import org.objectweb.asm.ClassVisitor;
 public class ClassDeclarationVisitor extends ClassVisitor {
 	private String className;
 	private String extendsName;
-	private ArrayList<String> implementsList;
+	private HashSet<String> implementsList;
 
 	public ClassDeclarationVisitor(int arg0) {
 		super(arg0);
@@ -22,7 +22,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
 		this.className = name;// + " extends " +
 		this.extendsName = superName;
-		this.implementsList = new ArrayList<String>(Arrays.asList(interfaces));
+		this.implementsList = new HashSet<String>(Arrays.asList(interfaces));
 	}
 
 	public String getClassName() {
@@ -33,7 +33,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		return extendsName;
 	}
 
-	public ArrayList<String> getImplementsList() {
+	public HashSet<String> getImplementsList() {
 		return implementsList;
 	}
 

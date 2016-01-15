@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,13 +19,12 @@ import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
 import dot.UmlBuilder;
 import dot.UsesBuilder;
-import dot.records.AssociationClassRecord;
 
 public class Runner {
 	private final static String fontName = "Comic Sans MS";
-	private static HashMap<String, ArrayList<String>> implementsMap = new HashMap<String, ArrayList<String>>();
+	private static HashMap<String, HashSet<String>> implementsMap = new HashMap<String, HashSet<String>>();
 	private static HashMap<String, String> extendsMap = new HashMap<String, String>();
-	private static HashMap<String, ArrayList<String>> usesMap = new HashMap<String, ArrayList<String>>();
+	private static HashMap<String, HashSet<String>> usesMap = new HashMap<String, HashSet<String>>();
 	private static HashSet<String> classNames = new HashSet<String>();
 	private static HashMap<String, HashSet<String>> associatesMap = new HashMap<String, HashSet<String>>();
 
@@ -38,76 +36,76 @@ public class Runner {
 		// creates each class diagram and adds their implementations and
 		// extensions to the respective lists.
 		for (String className : args) {
-			UmlBuilder d = new UmlBuilder(className, new ArrayList<String>(Arrays.asList(args)));
+			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
 			ExtensionBuilder e = new ExtensionBuilder(d);
 			ImplementsBuilder i = new ImplementsBuilder(e);
 			UsesBuilder u = new UsesBuilder(i);
 			AssociationBuilder a = new AssociationBuilder(u);
-//			s.append(d.getClassUML() + "\n");
+			// s.append(d.getClassUML() + "\n");
 			u.build();
 			s.append(d.getClassUML());
 			s.append(e.getClassUML());
 			s.append(i.getClassUML());
 			s.append(u.getClassUML());
-//			s.append(a.getClassUML());
-//			for (String imp : i.implementsList) {
-//				ArrayList<String> list = implementsMap.get(className);
-//				if (list == null)
-//					list = new ArrayList<String>();
-//				list.add(imp);
-//				Runner.implementsMap.put(className, list);
-//			}
-//			for (String uses : u.getUsesList().toArray(new String[u.getUsesList().size()])) {
-//				ArrayList<String> list = usesMap.get(className);
-//				if (list == null)
-//					list = new ArrayList<String>();
-//				list.add(uses);
-//				Runner.usesMap.put(className, list);
-//			}
-//			associatesMap.put(className, ((AssociationClassRecord) a.build()).getAssociationNames());
-//			Runner.extendsMap.put(className, d.getExtendsName());
-//			classNames.add(className);
+			// s.append(a.getClassUML());
+			// for (String imp : i.implementsList) {
+			// HashSet<String> list = implementsMap.get(className);
+			// if (list == null)
+			// list = new HashSet<String>();
+			// list.add(imp);
+			// Runner.implementsMap.put(className, list);
+			// }
+			// for (String uses : u.getUsesList().toArray(new String[u.getUsesList().size()])) {
+			// HashSet<String> list = usesMap.get(className);
+			// if (list == null)
+			// list = new HashSet<String>();
+			// list.add(uses);
+			// Runner.usesMap.put(className, list);
+			// }
+			// associatesMap.put(className, ((AssociationClassRecord) a.build()).getAssociationNames());
+			// Runner.extendsMap.put(className, d.getExtendsName());
+			// classNames.add(className);
 		}
 		// create implementation arrows
-//		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
-//		for (String key : implementsMap.keySet()) {
-//			String[] shortKeyList = key.replace("/", ".").split("\\.");
-//			String shortKey = shortKeyList[shortKeyList.length - 1];
-//			ArrayList<String> shortValueList = implementsMap.get(key);
-//			for (String val : shortValueList) {
-//				String[] valList = val.replace("/", ".").split("\\.");
-//				String shortValue = valList[valList.length - 1];
-//				if (classNames.contains(val.replace("/", ".")))
-//					s.append(shortKey + " -> " + shortValue + "\n");
-//			}
-//		}
+		// s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
+		// for (String key : implementsMap.keySet()) {
+		// String[] shortKeyList = key.replace("/", ".").split("\\.");
+		// String shortKey = shortKeyList[shortKeyList.length - 1];
+		// HashSet<String> shortValueList = implementsMap.get(key);
+		// for (String val : shortValueList) {
+		// String[] valList = val.replace("/", ".").split("\\.");
+		// String shortValue = valList[valList.length - 1];
+		// if (classNames.contains(val.replace("/", ".")))
+		// s.append(shortKey + " -> " + shortValue + "\n");
+		// }
+		// }
 		// create extends arrows
-//		s.append("edge [ style = \"normal\"]\n");
-//		for (String key2 : extendsMap.keySet()) {
-//			String[] shortKeyList = key2.replace("/", ".").split("\\.");
-//			String shortKey = shortKeyList[shortKeyList.length - 1];
-//			String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
-//			String shortValue = shortValueList[shortValueList.length - 1];
-//			if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
-//				s.append(shortKey + " -> " + shortValue + "\n");
-//		}
+		// s.append("edge [ style = \"normal\"]\n");
+		// for (String key2 : extendsMap.keySet()) {
+		// String[] shortKeyList = key2.replace("/", ".").split("\\.");
+		// String shortKey = shortKeyList[shortKeyList.length - 1];
+		// String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
+		// String shortValue = shortValueList[shortValueList.length - 1];
+		// if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
+		// s.append(shortKey + " -> " + shortValue + "\n");
+		// }
 		// create uses arrows
-//		s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
-//		for (String key : usesMap.keySet()) {
-//			String[] shortKeyList = key.replace("/", ".").split("\\.");
-//			String shortKey = shortKeyList[shortKeyList.length - 1];
-//			ArrayList<String> shortValueList = usesMap.get(key);
-//			for (String val : shortValueList) {
-//				String[] valList = val.replace("/", ".").split("\\.");
-//				String shortValue = valList[valList.length - 1];
-//				if (classNames.contains(val.replace("/", ".")))
-//					s.append(shortKey + " -> " + shortValue + "\n");
-//			}
-//		}
-//			System.out.println(shortKey);
-			// s.append(key)
+		// s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
+		// for (String key : usesMap.keySet()) {
+		// String[] shortKeyList = key.replace("/", ".").split("\\.");
+		// String shortKey = shortKeyList[shortKeyList.length - 1];
+		// HashSet<String> shortValueList = usesMap.get(key);
+		// for (String val : shortValueList) {
+		// String[] valList = val.replace("/", ".").split("\\.");
+		// String shortValue = valList[valList.length - 1];
+		// if (classNames.contains(val.replace("/", ".")))
+		// s.append(shortKey + " -> " + shortValue + "\n");
+		// }
+		// }
+		// System.out.println(shortKey);
+		// s.append(key)
 
-//		}
+		// }
 
 		// close the digraph
 		s.append("}");
@@ -130,14 +128,14 @@ public class Runner {
 		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o out.png");
 		Map<String, String> env = pb.environment();
 		// pb.directory();
-		 System.out.println(System.getProperty("user.dir"));
+		System.out.println(System.getProperty("user.dir"));
 		try {
 			// Process p = pb.start();
 			File log = new File("log");
 			pb.redirectErrorStream(true);
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
-//			Files.delete(path);//uncomment to clean up after yourself
+			// Files.delete(path);//uncomment to clean up after yourself
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,36 +1,29 @@
 package dot;
 
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
 
 import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import dot.records.ClassRecord;
-import dot.records.ExtendedClassRecord;
 import dot.records.IClassRecord;
-import dot.records.InstanceVarRecord;
-import dot.records.MethodRecord;
 
-public class UmlBuilder implements IBuilder{
+public class UmlBuilder implements IBuilder {
 	private ClassRecord record;
 	private HashSet<String> associationList;
-	ArrayList<String> classList;
+	HashSet<String> classList;
 	ClassReader reader = null;
 	ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 	ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
 	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
-	public UmlBuilder(String className, ArrayList<String> classNameList) {
-		
+
+	public UmlBuilder(String className, HashSet<String> classNameList) {
+
 		this.classList = classNameList;
 		try {
 			reader = new ClassReader(className);
@@ -39,38 +32,36 @@ public class UmlBuilder implements IBuilder{
 			e.printStackTrace();
 		}
 
-		
 	}
-//	public void stuff(){
-//		
-//		this.associationList = new HashSet<String>();
-//		for (InstanceVarRecord fieldRecord : record.getFields()) {
-//			try {
-//				Class<?> c = Class.forName(fieldRecord.getType());
-//				if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
-//					// not collection
-////					System.out.println(fieldRecord.getNestedFields());
-//					this.associationList.add(fieldRecord.getType());
-//				} else {
-////					System.out.println(fieldRecord.getType() + " is a collection");
-////					System.out.println(fieldRecord.getNestedFields());
-//				}
-////				this.associationList.addAll(fieldRecord.getNestedFields());
-//			} catch (ClassNotFoundException e) {
-//				//ignore
-//			}
-//		}
-//		System.out.println(this.associationList);
-//		// System.out.println("break");
-//	}
-
-	
+	// public void stuff(){
+	//
+	// this.associationList = new HashSet<String>();
+	// for (InstanceVarRecord fieldRecord : record.getFields()) {
+	// try {
+	// Class<?> c = Class.forName(fieldRecord.getType());
+	// if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
+	// // not collection
+	//// System.out.println(fieldRecord.getNestedFields());
+	// this.associationList.add(fieldRecord.getType());
+	// } else {
+	//// System.out.println(fieldRecord.getType() + " is a collection");
+	//// System.out.println(fieldRecord.getNestedFields());
+	// }
+	//// this.associationList.addAll(fieldRecord.getNestedFields());
+	// } catch (ClassNotFoundException e) {
+	// //ignore
+	// }
+	// }
+	// System.out.println(this.associationList);
+	// // System.out.println("break");
+	// }
 
 	@Override
 	public ClassVisitor getVisitor() {
 		return declVisitor;
 	}
-	public ClassMethodVisitor getMethodVisitor(){
+
+	public ClassMethodVisitor getMethodVisitor() {
 		return this.methodVisitor;
 	}
 
@@ -86,17 +77,19 @@ public class UmlBuilder implements IBuilder{
 		record.setMethodsList(methodVisitor.getMethods());
 		record.setFieldsList(fieldVisitor.getFields());
 		return record;
-		
+
 	}
+
 	@Override
 	public IClassRecord build() {
 		return this.build(this.getVisitor());
 	}
+
 	@Override
 	public String getClassUML() {
 		return this.record.getClassUml();
-//		return this.createDigraph(this.build());
+		// return this.createDigraph(this.build());
 		// TODO Auto-generated method stub
-//		return null;
+		// return null;
 	}
 }
