@@ -21,8 +21,9 @@ public class ImplementsClassRecord implements IClassRecord {
 		for (String implement : this.implementsList) {
 			String[] shortImplementList = implement.replace("/", ".").split("\\.");
 			String shortImplement = shortImplementList[shortImplementList.length - 1];
-			if (this.getClassList().contains(implement.replace("/", ".")))
+			if (this.getClassList().contains(implement.replace("/", "."))) {
 				s.append(shortClassName + " -> " + shortImplement + "\n");
+			}
 		}
 		return s.toString();
 	}
@@ -50,7 +51,7 @@ public class ImplementsClassRecord implements IClassRecord {
 		return this.innerRecord;
 	}
 
-	@Override 
+	@Override
 	public ClassRecord getBaseRecord() {
 		return this.innerRecord.getBaseRecord();
 	}
