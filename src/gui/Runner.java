@@ -46,7 +46,7 @@ public class Runner {
 			s.append(d.getClassUML());
 			s.append(e.getClassUML());
 			s.append(i.getClassUML());
-//			s.append(u.getClassUML());
+			s.append(u.getClassUML());
 			 s.append(a.getClassUML());
 			// for (String imp : i.implementsList) {
 			// HashSet<String> list = implementsMap.get(className);

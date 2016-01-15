@@ -16,7 +16,6 @@ public class AssociationBuilder implements IBuilder {
 
 	public AssociationBuilder(String className, HashSet<String> classNames) {
 		 this(new UmlBuilder(className, classNames));
-
 	}
 
 	public AssociationBuilder(IBuilder umlBuilder) {
@@ -28,11 +27,6 @@ public class AssociationBuilder implements IBuilder {
 	public HashSet<String> getClassList() {
 		return this.builder.getClassList();
 	}
-
-//	@Override
-//	public void setClassList(HashSet<String> classList) {
-//		this.classList = classList;
-//	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {

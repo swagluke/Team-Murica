@@ -43,7 +43,6 @@ public class AssociationBuilderTest {
 		AssociationBuilder builder = new AssociationBuilder(className, includedClasses);
 		AssociationClassRecord record = (AssociationClassRecord) builder.build();
 		assertEquals(expectedResult, record.getAssociationNames());
-		System.out.println(record.getClassUml());
 		assertEquals(expectedUml, record.getClassUml());
 	}
 }

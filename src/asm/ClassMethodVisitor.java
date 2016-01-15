@@ -25,7 +25,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		MethodVisitor methodVisitor = new ClassMethodInsVisitor(Opcodes.ASM5,toDecorate); // move this out?
 		String returnType = Type.getReturnType(desc).getClassName();
 		Type[] argTypes = Type.getArgumentTypes(desc);
 		ArrayList<String> stypes = new ArrayList<String>();
@@ -40,8 +39,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		methods.add(new MethodRecord(access, name, returnType, argTypes, stypes));
 		// System.out.println(" method " + symbol + returnType + " " + name + "
 		// " + stypes.toString());
-		methodVisitors.add(methodVisitor);
-		return methodVisitor;
+		return toDecorate;
 	}
 
 	public HashSet<MethodRecord> getMethods() {

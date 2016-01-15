@@ -13,26 +13,30 @@ import dot.records.UsesClassRecord;
 public class UsesBuilderTest {
 	@Test
 	public void testNoUses() throws IOException {
-		assertUses(new HashSet<String>(Arrays.asList("void")), "asm.NoMethods");
+		assertUses(new HashSet<String>(), "asm.NoMethods");
 	}
 
 	@Test
 	public void testBasicUses() throws IOException {
-		assertUses(new HashSet<String>(Arrays.asList("java.lang.Process", "java.lang.String", "void")),
-				"Lab1_3.BackReadHandler");
+		assertUses(new HashSet<String>(Arrays.asList("java/lang/String", 
+				"java/util/HashSet", "org/objectweb/asm/ClassVisitor", "dot/records/ImplementsClassRecord",
+				"dot/ExtensionBuilder", "dot/ImplementsBuilder"
+		)),
+				"dot.implementsBuilder");
 	}
 
 	@Test
 	public void testAdvancedUses() throws IOException {
-		assertUses(new HashSet<String>(Arrays.asList("java.lang.String", "dot.UmlBuilder",
-				"asm.ClassDeclarationVisitor", "dot.records.ExtendedClassRecord", "java.util.HashSet", "dot.records.IClassRecord", "void")),
-				"dot.ExtensionBuilder");
+		assertUses(new HashSet<String>(Arrays.asList("headfirst/factory/pizzafm/ChicagoStyleCheesePizza",
+				"headfirst/factory/pizzafm/ChicagoStyleVeggiePizza", "headfirst/factory/pizzafm/ChicagoStyleClamPizza",
+				"headfirst/factory/pizzafm/ChicagoStylePepperoniPizza", "java/lang/String")),
+				"headfirst.factory.pizzafm.ChicagoPizzaStore");
 	}
 
 	public void assertUses(HashSet<String> expectedResult, String className) {
 		UsesBuilder builder = new UsesBuilder(
 				new ImplementsBuilder(className, new HashSet<String>(Arrays.asList(className))));
 		UsesClassRecord record = (UsesClassRecord) builder.build();
-		assertEquals(expectedResult, record.getUsesList());
+		assertEquals(expectedResult, record.getUsesNamesList());
 	}
 }

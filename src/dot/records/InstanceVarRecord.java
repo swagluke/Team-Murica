@@ -37,14 +37,6 @@ public class InstanceVarRecord {
 		this.access = access;
 	}
 
-	// public HashSet<String> getNestedFields() {
-	// return nestedFields;
-	// }
-	//
-	// public void setNestedFields(HashSet<String> nestedFields) {
-	// this.nestedFields = nestedFields;
-	// }
-
 	@Override
 	public boolean equals(Object o) {
 		InstanceVarRecord other = (InstanceVarRecord) o;
