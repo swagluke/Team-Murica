@@ -15,7 +15,7 @@ public class UsesBuilder implements IBuilder {
 	private IBuilder builder;
 	UsesClassRecord record;
 
-	public UsesBuilder(ImplementsBuilder b) {
+	public UsesBuilder(IBuilder b) {
 		this.builder = b;
 	}
 

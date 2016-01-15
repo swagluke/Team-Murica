@@ -39,8 +39,8 @@ public class Runner {
 			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
 			ExtensionBuilder e = new ExtensionBuilder(d);
 			ImplementsBuilder i = new ImplementsBuilder(e);
-//			UsesBuilder u = new UsesBuilder(i);
-			AssociationBuilder a = new AssociationBuilder(i);
+			UsesBuilder u = new UsesBuilder(i);
+			AssociationBuilder a = new AssociationBuilder(u);
 			// s.append(d.getClassUML() + "\n");
 			a.build();
 			s.append(d.getClassUML());
