@@ -29,6 +29,7 @@ public class ExtensionBuilderTest {
 	public void assertExtends(String expectedResult, String className) {
 		ExtensionBuilder builder = new ExtensionBuilder(className, new HashSet<String>(Arrays.asList(className)));
 		ExtendedClassRecord record = (ExtendedClassRecord) builder.build();
+		System.out.println(record.getClassUml());
 		assertEquals(expectedResult, record.getExtendsName());
 	}
 }

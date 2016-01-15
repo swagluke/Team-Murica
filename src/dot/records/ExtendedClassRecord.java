@@ -12,6 +12,9 @@ public class ExtendedClassRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
+		if (this.extendsName == null) {
+			return "";
+		}
 		StringBuilder s = new StringBuilder();
 		String className = this.getClassName();
 		// s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
@@ -19,6 +22,7 @@ public class ExtendedClassRecord implements IClassRecord {
 		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
 
 		// create extends arrows
+
 		String[] shortExtendNameList = this.extendsName.replace("/", ".").split("\\.");
 		String shortExtendName = shortExtendNameList[shortExtendNameList.length - 1];
 		if (this.getClassList().contains(extendsName.replace("/", "."))) {
