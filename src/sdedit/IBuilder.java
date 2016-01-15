@@ -1,5 +1,6 @@
 package sdedit;
 
-public interface IBuilder {
+import records.IClassRecord;
 
+public interface IBuilder {
 }

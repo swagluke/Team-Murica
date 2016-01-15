@@ -13,6 +13,7 @@ import records.MethodRecord;
 public class ClassMethodInsVisitor extends ClassVisitor {
 	private HashSet<MethodRecord> methods = new HashSet<MethodRecord>();
 	public HashSet<MethodInsVisitor> methodVisitors = new HashSet<MethodInsVisitor>();
+	public String methodName;
 	private HashSet<String> returnParams = new HashSet<String>();
 
 	public ClassMethodInsVisitor(int arg0) {
@@ -42,6 +43,7 @@ public class ClassMethodInsVisitor extends ClassVisitor {
 		}
 		methods.add(new MethodRecord(access, name, returnType, argTypes, stypes));
 		// System.out.println(" method " + symbol + returnType + " " + name + " " + stypes.toString());
+		methodVisitor.methodName = name;
 		methodVisitors.add(methodVisitor);
 
 		return methodVisitor;
