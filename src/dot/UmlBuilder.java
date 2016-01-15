@@ -61,7 +61,7 @@ public class UmlBuilder implements IBuilder {
 		return this.classList;
 	}
 
-	@Override
+	
 	public void setClassList(HashSet<String> classList) {
 		this.classList = classList;
 	}

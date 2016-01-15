@@ -11,6 +11,7 @@ import dot.records.MethodRecord;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	private HashSet<MethodRecord> methods = new HashSet<MethodRecord>();
+	public HashSet<MethodVisitor> methodVisitors = new HashSet<MethodVisitor>();
 
 	public ClassMethodVisitor(int arg0) {
 		super(arg0);
@@ -23,7 +24,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-
+		MethodVisitor methodVisitor = new ClassMethodInsVisitor(Opcodes.ASM5,toDecorate);
 		String returnType = Type.getReturnType(desc).getClassName();
 		Type[] argTypes = Type.getArgumentTypes(desc);
 		HashSet<String> stypes = new HashSet<String>();
@@ -38,7 +39,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 		methods.add(new MethodRecord(access, name, returnType, argTypes, stypes));
 		// System.out.println(" method " + symbol + returnType + " " + name + "
 		// " + stypes.toString());
-		return toDecorate;
+		methodVisitors.add(methodVisitor);
+		return methodVisitor;
 	}
 
 	public HashSet<MethodRecord> getMethods() {
