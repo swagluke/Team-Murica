@@ -28,7 +28,7 @@ public class ImplementsBuilderTest {
 	}
 
 	public void assertImplements(ArrayList<String> expectedResult, String className) {
-		ImplementsBuilder builder = new ImplementsBuilder(className);
+		ImplementsBuilder builder = new ImplementsBuilder(className, new ArrayList<String>(Arrays.asList(className)));
 		ImplementsClassRecord record = (ImplementsClassRecord) builder.build();
 		assertEquals(expectedResult, record.getImplementsList());
 	}
