@@ -1,11 +1,11 @@
- package dot.records;
+package dot.records;
 
 import java.util.HashSet;
 
 public class AssociationClassRecord implements IClassRecord {
 	IClassRecord record;
 	private HashSet<String> associationNames = new HashSet<String>();
-	
+
 	public AssociationClassRecord(IClassRecord record) {
 		this.record = record;
 	}

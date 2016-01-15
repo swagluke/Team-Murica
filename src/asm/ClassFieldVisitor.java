@@ -1,6 +1,6 @@
 package asm;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
@@ -9,7 +9,7 @@ import org.objectweb.asm.Type;
 import dot.records.InstanceVarRecord;
 
 public class ClassFieldVisitor extends ClassVisitor {
-	private ArrayList<InstanceVarRecord> fields = new ArrayList<InstanceVarRecord>();
+	private HashSet<InstanceVarRecord> fields = new HashSet<InstanceVarRecord>();
 
 	public ClassFieldVisitor(int arg0) {
 		super(arg0);
@@ -27,7 +27,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		return toDecorate;
 	}
 
-	public ArrayList<InstanceVarRecord> getFields() {
+	public HashSet<InstanceVarRecord> getFields() {
 		return fields;
 	}
 }

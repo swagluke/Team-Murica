@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,8 +15,8 @@ import org.objectweb.asm.Opcodes;
 public class ClassFieldSignatureVisitorTest {
 	public String testField;
 	private int privateField;
-	protected ArrayList<Integer> listField;
-	public HashMap<HashMap<ArrayList<String>, HashSet<Boolean>>, Integer> nested;
+	protected HashSet<Integer> listField;
+	public HashMap<HashMap<HashSet<String>, HashSet<Boolean>>, Integer> nested;
 
 	@Test
 	public void testNoFields() throws IOException {

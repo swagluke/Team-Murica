@@ -1,9 +1,9 @@
 package dot.records;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class UsesClassRecord implements IClassRecord {
-	private ArrayList<String> usesList = new ArrayList<String>();
+	private HashSet<String> usesList = new HashSet<String>();
 	public ImplementsClassRecord innerRecord;
 
 	public UsesClassRecord(ImplementsClassRecord record) {
@@ -17,25 +17,27 @@ public class UsesClassRecord implements IClassRecord {
 		for (String val : usesList) {
 			String[] valList = val.replace("/", ".").split("\\.");
 			String shortValue = valList[valList.length - 1];
-			if (innerRecord.classList.contains(val.replace("/", "."))){
+			if (innerRecord.classList.contains(val.replace("/", "."))) {
 				String[] n = innerRecord.innerRecord.record.className.split("/");
 				String name = n[n.length - 1];
-				s.append( name+ " -> " + shortValue + "\n");
+				s.append(name + " -> " + shortValue + "\n");
 			}
 		}
 		return s.toString();
 	}
 
-	public ArrayList<MethodRecord> getMethods() {
-//		return innerRecord.
-		return new ArrayList<MethodRecord>();
+	public HashSet<MethodRecord> getMethods() {
+		// return innerRecord.
+		return new HashSet<MethodRecord>();
 	}
-	
-	public ArrayList<String> getUsesList() {
+
+	public HashSet<String> getUsesList() {
 		return usesList;
 	}
+
 	/**
 	 * Adds a thing to the list of uses
+	 * 
 	 * @param className
 	 */
 	public void addUses(String className) {
