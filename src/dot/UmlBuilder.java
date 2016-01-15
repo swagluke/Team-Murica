@@ -86,6 +86,7 @@ public class UmlBuilder implements IBuilder {
 		record.setImplementsList(declVisitor.getImplementsList());
 		record.setMethodsList(methodVisitor.getMethods());
 		record.setFieldsList(fieldVisitor.getFields());
+		record.setClassList(classList);
 		return record;
 
 	}

@@ -13,34 +13,34 @@ public class AssociationBuilder implements IBuilder {
 	private IBuilder builder;
 	private ClassFieldSignatureVisitor visitor;
 	HashSet<String> classList;
+	private AssociationClassRecord associationRecord;
 
-	public AssociationBuilder(String className) {
-		// this(new UmlBuilder(className));
+	public AssociationBuilder(String className, HashSet<String> classNames) {
+		 this(new UmlBuilder(className, classNames));
 
 	}
 
 	public AssociationBuilder(IBuilder umlBuilder) {
 		this.builder = umlBuilder;
 		this.visitor = new ClassFieldSignatureVisitor(Opcodes.ASM5, umlBuilder.getVisitor());
-		// this.setExtendsName();
 	}
 	
 	@Override
 	public HashSet<String> getClassList() {
-		return this.classList;
+		return this.builder.getClassList();
 	}
 
-	@Override
-	public void setClassList(HashSet<String> classList) {
-		this.classList = classList;
-	}
+//	@Override
+//	public void setClassList(HashSet<String> classList) {
+//		this.classList = classList;
+//	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		IClassRecord record = builder.build(visitor);
-		AssociationClassRecord e = new AssociationClassRecord(record);
-		e.setAssociationNames(this.visitor.getAssociationNames());
-		return e;
+		associationRecord = new AssociationClassRecord(record);
+		associationRecord.setAssociationNames(this.visitor.getAssociationNames());
+		return associationRecord;
 	}
 
 	@Override
@@ -55,12 +55,13 @@ public class AssociationBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		System.out.println(this.build());
-		StringBuilder s = new StringBuilder();
-		s.append(this.builder.getClassUML());
-		s.append("\n");
-		AssociationClassRecord record = (AssociationClassRecord) this.build();
-		record.getAssociationNames();
+		return this.associationRecord.getClassUml();
+//		System.out.println(this.build());
+//		StringBuilder s = new StringBuilder();
+//		s.append(this.builder.getClassUML());
+//		s.append("\n");
+//		AssociationClassRecord record = (AssociationClassRecord) this.build();
+//		record.getAssociationNames();
 		// this
 		// associatesMap.put(className, ((AssociationClassRecord) a.build()).getAssociationNames());
 		// AssociationClassRecord record = (AssociationClassRecord) this.build();
@@ -80,6 +81,6 @@ public class AssociationBuilder implements IBuilder {
 		//
 		// }
 		// }
-		return s.toString();
+//		return s.toString();
 	}
 }

@@ -20,5 +20,4 @@ public interface IBuilder {
 	IClassRecord build(ClassVisitor visitor);
 	String getClassUML();
 	HashSet<String> getClassList();
-	void setClassList(HashSet<String> classList);
 }

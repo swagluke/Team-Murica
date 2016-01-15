@@ -18,8 +18,8 @@ public class AssociationBuilderTest {
 
 	@Test
 	public void testBasicAssociation() throws IOException {
-		assertAssociations(new HashSet<String>(Arrays.asList("dot.IBuilder", "asm.ClassDeclarationVisitor")),
-				"dot.ExtensionBuilder");
+		assertAssociations(new HashSet<String>(Arrays.asList("java.lang.String", "int")),
+				"dot.records.InstanceVarRecord");
 	}
 
 	@Test
@@ -30,7 +30,7 @@ public class AssociationBuilderTest {
 	}
 
 	public void assertAssociations(HashSet<String> expectedResult, String className) {
-		AssociationBuilder builder = new AssociationBuilder(className);
+		AssociationBuilder builder = new AssociationBuilder(className, new HashSet<String>(Arrays.asList(className)));
 		AssociationClassRecord record = (AssociationClassRecord) builder.build();
 		assertEquals(expectedResult, record.getAssociationNames());
 	}
