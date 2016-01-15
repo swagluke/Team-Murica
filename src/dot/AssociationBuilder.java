@@ -1,5 +1,7 @@
 package dot;
 
+import java.util.HashSet;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
@@ -10,6 +12,7 @@ import dot.records.IClassRecord;
 public class AssociationBuilder implements IBuilder {
 	private IBuilder builder;
 	private ClassFieldSignatureVisitor visitor;
+	HashSet<String> classList;
 
 	public AssociationBuilder(String className) {
 		// this(new UmlBuilder(className));
@@ -20,6 +23,16 @@ public class AssociationBuilder implements IBuilder {
 		this.builder = umlBuilder;
 		this.visitor = new ClassFieldSignatureVisitor(Opcodes.ASM5, umlBuilder.getVisitor());
 		// this.setExtendsName();
+	}
+	
+	@Override
+	public HashSet<String> getClassList() {
+		return this.classList;
+	}
+
+	@Override
+	public void setClassList(HashSet<String> classList) {
+		this.classList = classList;
 	}
 
 	@Override
