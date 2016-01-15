@@ -38,18 +38,11 @@ public class UsesBuilder implements IBuilder {
 	public IClassRecord build() {
 		return this.build(this.getVisitor());
 	}
-	//Get methodVisitor list from UMLBuilder somehow, and then use that HashSet to build the classname and uses list relationship
+
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		record = new UsesClassRecord(builder.build(visitor));
 		record.setUsesNamesList(this.visitor.getUsesNames());
-		for (MethodRecord m : record.getBaseRecord().getMethodsList()) {
-			for (Type t : m.getArgTypes()) {
-//				record.addUses(t.getClassName());
-			}
-			// if(classList.contains(m.getReturnType()))
-//			record.addUses(m.getReturnType());
-		}
 		return record;
 	}
 

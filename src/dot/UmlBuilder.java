@@ -33,34 +33,11 @@ public class UmlBuilder implements IBuilder {
 		}
 
 	}
-	// public void stuff(){
-	//
-	// this.associationList = new HashSet<String>();
-	// for (InstanceVarRecord fieldRecord : record.getFields()) {
-	// try {
-	// Class<?> c = Class.forName(fieldRecord.getType());
-	// if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
-	// // not collection
-	//// System.out.println(fieldRecord.getNestedFields());
-	// this.associationList.add(fieldRecord.getType());
-	// } else {
-	//// System.out.println(fieldRecord.getType() + " is a collection");
-	//// System.out.println(fieldRecord.getNestedFields());
-	// }
-	//// this.associationList.addAll(fieldRecord.getNestedFields());
-	// } catch (ClassNotFoundException e) {
-	// //ignore
-	// }
-	// }
-	// System.out.println(this.associationList);
-	// // System.out.println("break");
-	// }
 	
 	@Override
 	public HashSet<String> getClassList() {
 		return this.classList;
 	}
-
 	
 	public void setClassList(HashSet<String> classList) {
 		this.classList = classList;
@@ -99,8 +76,5 @@ public class UmlBuilder implements IBuilder {
 	@Override
 	public String getClassUML() {
 		return this.record.getClassUml();
-		// return this.createDigraph(this.build());
-		// TODO Auto-generated method stub
-		// return null;
 	}
 }

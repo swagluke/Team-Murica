@@ -38,7 +38,6 @@ public class ExtensionBuilderTest {
 				"edge [ style = \"normal\"]\nClassDeclarationVisitor -> ClassVisitor\n");
 	}
 
-	// public void assertExtends(String expectedResult, String className) {
 	public void assertExtends(String className, HashSet<String> includedClasses, String expectedResult,
 			String expectedUml) {
 		ExtensionBuilder builder = new ExtensionBuilder(className, includedClasses);
