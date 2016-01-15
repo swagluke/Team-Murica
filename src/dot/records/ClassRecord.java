@@ -10,11 +10,13 @@ public class ClassRecord implements IClassRecord {
 	private HashSet<MethodRecord> methodsList;
 	private HashSet<InstanceVarRecord> fieldsList;
 	private HashSet<String> implementsList;
+	private HashSet<String> classList;
 
 	public ClassRecord() {
 
 	}
 
+	@Override
 	public String getClassName() {
 		return className;
 	}
@@ -79,5 +81,14 @@ public class ClassRecord implements IClassRecord {
 
 	public void setFieldsList(HashSet<InstanceVarRecord> fieldsList) {
 		this.fieldsList = fieldsList;
+	}
+
+	@Override
+	public HashSet<String> getClassList() {
+		return this.classList;
+	}
+
+	public void setClassList(HashSet<String> classList) {
+		this.classList = classList;
 	}
 }

@@ -29,13 +29,13 @@ public class ImplementsBuilder implements IBuilder {
 	
 	@Override
 	public HashSet<String> getClassList() {
-		return this.classList;
+		return this.builder.getClassList();
 	}
 
-	@Override
-	public void setClassList(HashSet<String> classList) {
-		this.classList = classList;
-	}
+//	@Override
+//	public void setClassList(HashSet<String> classList) {
+//		this.classList = classList;
+//	}
 
 	@Override
 	public ClassVisitor getVisitor() {
@@ -48,8 +48,7 @@ public class ImplementsBuilder implements IBuilder {
 		record = new ImplementsClassRecord(this.builder.build(visitor));
 		this.implementsList = this.visitor.getImplementsList();
 		record.setImplementsList(implementsList);
-		record.setClassList(this.builder.getClassList());
-		record.className = className;
+//		record.className = className;
 		// System.out.println(implementsList.size());
 		return record;
 	}

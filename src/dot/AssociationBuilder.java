@@ -23,25 +23,23 @@ public class AssociationBuilder implements IBuilder {
 	public AssociationBuilder(IBuilder umlBuilder) {
 		this.builder = umlBuilder;
 		this.visitor = new ClassFieldSignatureVisitor(Opcodes.ASM5, umlBuilder.getVisitor());
-		this.setClassList(builder.getClassList());
 	}
 	
 	@Override
 	public HashSet<String> getClassList() {
-		return this.classList;
+		return this.builder.getClassList();
 	}
 
-	@Override
-	public void setClassList(HashSet<String> classList) {
-		this.classList = classList;
-	}
+//	@Override
+//	public void setClassList(HashSet<String> classList) {
+//		this.classList = classList;
+//	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		IClassRecord record = builder.build(visitor);
 		associationRecord = new AssociationClassRecord(record);
 		associationRecord.setAssociationNames(this.visitor.getAssociationNames());
-		associationRecord.setClassList(this.classList);
 		return associationRecord;
 	}
 

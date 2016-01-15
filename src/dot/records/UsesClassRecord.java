@@ -44,4 +44,10 @@ public class UsesClassRecord implements IClassRecord {
 		usesList.add(className);
 	}
 
+	@Override
+	public String getClassName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

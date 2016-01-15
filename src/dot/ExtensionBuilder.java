@@ -23,25 +23,23 @@ public class ExtensionBuilder implements IBuilder {
 	public ExtensionBuilder(IBuilder umlBuilder) {
 		this.builder = umlBuilder;
 		this.visitor = (ClassDeclarationVisitor) umlBuilder.getVisitor();
-		this.setClassList(builder.getClassList());
 	}
 	
 	@Override
 	public HashSet<String> getClassList() {
-		return this.classList;
+		return this.builder.getClassList();
 	}
 
-	@Override
-	public void setClassList(HashSet<String> classList) {
-		this.classList = classList;
-	}
+//	@Override
+//	public void setClassList(HashSet<String> classList) {
+//		this.classList = classList;
+//	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		IClassRecord record = builder.build(visitor);
 		extendedRecord = new ExtendedClassRecord((ClassRecord) record);
 		extendedRecord.setExtendsName(this.visitor.getExtendsName());
-		extendedRecord.classList = classList;
 		return extendedRecord;
 	}
 

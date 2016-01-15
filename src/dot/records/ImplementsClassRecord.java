@@ -5,19 +5,16 @@ import java.util.HashSet;
 public class ImplementsClassRecord implements IClassRecord {
 
 	private HashSet<String> implementsList;
-	public ExtendedClassRecord innerRecord;
-	HashSet<String> classList;
-	public String className;
+	public IClassRecord innerRecord;
 
 	public ImplementsClassRecord(IClassRecord record) {
-		this.innerRecord = (ExtendedClassRecord) record;
-		this.classList = ((ExtendedClassRecord) record).classList;
+		this.innerRecord = record;
 	}
 
 	@Override
 	public String getClassUml() {
 		StringBuilder s = new StringBuilder();
-		String className = this.innerRecord.getClassName();
+		String className = this.getClassName();
 		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
 		String[] shortClassNameList = className.replace("/", ".").split("\\.");
 		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
@@ -25,7 +22,7 @@ public class ImplementsClassRecord implements IClassRecord {
 		for (String implement : this.implementsList) {
 			String[] shortImplementList = implement.replace("/", ".").split("\\.");
 			String shortImplement = shortImplementList[shortImplementList.length - 1];
-			if (classList.contains(implement.replace("/", ".")))
+			if (this.getClassList().contains(implement.replace("/", ".")))
 				s.append(shortClassName + " -> " + shortImplement + "\n");
 		}
 		return s.toString();
@@ -50,8 +47,14 @@ public class ImplementsClassRecord implements IClassRecord {
 		return implementsList;
 	}
 
-	public void setClassList(HashSet<String> classList2) {
-		this.classList = classList2;
+	@Override
+	public String getClassName() {
+		return this.innerRecord.getClassName();
+	}
+
+	@Override
+	public HashSet<String> getClassList() {
+		return innerRecord.getClassList();
 	}
 
 }
