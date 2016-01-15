@@ -12,15 +12,19 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Map;
 
+import records.MethodSignature;
+import sdedit.SequenceBuilder;
+
 public class SDEditRunner {
 	
 	public static void main(String[] args){
 		int callDepth = Integer.parseInt(args[0]);
 		String className = args[1];
 		String methodName = args[2];
-		String methodReturnType = args[3];
-		String[] methodArgTypes = Arrays.copyOfRange(args, 4, args.length);
-		
+		String[] methodArgTypes = Arrays.copyOfRange(args, 3, args.length);
+		MethodSignature m = new MethodSignature(className, methodName, methodArgTypes);
+		SequenceBuilder s = new SequenceBuilder(m);
+		s.build();
 		
 		createDiagram("");
 	}

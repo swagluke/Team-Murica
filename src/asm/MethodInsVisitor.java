@@ -8,6 +8,7 @@ import org.objectweb.asm.Type;
 public class MethodInsVisitor extends MethodVisitor {
 
 	HashSet<String> instantiations = new HashSet<String>();
+	public String methodName;
 
 	public MethodInsVisitor(int arg0, MethodVisitor arg1) {
 		super(arg0, arg1);
