@@ -25,3 +25,6 @@ Team-Murica.iml
 
  out.png
 log
+*.class
+
+out/production/Team-Murica/headfirst/files.txt
