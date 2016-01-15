@@ -32,11 +32,6 @@ public class ImplementsBuilder implements IBuilder {
 		return this.builder.getClassList();
 	}
 
-//	@Override
-//	public void setClassList(HashSet<String> classList) {
-//		this.classList = classList;
-//	}
-
 	@Override
 	public ClassVisitor getVisitor() {
 		return visitor;

@@ -44,7 +44,6 @@ public class ExtensionBuilderTest {
 		ExtensionBuilder builder = new ExtensionBuilder(className, includedClasses);
 		ExtendedClassRecord record = (ExtendedClassRecord) builder.build();
 
-		System.out.println(record.getClassUml());
 		assertEquals(expectedResult, record.getExtendsName());
 		assertEquals(expectedUml, record.getClassUml());
 	}
