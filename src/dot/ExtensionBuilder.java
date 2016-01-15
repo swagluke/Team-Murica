@@ -1,32 +1,37 @@
 package dot;
 
+import java.util.ArrayList;
+
 import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
+import dot.records.ClassRecord;
 import dot.records.ExtendedClassRecord;
 import dot.records.IClassRecord;
 
 public class ExtensionBuilder implements IBuilder {
-	private IBuilder builder;
+	UmlBuilder builder;
 	private ClassDeclarationVisitor visitor;
 	private ExtendedClassRecord extendedRecord;
+	ArrayList<String> classList;
 
-	public ExtensionBuilder(String className) {
-		this(new UmlBuilder(className));
+	public ExtensionBuilder(String className, ArrayList<String> classNames) {
+		this(new UmlBuilder(className, classNames));
 
 	}
 
 	public ExtensionBuilder(UmlBuilder umlBuilder) {
 		this.builder = umlBuilder;
 		this.visitor = (ClassDeclarationVisitor) umlBuilder.getVisitor();
-		// this.setExtendsName();
+		this.classList = ((UmlBuilder)builder).classList;
 	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		IClassRecord record = builder.build(visitor);
-		extendedRecord = new ExtendedClassRecord(record);
+		extendedRecord = new ExtendedClassRecord((ClassRecord) record);
 		extendedRecord.setExtendsName(this.visitor.getExtendsName());
+		extendedRecord.classList = classList;
 		return extendedRecord;
 	}
 
@@ -48,7 +53,7 @@ public class ExtensionBuilder implements IBuilder {
 //		s.append("\n");
 //		s.append(extendedRecord.getExtendsName());
 //		System.out.println("** " + s.toString() + " **");
-		System.out.println("** " + s.toString() + " **");
+//		System.out.println("** " + s.toString() + " **");
 
 		
 		return s.toString();

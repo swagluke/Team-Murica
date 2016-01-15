@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
@@ -22,104 +23,68 @@ import dot.records.MethodRecord;
 
 public class UmlBuilder implements IBuilder{
 	private ClassRecord record;
-
-	private String uml = "I AM ERROR";
-	private ArrayList<String> implementsList;
-	private HashSet<String> usesList;
 	private HashSet<String> associationList;
+	ArrayList<String> classList;
 	ClassReader reader = null;
 	ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 	ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
 	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
-	public UmlBuilder(String className) {
+	public UmlBuilder(String className, ArrayList<String> classNameList) {
 		
-		
+		this.classList = classNameList;
 		try {
 			reader = new ClassReader(className);
 		} catch (IOException e) {
+			System.err.println(className);
 			e.printStackTrace();
 		}
 
-//		ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-//		ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
-//		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 		
 	}
-	public void stuff(){
-		ClassRecord record = new ClassRecord(declVisitor.getClassName(), declVisitor.getExtendsName(),
-				methodVisitor.getMethods(), declVisitor.getImplementsList(), fieldVisitor.getFields());
-		this.uml = createDigraph(record);
-		
-		this.usesList = new HashSet<String>();
-		
-		
-		this.associationList = new HashSet<String>();
-		for (InstanceVarRecord fieldRecord : record.getFields()) {
-			try {
-				Class<?> c = Class.forName(fieldRecord.getType());
-				if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
-					// not collection
-//					System.out.println(fieldRecord.getNestedFields());
-					this.associationList.add(fieldRecord.getType());
-				} else {
-//					System.out.println(fieldRecord.getType() + " is a collection");
-//					System.out.println(fieldRecord.getNestedFields());
-				}
-				this.associationList.addAll(fieldRecord.getNestedFields());
-			} catch (ClassNotFoundException e) {
-				//ignore
-			}
-		}
-		System.out.println(this.associationList);
-		// System.out.println("break");
-	}
+//	public void stuff(){
+//		
+//		this.associationList = new HashSet<String>();
+//		for (InstanceVarRecord fieldRecord : record.getFields()) {
+//			try {
+//				Class<?> c = Class.forName(fieldRecord.getType());
+//				if (!Collection.class.isAssignableFrom(c) && !AbstractMap.class.isAssignableFrom(c)) {
+//					// not collection
+////					System.out.println(fieldRecord.getNestedFields());
+//					this.associationList.add(fieldRecord.getType());
+//				} else {
+////					System.out.println(fieldRecord.getType() + " is a collection");
+////					System.out.println(fieldRecord.getNestedFields());
+//				}
+////				this.associationList.addAll(fieldRecord.getNestedFields());
+//			} catch (ClassNotFoundException e) {
+//				//ignore
+//			}
+//		}
+//		System.out.println(this.associationList);
+//		// System.out.println("break");
+//	}
 
-	/**
-	 * @param record
-	 * @return
-	 */
-	private String createDigraph(ClassRecord record) {
-		String[] n = record.getClassName().split("/");
-		String name = n[n.length - 1];
-		StringBuilder s = new StringBuilder(name + " [label = \"{" + name + "|");
-		for (InstanceVarRecord i : record.getFields()) {
-			s.append("+ ");
-			s.append(i.getName() + " : ");
-			s.append(i.getType() + " \\l\n");
-		}
-		s.append("|");
-		for (MethodRecord m : record.getMethods()) {
-			if (m.getName().replaceAll("<.*?>", "").isEmpty())
-				continue;
-			s.append("+ ");
-			s.append(m.getName().replaceAll("<.*?>", ""));
-			for (Type t : m.getArgTypes()) {
-				s.append(t.getClassName() + " ");
-			}
-			s.append(" : ");
-			s.append(m.getReturnType() + "\\l\n");
-		}
-		s.append("}\"]");
-		// System.out.println("Class Name: " + record.getClassName()+"\n
-		// ExtendsName: "+ record.getExtendsName() + "\n Methods:
-		// "+record.getMethods() + "\nImplements length" +
-		// record.getImplementsList());
-		return s.toString();
-	}
+	
 
 	@Override
 	public ClassVisitor getVisitor() {
 		return declVisitor;
 	}
+	public ClassMethodVisitor getMethodVisitor(){
+		return this.methodVisitor;
+	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
+		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		reader.accept(fieldVisitor, ClassReader.EXPAND_FRAMES);
 		record = new ClassRecord();
-		ClassDeclarationVisitor declarationVisitor = (ClassDeclarationVisitor) visitor;
-		record.setClassName(declarationVisitor.getClassName());
-		record.setExtendsName(declarationVisitor.getExtendsName());
-		record.setImplementsList(declarationVisitor.getImplementsList());
+		record.setClassName(declVisitor.getClassName());
+		record.setExtendsName(declVisitor.getExtendsName());
+		record.setImplementsList(declVisitor.getImplementsList());
+		record.setMethodsList(methodVisitor.getMethods());
+		record.setFieldsList(fieldVisitor.getFields());
 		return record;
 		
 	}

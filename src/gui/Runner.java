@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -37,15 +38,17 @@ public class Runner {
 		// creates each class diagram and adds their implementations and
 		// extensions to the respective lists.
 		for (String className : args) {
-			UmlBuilder d = new UmlBuilder(className);
+			UmlBuilder d = new UmlBuilder(className, new ArrayList<String>(Arrays.asList(args)));
 			ExtensionBuilder e = new ExtensionBuilder(d);
 			ImplementsBuilder i = new ImplementsBuilder(e);
 			UsesBuilder u = new UsesBuilder(i);
 			AssociationBuilder a = new AssociationBuilder(u);
 //			s.append(d.getClassUML() + "\n");
-			d.build();
+			u.build();
 			s.append(d.getClassUML());
-			System.out.println(s.toString());
+			s.append(e.getClassUML());
+			s.append(i.getClassUML());
+			s.append(u.getClassUML());
 //			s.append(a.getClassUML());
 //			for (String imp : i.implementsList) {
 //				ArrayList<String> list = implementsMap.get(className);
@@ -134,6 +137,7 @@ public class Runner {
 			pb.redirectErrorStream(true);
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
+//			Files.delete(path);//uncomment to clean up after yourself
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

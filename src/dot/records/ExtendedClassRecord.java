@@ -1,13 +1,14 @@
 package dot.records;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class ExtendedClassRecord implements IClassRecord {
 
-	IClassRecord record;
+	public ClassRecord record;
 	private String extendsName;
+	public ArrayList<String> classList;
 	
-	public ExtendedClassRecord(IClassRecord record) {
+	public ExtendedClassRecord(ClassRecord record) {
 		this.record = record;
 	}
 
@@ -15,19 +16,18 @@ public class ExtendedClassRecord implements IClassRecord {
 	public String getClassUml() {
 		StringBuilder s = new StringBuilder();
 		String className = ((ClassRecord) this.record).getClassName();
-		s.append("edge [ style = \"normal\"]\n");
-		String[] shortClassName = className.replace("/", ".").split("\\.");
-		System.out.println(Arrays.toString(shortClassName));
+		//s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
+		String[] shortClassNameList = className.replace("/", ".").split("\\.");
+		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
 		
-//		for (String key2 : extendsMap.keySet()) {
-//			String[] shortKeyList = key2.replace("/", ".").split("\\.");
-//			String shortKey = shortKeyList[shortKeyList.length - 1];
-//			String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
-//			String shortValue = shortValueList[shortValueList.length - 1];
-//			if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
-//				s.append(shortKey + " -> " + shortValue + "\n");
-//		}
-		return null;
+		// create extends arrows
+		String[] shortExtendNameList = this.extendsName.replace("/", ".").split("\\.");
+		String shortExtendName = shortExtendNameList[shortExtendNameList.length - 1];
+		if(classList.contains(extendsName.replace("/", "."))){
+			s.append("edge [ style = \"normal\"]\n");
+			s.append(shortClassName + " -> " + shortExtendName + "\n");
+		}
+		return s.toString();
 	}
 
 	public String getExtendsName() {
@@ -36,6 +36,10 @@ public class ExtendedClassRecord implements IClassRecord {
 
 	public void setExtendsName(String extendsName) {
 		this.extendsName = extendsName;
+	}
+
+	public String getClassName() {
+		return ((ClassRecord) this.record).getClassName();
 	}
 
 }

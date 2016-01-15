@@ -10,14 +10,18 @@ import dot.records.ImplementsClassRecord;
 
 public class ImplementsBuilder implements IBuilder {
 	public ArrayList<String> implementsList;
-	private ExtensionBuilder builder;
+	ExtensionBuilder builder;
 	private ClassDeclarationVisitor visitor;
-	public ImplementsBuilder(String className){
-		this(new ExtensionBuilder(className));
+	private ImplementsClassRecord record;
+	private String className;
+	public ImplementsBuilder(String className, ArrayList<String> classNames){
+		this(new ExtensionBuilder(className, classNames));
+		this.className = className;
 	}
 	public ImplementsBuilder(ExtensionBuilder extensionBuilder) {
 		this.builder = extensionBuilder;
 		this.visitor = (ClassDeclarationVisitor) builder.getVisitor();
+		
 	}
 	
 	@Override
@@ -27,9 +31,13 @@ public class ImplementsBuilder implements IBuilder {
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
-		ImplementsClassRecord record = new ImplementsClassRecord(this.builder.build(visitor));
-		this.implementsList = ((ClassDeclarationVisitor) visitor).getImplementsList();
+//		System.out.println("Building implementsList");
+		record = new ImplementsClassRecord(this.builder.build(visitor));
+		this.implementsList = this.visitor.getImplementsList();
 		record.setImplementsList(implementsList);
+		record.setClassList(this.builder.classList);
+		record.className = className;
+//		System.out.println(implementsList.size());
 		return record;
 	}
 	@Override
@@ -38,8 +46,7 @@ public class ImplementsBuilder implements IBuilder {
 	}
 	@Override
 	public String getClassUML() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.record.getClassUml();
 	}
 
 }

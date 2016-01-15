@@ -4,16 +4,26 @@ import java.util.ArrayList;
 
 public class UsesClassRecord implements IClassRecord {
 	private ArrayList<String> usesList = new ArrayList<String>();
-	private IClassRecord innerRecord;
+	public ImplementsClassRecord innerRecord;
 
-	public UsesClassRecord(IClassRecord record) {
+	public UsesClassRecord(ImplementsClassRecord record) {
 		this.innerRecord = record;
 	}
 
 	@Override
 	public String getClassUml() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder s = new StringBuilder();
+		s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
+		for (String val : usesList) {
+			String[] valList = val.replace("/", ".").split("\\.");
+			String shortValue = valList[valList.length - 1];
+			if (innerRecord.classList.contains(val.replace("/", "."))){
+				String[] n = innerRecord.innerRecord.record.className.split("/");
+				String name = n[n.length - 1];
+				s.append( name+ " -> " + shortValue + "\n");
+			}
+		}
+		return s.toString();
 	}
 
 	public ArrayList<MethodRecord> getMethods() {

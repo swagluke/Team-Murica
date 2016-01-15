@@ -1,7 +1,5 @@
 package dot;
 
-import java.util.HashSet;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
@@ -14,7 +12,7 @@ public class AssociationBuilder implements IBuilder {
 	private ClassFieldSignatureVisitor visitor;
 
 	public AssociationBuilder(String className) {
-		this(new UmlBuilder(className));
+		//this(new UmlBuilder(className));
 
 	}
 

@@ -2,9 +2,13 @@ package dot.records;
 
 import java.util.ArrayList;
 
+import org.objectweb.asm.Type;
+
 public class ClassRecord implements IClassRecord {
-	private String className;
+	public String className;
 	private String extendsName;
+	private ArrayList<MethodRecord> methodsList;
+	private ArrayList<InstanceVarRecord> fieldsList; 
 	private ArrayList<String> implementsList;
 
 	public ClassRecord() {
@@ -38,45 +42,42 @@ public class ClassRecord implements IClassRecord {
 	@Override
 	public String getClassUml() {
 		StringBuilder s = new StringBuilder();
-		s.append(className + " [label = \"{" + className + "|");
-		s.append("\n");
-		
-		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
-		String[] shortClassNameList = className.replace("/", ".").split("\\.");
-		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
-		for (String implement : this.implementsList) {
-			String[] shortImplementList = implement.replace("/", ".").split("\\.");
-			String shortImplement = shortImplementList[shortImplementList.length - 1];
-//			if (classNames.contains(val.replace("/", ".")))
-			s.append(shortClassName + " -> " + shortImplement + "\n");
-//		}
+		String[] n = className.split("/");
+		String name = n[n.length - 1];
+		s.append(name + " [label = \"{" + className + "|");
+		for(InstanceVarRecord f: fieldsList){
+			s.append("+"+f.getName()+" : "+f.getType()+"\\l\n");
 		}
-//		for (String key : implementsMap.keySet()) {
-////			String[] shortKeyList = key.replace("/", ".").split("\\.");
-////			String shortKey = shortKeyList[shortKeyList.length - 1];
-//			ArrayList<String> shortValueList = implementsMap.get(key);
-//			for (String val : shortValueList) {
-//				String[] valList = val.replace("/", ".").split("\\.");
-//				String shortValue = valList[valList.length - 1];
-//				if (classNames.contains(val.replace("/", ".")))
-//					s.append(shortKey + " -> " + shortValue + "\n");
-//			}
-//		}
-		// create extends arrows
-		s.append("edge [ style = \"normal\"]\n");
-		String[] shortExtendNameList = this.extendsName.replace("/", ".").split("\\.");
-		String shortExtendName = shortExtendNameList[shortExtendNameList.length - 1];
-		s.append(shortClassName + " -> " + shortExtendName + "\n");
-		
-//		for (String key2 : extendsMap.keySet()) {
-//			String[] shortKeyList = key2.replace("/", ".").split("\\.");
-//			String shortKey = shortKeyList[shortKeyList.length - 1];
-//			String[] shortValueList = extendsMap.get(key2).replace("/", ".").split("\\.");
-//			String shortValue = shortValueList[shortValueList.length - 1];
-//			if (classNames.contains(extendsMap.get(key2).replace("/", ".")))
-//				s.append(shortKey + " -> " + shortValue + "\n");
-//		}
+		s.append("|");
+		for(MethodRecord m: methodsList){
+			if (m.getName().replaceAll("<.*?>", "").isEmpty())
+				continue;
+			s.append("+ ");
+			s.append(m.getName().replaceAll("<.*?>", ""));
+			for (Type t : m.getArgTypes()) {
+				s.append(t.getClassName() + " ");
+			}
+			s.append(" : ");
+			s.append(m.getReturnType() + "\\l\n");
+		}
+		s.append("}\"]");
 
 		return s.toString();
+	}
+
+	public ArrayList<MethodRecord> getMethodsList() {
+		return methodsList;
+	}
+
+	public void setMethodsList(ArrayList<MethodRecord> methodsList) {
+		this.methodsList = methodsList;
+	}
+
+	public ArrayList<InstanceVarRecord> getFieldsList() {
+		return fieldsList;
+	}
+
+	public void setFieldsList(ArrayList<InstanceVarRecord> fieldsList) {
+		this.fieldsList = fieldsList;
 	}
 }
