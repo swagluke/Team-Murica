@@ -12,6 +12,10 @@ public class ExtendedClassRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
+		if(this.extendsName ==null)
+		{
+			return "";
+		}
 		StringBuilder s = new StringBuilder();
 		String className = this.getClassName();
 		// s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");

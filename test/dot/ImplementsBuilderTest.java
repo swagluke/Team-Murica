@@ -14,23 +14,26 @@ import dot.records.ImplementsClassRecord;
 public class ImplementsBuilderTest {
 	@Test
 	public void testNoImplements() throws IOException {
-		assertImplements(new HashSet<String>(), "java.lang.Object");
+		assertImplements("java.lang.Object", new HashSet<String>(Arrays.asList(new String[] { "java.lang.Object" })), new HashSet<String>(), "edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
+
 	}
 
 	@Test
 	public void testBasicImplements() throws IOException {
-		assertImplements(new HashSet<String>(Arrays.asList("dot/IBuilder")), "dot.ImplementsBuilder");
+		assertImplements("dot.ImplementsBuilder", new HashSet<String>(Arrays.asList("dot/IBuilder")), new HashSet<String>(Arrays.asList(new String[] {"dot/IBuilder"})), "edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
 	}
 
 	@Test
 	public void testMultipleImplements() throws IOException {
-		assertImplements(new HashSet<String>(Arrays.asList("java/util/List", "java/util/RandomAccess",
-				"java/lang/Cloneable", "java/io/Serializable")), "java.util.ArrayList");
+		assertImplements("java.util.ArrayList",new HashSet<String>(Arrays.asList(new String[] { "java.util.ArrayList" })) ,new HashSet<String>(Arrays.asList("java/util/List", "java/util/RandomAccess",
+				"java/lang/Cloneable", "java/io/Serializable")),"edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
 	}
 
-	public void assertImplements(HashSet<String> expectedResult, String className) {
+	public void assertImplements(String className, HashSet<String> includedClasses, HashSet<String> expectedResult,
+							  String expectedUml){
 		ImplementsBuilder builder = new ImplementsBuilder(className, new HashSet<String>(Arrays.asList(className)));
 		ImplementsClassRecord record = (ImplementsClassRecord) builder.build();
 		assertEquals(expectedResult, record.getImplementsList());
+		assertEquals(expectedUml, record.getClassUml());
 	}
 }
