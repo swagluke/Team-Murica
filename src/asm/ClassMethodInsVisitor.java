@@ -15,7 +15,7 @@ public class ClassMethodInsVisitor extends MethodVisitor{
 	//TODO may need to get the classname in here and make it a hashmap?
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf){
-		System.out.println("owner: "+ owner +" desc: "+desc);
+//		System.out.println("owner: "+ owner +" desc: "+desc);
 		uses.add(owner);
 	}
 

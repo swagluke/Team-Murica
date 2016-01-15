@@ -12,7 +12,6 @@ import dot.records.IClassRecord;
 public class AssociationBuilder implements IBuilder {
 	private IBuilder builder;
 	private ClassFieldSignatureVisitor visitor;
-	HashSet<String> classList;
 	private AssociationClassRecord associationRecord;
 
 	public AssociationBuilder(String className, HashSet<String> classNames) {
@@ -44,13 +43,13 @@ public class AssociationBuilder implements IBuilder {
 	}
 
 	@Override
-	public ClassVisitor getVisitor() {
-		return this.visitor;
-	}
-
-	@Override
 	public IClassRecord build() {
 		return this.build(visitor);
+	}
+	
+	@Override
+	public ClassVisitor getVisitor() {
+		return this.visitor;
 	}
 
 	@Override

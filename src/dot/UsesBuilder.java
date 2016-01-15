@@ -5,25 +5,23 @@ import java.util.HashSet;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Type;
 
+import dot.records.ClassRecord;
 import dot.records.IClassRecord;
 import dot.records.ImplementsClassRecord;
 import dot.records.MethodRecord;
 import dot.records.UsesClassRecord;
 
 public class UsesBuilder implements IBuilder {
-
-	private ImplementsBuilder implementsBuilder;
+	private IBuilder builder;
 	UsesClassRecord record;
-	HashSet<String> classList;
 
 	public UsesBuilder(ImplementsBuilder b) {
-		this.implementsBuilder = b;
-		this.classList = b.builder.getClassList();
+		this.builder = b;
 	}
 
 	@Override
 	public ClassVisitor getVisitor() {
-		return this.implementsBuilder.getVisitor();
+		return this.builder.getVisitor();
 
 	}
 
@@ -34,8 +32,8 @@ public class UsesBuilder implements IBuilder {
 	//Get methodVisitor list from UMLBuilder somehow, and then use that HashSet to build the classname and uses list relationship
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
-		record = new UsesClassRecord((ImplementsClassRecord) implementsBuilder.build(visitor));
-		for (MethodRecord m : record.innerRecord.innerRecord.record.getMethodsList()) {
+		record = new UsesClassRecord(builder.build(visitor));
+		for (MethodRecord m : record.getBaseRecord().getMethodsList()) {
 			for (Type t : m.getArgTypes()) {
 				record.addUses(t.getClassName());
 			}
@@ -50,21 +48,8 @@ public class UsesBuilder implements IBuilder {
 		return this.record.getClassUml();
 	}
 
-	public HashSet<String> getUsesList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public HashSet<String> getClassList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.builder.getClassList();
 	}
-
-	@Override
-	public void setClassList(HashSet<String> classList) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

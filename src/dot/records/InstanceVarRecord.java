@@ -56,4 +56,9 @@ public class InstanceVarRecord {
 	public int hashCode() {
 		return this.name.hashCode() + this.type.hashCode() + this.access;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name + ", " + this.type + ", " + this.access;
+	}
 }

@@ -3,12 +3,11 @@ package dot.records;
 import java.util.HashSet;
 
 public class ExtendedClassRecord implements IClassRecord {
-
-	public IClassRecord record;
+	public IClassRecord innerRecord;
 	private String extendsName;
 
 	public ExtendedClassRecord(IClassRecord record) {
-		this.record = record;
+		this.innerRecord = record;
 	}
 
 	@Override
@@ -38,12 +37,21 @@ public class ExtendedClassRecord implements IClassRecord {
 	}
 
 	public String getClassName() {
-		return this.record.getClassName();
+		return this.innerRecord.getClassName();
 	}
 
 	@Override
 	public HashSet<String> getClassList() {
-		return this.record.getClassList();
+		return this.innerRecord.getClassList();
 	}
 
+	@Override
+	public IClassRecord getInnerRecord() {
+		return this.innerRecord;
+	}
+	
+	@Override 
+	public ClassRecord getBaseRecord() {
+		return this.innerRecord.getBaseRecord();
+	}
 }

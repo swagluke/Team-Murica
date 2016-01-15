@@ -4,9 +4,9 @@ import java.util.HashSet;
 
 public class UsesClassRecord implements IClassRecord {
 	private HashSet<String> usesList = new HashSet<String>();
-	public ImplementsClassRecord innerRecord;
+	public IClassRecord innerRecord;
 
-	public UsesClassRecord(ImplementsClassRecord record) {
+	public UsesClassRecord(IClassRecord record) {
 		this.innerRecord = record;
 	}
 
@@ -17,8 +17,8 @@ public class UsesClassRecord implements IClassRecord {
 		for (String val : usesList) {
 			String[] valList = val.replace("/", ".").split("\\.");
 			String shortValue = valList[valList.length - 1];
-			if (innerRecord.classList.contains(val.replace("/", "."))) {
-				String[] n = innerRecord.innerRecord.record.className.split("/");
+			if (innerRecord.getClassList().contains(val.replace("/", "."))) {
+				String[] n = innerRecord.getInnerRecord().getInnerRecord().getClassName().split("/"); // refactor down
 				String name = n[n.length - 1];
 				s.append(name + " -> " + shortValue + "\n");
 			}
@@ -46,8 +46,21 @@ public class UsesClassRecord implements IClassRecord {
 
 	@Override
 	public String getClassName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.innerRecord.getClassName();
 	}
 
+	@Override
+	public HashSet<String> getClassList() {
+		return this.innerRecord.getClassList();
+	}
+
+	@Override
+	public IClassRecord getInnerRecord() {
+		return this.innerRecord;
+	}
+	
+	@Override 
+	public ClassRecord getBaseRecord() {
+		return this.innerRecord.getBaseRecord();
+	}
 }

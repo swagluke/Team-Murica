@@ -3,7 +3,6 @@ package dot.records;
 import java.util.HashSet;
 
 public class ImplementsClassRecord implements IClassRecord {
-
 	private HashSet<String> implementsList;
 	public IClassRecord innerRecord;
 
@@ -26,17 +25,6 @@ public class ImplementsClassRecord implements IClassRecord {
 				s.append(shortClassName + " -> " + shortImplement + "\n");
 		}
 		return s.toString();
-		// for (String key : implementsMap.keySet()) {
-		//// String[] shortKeyList = key.replace("/", ".").split("\\.");
-		//// String shortKey = shortKeyList[shortKeyList.length - 1];
-		// HashSet<String> shortValueList = implementsMap.get(key);
-		// for (String val : shortValueList) {
-		// String[] valList = val.replace("/", ".").split("\\.");
-		// String shortValue = valList[valList.length - 1];
-		// if (classNames.contains(val.replace("/", ".")))
-		// s.append(shortKey + " -> " + shortValue + "\n");
-		// }
-		// }
 	}
 
 	public void setImplementsList(HashSet<String> list) {
@@ -57,4 +45,13 @@ public class ImplementsClassRecord implements IClassRecord {
 		return innerRecord.getClassList();
 	}
 
+	@Override
+	public IClassRecord getInnerRecord() {
+		return this.innerRecord;
+	}
+
+	@Override 
+	public ClassRecord getBaseRecord() {
+		return this.innerRecord.getBaseRecord();
+	}
 }

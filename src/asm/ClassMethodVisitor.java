@@ -1,5 +1,6 @@
 package asm;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
@@ -27,7 +28,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		MethodVisitor methodVisitor = new ClassMethodInsVisitor(Opcodes.ASM5,toDecorate);
 		String returnType = Type.getReturnType(desc).getClassName();
 		Type[] argTypes = Type.getArgumentTypes(desc);
-		HashSet<String> stypes = new HashSet<String>();
+		ArrayList<String> stypes = new ArrayList<String>();
 		for (Type t : argTypes) {
 			stypes.add(t.getClassName());
 		}

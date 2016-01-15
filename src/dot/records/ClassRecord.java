@@ -91,4 +91,14 @@ public class ClassRecord implements IClassRecord {
 	public void setClassList(HashSet<String> classList) {
 		this.classList = classList;
 	}
+	
+	@Override
+	public IClassRecord getInnerRecord() {
+		return null;
+	}
+	
+	@Override 
+	public ClassRecord getBaseRecord() {
+		return this;
+	}
 }
