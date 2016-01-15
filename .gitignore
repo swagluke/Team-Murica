@@ -1,2 +1,7 @@
 /bin
 /.metadata
+*.xml
+
+*.xml
+
+.idea/workspace.xml
