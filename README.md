@@ -17,7 +17,7 @@ Dot (Graphviz) - Graphviz is open source graph visualization software. Graph vis
 
 SDE: Quick Sequence Diagram Editor is a tool for creating UML sequence diagrams from textual descriptions of objects and messages that follow a very easy syntax.
 
-Our project design involves using ASM to read java class code. Then multiple vistor patterns will collect and organize useful class information into the right format for Dot. There are total five vistor pattern such as ClassDeclarationVisitor that covers class declaration, ClassFieldVisitor covers field, ClassMethodVisitor covers method. And we use classrecord and methodrecord to store useful information. Dot will use the data to generate the UML diagram. SDE creates sequence diagram.
+Our project design involves using ASM, to read java class code. Then multiple vistor patterns will collect and organize useful class information into the right format for Dot and SDE. There are total seven vistor pattern such as ClassDeclarationVisitor that covers class declaration, ClassFieldVisitor covers field, ClassMethodVisitor covers method. And we use classrecord and methodrecord to store useful information. Dot will use the data to generate the UML diagram. SDE creates sequence diagram.
 
 # Usage Instructions
 This tool is use for generating the most essential elements of the UML class diagram for arbitrary Java code: classes, methods, instance variables, and inheritance/implements arrows.
@@ -28,7 +28,7 @@ Please follow the instruction below.
 2. Add the path of this folder to your PATH system variable
 3. Folk this repository and import the project into Eclipse.
 4. Change the run configuration.
-5. Related Graph will show up inside the project folder.
+5. Related Sequence Graph and UML Diagram will show up inside the project folder.
 
 
 # Work Distribution

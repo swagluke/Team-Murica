@@ -18,18 +18,20 @@ public class UsesBuilderTest {
 
 	@Test
 	public void testBasicUses() throws IOException {
-		assertUses(new HashSet<String>(Arrays.asList("java/lang/String", 
-				"java/util/HashSet", "org/objectweb/asm/ClassVisitor", "dot/records/ImplementsClassRecord",
-				"dot/ExtensionBuilder", "dot/ImplementsBuilder"
-		)),
+		assertUses(
+				new HashSet<String>(
+						Arrays.asList("java/lang/String", "java/util/HashSet", "org/objectweb/asm/ClassVisitor",
+								"dot/records/ImplementsClassRecord", "dot/ExtensionBuilder", "dot/ImplementsBuilder")),
 				"dot.implementsBuilder");
 	}
 
 	@Test
 	public void testAdvancedUses() throws IOException {
-		assertUses(new HashSet<String>(Arrays.asList("headfirst/factory/pizzafm/ChicagoStyleCheesePizza",
-				"headfirst/factory/pizzafm/ChicagoStyleVeggiePizza", "headfirst/factory/pizzafm/ChicagoStyleClamPizza",
-				"headfirst/factory/pizzafm/ChicagoStylePepperoniPizza", "java/lang/String")),
+		assertUses(
+				new HashSet<String>(Arrays.asList("headfirst/factory/pizzafm/ChicagoStyleCheesePizza",
+						"headfirst/factory/pizzafm/ChicagoStyleVeggiePizza",
+						"headfirst/factory/pizzafm/ChicagoStyleClamPizza",
+						"headfirst/factory/pizzafm/ChicagoStylePepperoniPizza", "java/lang/String")),
 				"headfirst.factory.pizzafm.ChicagoPizzaStore");
 	}
 

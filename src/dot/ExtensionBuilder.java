@@ -30,11 +30,6 @@ public class ExtensionBuilder implements IBuilder {
 		return this.builder.getClassList();
 	}
 
-//	@Override
-//	public void setClassList(HashSet<String> classList) {
-//		this.classList = classList;
-//	}
-
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		IClassRecord record = builder.build(visitor);
@@ -55,15 +50,7 @@ public class ExtensionBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		StringBuilder s = new StringBuilder();
-		s.append(this.extendedRecord.getClassUml());
-		// s.append(this.builder.getClassUML());
-		// s.append("\n");
-		// s.append(extendedRecord.getExtendsName());
-		// System.out.println("** " + s.toString() + " **");
-		// System.out.println("** " + s.toString() + " **");
-
-		return s.toString();
+		return this.extendedRecord.getClassUml();
 	}
 
 }
