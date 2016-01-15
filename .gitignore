@@ -3,5 +3,12 @@
 *.xml
 
 *.xml
+<<<<<<< Updated upstream
 
 .idea/workspace.xml
+=======
+
+*.iml
+
+*.xml
+>>>>>>> Stashed changes
