@@ -14,6 +14,7 @@ public class ImplementsBuilder implements IBuilder {
 	private ClassDeclarationVisitor visitor;
 	private ImplementsClassRecord record;
 	private String className;
+	HashSet<String> classList;
 
 	public ImplementsBuilder(String className, HashSet<String> classNames) {
 		this(new ExtensionBuilder(className, classNames));
@@ -24,6 +25,16 @@ public class ImplementsBuilder implements IBuilder {
 		this.builder = extensionBuilder;
 		this.visitor = (ClassDeclarationVisitor) builder.getVisitor();
 
+	}
+	
+	@Override
+	public HashSet<String> getClassList() {
+		return this.classList;
+	}
+
+	@Override
+	public void setClassList(HashSet<String> classList) {
+		this.classList = classList;
 	}
 
 	@Override

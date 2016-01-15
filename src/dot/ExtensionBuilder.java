@@ -10,7 +10,7 @@ import dot.records.ExtendedClassRecord;
 import dot.records.IClassRecord;
 
 public class ExtensionBuilder implements IBuilder {
-	UmlBuilder builder;
+	IBuilder builder;
 	private ClassDeclarationVisitor visitor;
 	private ExtendedClassRecord extendedRecord;
 	HashSet<String> classList;
@@ -20,10 +20,20 @@ public class ExtensionBuilder implements IBuilder {
 
 	}
 
-	public ExtensionBuilder(UmlBuilder umlBuilder) {
+	public ExtensionBuilder(IBuilder umlBuilder) {
 		this.builder = umlBuilder;
 		this.visitor = (ClassDeclarationVisitor) umlBuilder.getVisitor();
-		this.classList = ((UmlBuilder) builder).classList;
+		this.setClassList(builder.getClassList());
+	}
+	
+	@Override
+	public HashSet<String> getClassList() {
+		return this.classList;
+	}
+
+	@Override
+	public void setClassList(HashSet<String> classList) {
+		this.classList = classList;
 	}
 
 	@Override

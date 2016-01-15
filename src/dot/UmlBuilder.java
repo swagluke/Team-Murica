@@ -55,6 +55,16 @@ public class UmlBuilder implements IBuilder {
 	// System.out.println(this.associationList);
 	// // System.out.println("break");
 	// }
+	
+	@Override
+	public HashSet<String> getClassList() {
+		return this.classList;
+	}
+
+	@Override
+	public void setClassList(HashSet<String> classList) {
+		this.classList = classList;
+	}
 
 	@Override
 	public ClassVisitor getVisitor() {

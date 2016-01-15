@@ -1,5 +1,7 @@
 package dot;
 
+import java.util.HashSet;
+
 import org.objectweb.asm.ClassVisitor;
 
 import dot.records.IClassRecord;
@@ -17,4 +19,6 @@ public interface IBuilder {
 	IClassRecord build();
 	IClassRecord build(ClassVisitor visitor);
 	String getClassUML();
+	HashSet<String> getClassList();
+	void setClassList(HashSet<String> classList);
 }
