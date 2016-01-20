@@ -43,7 +43,7 @@ public class SequenceBuilder implements IBuilder{
 //		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		reader.accept(methodInstVisitor, ClassReader.EXPAND_FRAMES);
-		record = new ClassRecord();
+//		record = new SequenceRecord();
 		record.setClassName(declVisitor.getClassName());
 		record.setExtendsName(declVisitor.getExtendsName());
 		record.setImplementsList(declVisitor.getImplementsList());
