@@ -1,6 +1,7 @@
 package records;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
@@ -17,7 +18,26 @@ public class SequenceRecord implements ISequenceRecord {
 	}
 	
 	@Override
-	public String getSequenceUml() {
-		return "fail";
+	public String getSequenceDiagram() {
+		createLifelines();//populate the lifelines data
+		
+		return "";
+	}
+	/**
+	 * goes through the list of method calls and finds the ones that exist at the start
+	 */
+	private void createLifelines() {
+		LinkedHashSet<String> lines = new LinkedHashSet<String>();
+		for(MethodSignature m:methodCalls){
+			if(m.getMethodName().equals("<init>")){
+				lines.add("/"+m.getClassName().toLowerCase()+":"+m.getClassName());
+			}else{
+				lines.add(m.getClassName().toLowerCase()+":"+m.getClassName());
+			}
+		}
+		for(String s:lines){
+			lifeLines.add(s);
+			System.out.println(s);
+		}
 	}
 }
