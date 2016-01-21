@@ -1,9 +1,14 @@
-package generictree;
+package genericTree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 // from http://vivin.net/2010/01/30/generic-n-ary-tree-in-java/
-public class GenericTree<T>  implements Iterable<T>{
+public class GenericTree<T> implements Iterable<T> {
 
 	private GenericTreeNode<T> root;
 
@@ -187,19 +192,22 @@ public class GenericTree<T>  implements Iterable<T>{
 
 		return stringRepresentation;
 	}
+
 	@Override
 	public Iterator<T> iterator() {
 		return new GenericTreeIterator(this.root);
 	}
-    
-	public class GenericTreeIterator implements Iterator<T>{
+
+	public class GenericTreeIterator implements Iterator<T> {
 		Stack<GenericTreeNode<T>> toVisit = new Stack<GenericTreeNode<T>>();
 		GenericTreeNode<T> current;
-		public GenericTreeIterator(GenericTreeNode<T> node){
+
+		public GenericTreeIterator(GenericTreeNode<T> node) {
 			current = node;
-			for(GenericTreeNode<T> n:node.children)
+			for (GenericTreeNode<T> n : node.children)
 				toVisit.push(n);
 		}
+
 		@Override
 		public boolean hasNext() {
 			return !toVisit.isEmpty();
@@ -209,9 +217,18 @@ public class GenericTree<T>  implements Iterable<T>{
 		public T next() {
 			GenericTreeNode<T> ret = current;
 			current = toVisit.pop();
-			for(GenericTreeNode<T> n:current.children)
+			for (GenericTreeNode<T> n : current.children)
 				toVisit.push(n);
 			return ret.data;
 		}
+	}
+
+	@Override
+	public boolean equals(Object tree) {
+		GenericTree<T> t = (GenericTree<T>) tree;
+		if (t.getRoot() == null || root == null) {
+			return false;
+		}
+		return t.getRoot().equals(root);
 	}
 }

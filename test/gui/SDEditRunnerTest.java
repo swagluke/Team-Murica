@@ -25,7 +25,7 @@ public class SDEditRunnerTest {
 		assertTrue(file.exists());
 		assertFalse(outputPath.toFile().exists());
 		SDEditRunner.main(new String[] {"gui.UmlRunner"});
-		Thread.sleep(500); // wait for file to write
+		Thread.sleep(750); // wait for file to write
 		assertTrue(outputPath.toFile().exists());
 	}
 }
