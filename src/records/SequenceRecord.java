@@ -3,7 +3,7 @@ package records;
 import java.util.ArrayList;
 
 public class SequenceRecord implements ISequenceRecord {
-	ArrayList<MethodSignature> methodCalls = new ArrayList<MethodSignature>();
+	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
 	ArrayList<String> lifeLines= new ArrayList<String>();
 
 	public ArrayList<String> getLifeLines() {
@@ -12,12 +12,8 @@ public class SequenceRecord implements ISequenceRecord {
 	public void setLifeLines(ArrayList<String> lifeLines) {
 		this.lifeLines = lifeLines;
 	}
-	public ArrayList<MethodSignature> getMethodCalls() {
+	public GenericTree<MethodSignature> getMethodCalls() {
 		return methodCalls;
-	}
-
-	public void addMethodCall(MethodSignature m) {
-		this.methodCalls.add(m);
 	}
 	
 	@Override

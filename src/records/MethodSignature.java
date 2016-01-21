@@ -5,13 +5,11 @@ public class MethodSignature {
 	private String className;
 	private String methodName;
 	private String methodSignature;
-	private MethodSignature parent;
 
-	public MethodSignature(String className, String methodName, String signature, MethodSignature parent) {
+	public MethodSignature(String className, String methodName, String signature) {
 		this.className = className;
 		this.methodName = methodName;
 		this.methodSignature = signature;
-		this.parent = parent;
 	}
 
 	public String getClassName() {
@@ -38,9 +36,6 @@ public class MethodSignature {
 		this.methodSignature = signature;
 	}
 
-	public MethodSignature getParent() {
-		return this.parent;
-	}
 	@Override
 	public boolean equals(Object other) {
 		MethodSignature o = (MethodSignature) other;
