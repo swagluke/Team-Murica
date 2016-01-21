@@ -14,7 +14,7 @@ import records.SequenceRecord;
 public class SequenceBuilderTest {
 	@Test
 	public void testBasicSequqence() throws IOException {
-		assertSequenceBuilder(
+		assertSequenceBuilder(new MethodSignature("sdedit/Foo", "<init>", "()V"),
 				new ArrayList<MethodSignature>(Arrays.asList(new MethodSignature("sdedit/Foo", "<init>", "()V"),
 						new MethodSignature("java/lang/Object", "<init>", "()V"),
 						new MethodSignature("sdedit/Bar", "<init>", "(Lsdedit/Foo;)V"),
@@ -22,38 +22,41 @@ public class SequenceBuilderTest {
 						new MethodSignature("sdedit/Bar", "methodA", "()V"),
 						new MethodSignature("sdedit/Bar", "methodB", "(I)I"),
 						new MethodSignature("sdedit/Foo", "addOne", "(I)I"),
-						new MethodSignature("sdedit/Foo", "addOne", "(I)I")
-						)),
-				new MethodSignature("sdedit/Foo", "<init>", "()V"));
+						new MethodSignature("sdedit/Foo", "addOne", "(I)I"))),
+				"");
 	}
+
 	@Test
 	public void testBasicSequqenceWithDepth() throws IOException {
-		assertSequenceBuilder(
+		assertSequenceBuilder(new MethodSignature("sdedit/Foo", "<init>", "()V"), 3,
 				new ArrayList<MethodSignature>(Arrays.asList(new MethodSignature("sdedit/Foo", "<init>", "()V"),
 						new MethodSignature("java/lang/Object", "<init>", "()V"),
 						new MethodSignature("sdedit/Bar", "<init>", "(Lsdedit/Foo;)V"),
 						new MethodSignature("java/lang/Object", "<init>", "()V"),
 						new MethodSignature("sdedit/Bar", "methodA", "()V"),
-						new MethodSignature("sdedit/Foo", "addOne", "(I)I")
-						)),
-				new MethodSignature("sdedit/Foo", "<init>", "()V"), 3);
+						new MethodSignature("sdedit/Foo", "addOne", "(I)I"))),
+				"");
 	}
 
 	@Test
 	public void testShuffleSequqence() throws IOException {
-		assertSequenceBuilder(new ArrayList<MethodSignature>(),
-				new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"));
+		assertSequenceBuilder(new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"),
+				new ArrayList<MethodSignature>(), "");
 	}
 
-	public void assertSequenceBuilder(ArrayList<MethodSignature> expectedResult, MethodSignature methodSignature) {
+	public void assertSequenceBuilder(MethodSignature methodSignature, ArrayList<MethodSignature> expectedResult,
+			String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature);
 		SequenceRecord record = (SequenceRecord) builder.build();
 		assertEquals(expectedResult, record.getMethodCalls());
+		assertEquals(expectedSequenceUml, record.getSequenceUml());
 	}
 
-	public void assertSequenceBuilder(ArrayList<MethodSignature> expectedResult, MethodSignature methodSignature, int recursionDepth) {
+	public void assertSequenceBuilder(MethodSignature methodSignature, int recursionDepth,
+			ArrayList<MethodSignature> expectedResult, String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
 		assertEquals(expectedResult, record.getMethodCalls());
+		assertEquals(expectedSequenceUml, record.getSequenceUml());
 	}
 }
