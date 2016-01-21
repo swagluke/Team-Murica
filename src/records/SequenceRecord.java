@@ -9,6 +9,9 @@ import generictree.GenericTreeNode;
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
 	ArrayList<String> lifeLines= new ArrayList<String>();
+	public SequenceRecord(GenericTreeNode<MethodSignature> node) {
+		this.methodCalls.setRoot(node);
+	}
 
 	public ArrayList<String> getLifeLines() {
 		return lifeLines;
@@ -54,6 +57,10 @@ public class SequenceRecord implements ISequenceRecord {
 			sb.append(buildMethodCalls(n, depth+1));
 		}
 		return sb.toString();
+	}
 		
+
+	public void setRoot(GenericTreeNode<MethodSignature> root) {
+		this.methodCalls.setRoot(root);
 	}
 }
