@@ -54,7 +54,6 @@ public class SequenceBuilderTest {
 	public void assertSequenceBuilder(ArrayList<MethodSignature> expectedResult, MethodSignature methodSignature, int recursionDepth) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
-		System.out.println(record.getMethodCalls());
 		assertEquals(expectedResult, record.getMethodCalls());
 	}
 }
