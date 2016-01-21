@@ -86,19 +86,34 @@ public class SequenceBuilderTest {
 
 	@Test
 	public void testShuffleSequence() throws IOException {
-		assertSequenceBuilder(new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"),
-				new GenericTree<MethodSignature>(), "");
+		GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();
+
+		assertSequenceBuilder(new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"), tree, "");
 	}
 
 	public void assertSequenceBuilder(MethodSignature methodSignature, GenericTree<MethodSignature> expectedResult,
 			String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature);
 		SequenceRecord record = (SequenceRecord) builder.build();
+		
 		GenericTree<MethodSignature> methods = record.getMethodCalls();
 		System.out.println(expectedResult);
-		System.out.println(methods);
+		GenericTreeNode<MethodSignature> root = methods.getRoot();
+//		for (int i=0;i<root.getNumberOfChildren(); i++) {
+//			System.out.println("root.addChild(node"+i+")");
+//		printNode(root.getChildAt(i), new ArrayList<Integer>(Arrays.asList(new Integer[] {i})));
+//		}
+//		System.out.println(methods);
+		
+		
 		assertEquals(expectedResult, record.getMethodCalls());
 		// assertEquals(expectedSequenceUml, record.getSequenceDiagram());
+	}
+
+	public void printNode(GenericTreeNode<MethodSignature> node, ArrayList<Integer> level) {
+		MethodSignature data = node.data;
+		System.out.println("new GenericTreeNode(new MethodSignature(" + data.getClassName() + ", "
+				+ data.getMethodName() + ", " + data.getSignature() + "));");
 	}
 
 	public void assertSequenceBuilder(MethodSignature methodSignature, int recursionDepth,
