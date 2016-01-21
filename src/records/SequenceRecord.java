@@ -3,6 +3,9 @@ package records;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+import generictree.GenericTree;
+import generictree.GenericTreeNode;
+
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
 	ArrayList<String> lifeLines= new ArrayList<String>();
@@ -39,5 +42,12 @@ public class SequenceRecord implements ISequenceRecord {
 			lifeLines.add(s);
 			System.out.println(s);
 		}
+	}
+	
+	private String buildMethodCalls(GenericTreeNode<MethodSignature> node){
+		StringBuilder sb = new StringBuilder();
+		
+		return null;
+		
 	}
 }
