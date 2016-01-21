@@ -29,7 +29,7 @@ public class ClassFieldSignatureVisitorTest {
 		HashSet<String> expectedResult = new HashSet<String>(
 				Arrays.asList("java.lang.String", "int"));
 
-		assertFields("dot.records.InstanceVarRecord", expectedResult);
+		assertFields("records.InstanceVarRecord", expectedResult);
 	}
 
 	@Test

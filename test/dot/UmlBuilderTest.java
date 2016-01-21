@@ -29,17 +29,17 @@ public class UmlBuilderTest {
 				new MethodRecord(1, "<init>", "void", new Type[] { Type.getType(Class.forName("dot.IBuilder")), },
 						new ArrayList<String>(Arrays.asList(new String[] { "dot.IBuilder" }))),
 				new MethodRecord(1, "getClassList", "java.util.HashSet", new Type[0], new ArrayList<String>()),
-				new MethodRecord(1, "build", "dot.records.IClassRecord",
+				new MethodRecord(1, "build", "records.IClassRecord",
 						new Type[] { Type.getType(Class.forName("org.objectweb.asm.ClassVisitor")), },
 						new ArrayList<String>(Arrays.asList(new String[] { "org.objectweb.asm.ClassVisitor" }))),
-				new MethodRecord(1, "build", "dot.records.IClassRecord", new Type[0], new ArrayList<String>()),
+				new MethodRecord(1, "build", "records.IClassRecord", new Type[0], new ArrayList<String>()),
 				new MethodRecord(1, "getVisitor", "org.objectweb.asm.ClassVisitor", new Type[0],
 						new ArrayList<String>()),
 				new MethodRecord(1, "getClassUML", "java.lang.String", new Type[0], new ArrayList<String>()), }));
 		HashSet<InstanceVarRecord> expectedFieldsList = new HashSet<InstanceVarRecord>(
 				Arrays.asList(new InstanceVarRecord[] { new InstanceVarRecord("builder", "dot.IBuilder", 2),
 						new InstanceVarRecord("visitor", "asm.ClassFieldSignatureVisitor", 2),
-						new InstanceVarRecord("associationRecord", "dot.records.AssociationClassRecord", 2) }));
+						new InstanceVarRecord("associationRecord", "records.AssociationClassRecord", 2) }));
 		HashSet<String> expectedImplementsList = new HashSet<String>(Arrays.asList(new String[] { "dot/IBuilder" }));
 		assertBuild(className, expectedClassName, expectedExtendsName, expectedMethods, expectedFieldsList,
 				expectedImplementsList);

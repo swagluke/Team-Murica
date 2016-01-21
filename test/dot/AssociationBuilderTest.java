@@ -20,7 +20,7 @@ public class AssociationBuilderTest {
 
 	@Test
 	public void testBasicAssociation() throws IOException {
-		assertAssociations("dot.records.InstanceVarRecord",
+		assertAssociations("records.InstanceVarRecord",
 				new HashSet<String>(
 						Arrays.asList(new String[] { "dot.records.InstanceVarRecord", "java.lang.String", "int" })),
 				new HashSet<String>(Arrays.asList("java.lang.String", "int")),

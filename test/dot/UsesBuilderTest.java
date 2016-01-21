@@ -21,7 +21,7 @@ public class UsesBuilderTest {
 		assertUses(
 				new HashSet<String>(
 						Arrays.asList("java/lang/String", "java/util/HashSet", "org/objectweb/asm/ClassVisitor",
-								"dot/records/ImplementsClassRecord", "dot/ExtensionBuilder", "dot/ImplementsBuilder")),
+								"records/ImplementsClassRecord", "dot/ExtensionBuilder", "dot/ImplementsBuilder")),
 				"dot.implementsBuilder");
 	}
 
