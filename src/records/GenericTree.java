@@ -3,7 +3,7 @@ package records;
 import java.util.*;
 
 // from http://vivin.net/2010/01/30/generic-n-ary-tree-in-java/
-public class GenericTree<T> {
+public class GenericTree<T>  implements Iterable<T>{
 
 	private GenericTreeNode<T> root;
 
@@ -186,5 +186,33 @@ public class GenericTree<T> {
 		}
 
 		return stringRepresentation;
+	}
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+	public class GenericTreeIterator implements Iterator<T>{
+		Stack<GenericTreeNode<T>> toVisit = new Stack<GenericTreeNode<T>>();
+		GenericTreeNode<T> current;
+		public GenericTreeIterator(GenericTreeNode<T> node){
+			current = node;
+			for(GenericTreeNode<T> n:node.children)
+				toVisit.push(n);
+		}
+		@Override
+		public boolean hasNext() {
+			return !toVisit.isEmpty();
+		}
+
+		@Override
+		public T next() {
+			GenericTreeNode<T> ret = current;
+			current = toVisit.pop();
+			for(GenericTreeNode<T> n:current.children)
+				toVisit.push(n);
+			return ret.data;
+		}
 	}
 }

@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // from http://vivin.net/2010/01/30/generic-n-ary-tree-in-java/
-public class GenericTreeNode<T> implements Iterable<T>{
+public class GenericTreeNode<T>{
 
     public T data;
     public List<GenericTreeNode<T>> children;
@@ -96,33 +96,5 @@ public class GenericTreeNode<T> implements Iterable<T>{
         return stringRepresentation;
     }
 
-	@Override
-	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-	public class GenericTreeIterator implements Iterator<T>{
-		Stack<GenericTreeNode<T>> toVisit = new Stack<GenericTreeNode<T>>();
-		GenericTreeNode<T> current;
-		public GenericTreeIterator(GenericTreeNode<T> node){
-			current = node;
-			for(GenericTreeNode<T> n:node.children)
-				toVisit.push(n);
-		}
-		@Override
-		public boolean hasNext() {
-			return !toVisit.isEmpty();
-		}
-
-		@Override
-		public T next() {
-			GenericTreeNode<T> ret = current;
-			current = toVisit.pop();
-			for(GenericTreeNode<T> n:current.children)
-				toVisit.push(n);
-			return ret.data;
-		}
-		
-	}
+	
 }
