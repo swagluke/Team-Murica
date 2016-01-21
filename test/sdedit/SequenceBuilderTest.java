@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import records.GenericTree;
+import records.GenericTreeNode;
 import records.MethodSignature;
 import records.SequenceRecord;
 
@@ -24,7 +26,6 @@ public class SequenceBuilderTest {
 						new MethodSignature("sdedit/Foo", "addOne", "(I)I"),
 						new MethodSignature("sdedit/Foo", "addOne", "(I)I"))),
 				"");
-		fail(); // refactor to add parent method sigs
 	}
 
 	@Test
@@ -57,6 +58,12 @@ public class SequenceBuilderTest {
 			ArrayList<MethodSignature> expectedResult, String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
+		GenericTree<MethodSignature> methods = record.getMethodCalls();
+		System.out.println(methods.toStringWithDepth());
+		System.out.println(System.identityHashCode(methods.getRoot()));
+		for (GenericTreeNode<MethodSignature> child : methods.getRoot().getChildren()) {
+			System.out.println(System.identityHashCode(child));
+		}
 		assertEquals(expectedResult, record.getMethodCalls());
 		assertEquals(expectedSequenceUml, record.getSequenceDiagram());
 	}

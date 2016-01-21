@@ -10,11 +10,14 @@ import asm.ClassDeclarationVisitor;
 import asm.ClassMethodVisitor;
 import asm.SequenceMethodInsVisitor;
 import jdk.internal.org.objectweb.asm.Type;
+import records.GenericTreeNode;
 import records.ISequenceRecord;
 import records.MethodSignature;
 import records.SequenceRecord;
 
 public class SequenceBuilder implements IBuilder {
+	public static int created = 0;
+	public int id;
 	MethodSignature signature;
 	private ClassReader reader;
 	private ClassDeclarationVisitor declVisitor;
@@ -24,17 +27,26 @@ public class SequenceBuilder implements IBuilder {
 	private int recursionDepthLeft;
 	private MethodSignature methodSignature;
 	private SequenceBuilder previous;
+	private GenericTreeNode<MethodSignature> node;
 
 	public SequenceBuilder(MethodSignature m) {
-		this(m, null);
+		this(m, 5);
 	}
 
 	public SequenceBuilder(MethodSignature m, int recursionDepth) {
+		this.id = created;
+		created++;
 		this.recursionDepthLeft = recursionDepth;
-		this.record = new SequenceRecord();
-		this.addMethodSignature(m);
+		this.node = new GenericTreeNode<MethodSignature>(m);
+		this.record = new SequenceRecord(this.node);
+//		this.record.setRoot(this.node);
+		// this.addMethodSignature(m);
+		for (int i=3-this.getRecursionDepth(); i > 0; i--) {
+		System.out.print("\t");
+		}
+
 		System.out.println(
-				"\nCreated new sequence builder for " + m.getClassName() + ", depth: " + this.recursionDepthLeft);
+				System.identityHashCode(this.node)+" Created new sequence builder for " + m.getClassName() + ", depth: " + this.recursionDepthLeft);
 		try {
 			reader = new ClassReader(Type.getObjectType(m.getClassName()).getClassName());
 		} catch (IOException e) {
@@ -52,17 +64,24 @@ public class SequenceBuilder implements IBuilder {
 
 	}
 
-	public SequenceBuilder(MethodSignature m, SequenceBuilder previous) {
+	public SequenceBuilder(GenericTreeNode<MethodSignature> node, SequenceBuilder previous) {
+		MethodSignature m = node.getData();
+		this.id = created;
+		created++;
+		this.node = node;
 		this.previous = previous;
-		if (previous != null) {
-			this.recursionDepthLeft = previous.getRecursionDepth() - 1;
-		} else {
-			this.recursionDepthLeft = 5;
-			this.record = new SequenceRecord();
+		this.recursionDepthLeft = previous.getRecursionDepth() - 1;
+		// this.addMethodSignature(m);
+		for (int i=3-this.getRecursionDepth(); i > 0; i--) {
+		System.out.print("\t");
 		}
-		this.addMethodSignature(m);
-		System.out.println(
-				"\nCreated new sequence builder for " + m.getClassName() + ", depth: " + this.recursionDepthLeft);
+
+		System.out.println(System.identityHashCode(this.node)+" Created new sequence builder for " + m.getClassName() + ": " + m.getMethodName()
+				+ ", depth: " + this.recursionDepthLeft);
+		for (int i=3-this.getRecursionDepth(); i > 0; i--) {
+		System.out.print("\t");
+		}
+		System.out.println("previous: " + previous.id + ": " + System.identityHashCode(previous.getNode()));
 		try {
 			reader = new ClassReader(Type.getObjectType(m.getClassName()).getClassName());
 		} catch (IOException e) {
@@ -79,12 +98,17 @@ public class SequenceBuilder implements IBuilder {
 		this.methodVisitor.setSequenceBuilder(this);
 	}
 
-	public void addMethodSignature(MethodSignature m) {
-		if (this.previous != null) {
-			this.previous.addMethodSignature(m);
-		} else {
-			this.record.addMethodCall(m);
+	public void addMethodSignature(GenericTreeNode<MethodSignature> methodSignatureNode) {
+		// if (this.previous != null) {
+		// this.previous.addMethodSignature(m);
+		// } else {
+		// this.record.addMethodCall(m);
+		// }
+		for (int i=3-this.getRecursionDepth(); i > 0; i--) {
+		System.out.print("\t");
 		}
+		System.out.println("added " + methodSignatureNode.toString() + " to " + System.identityHashCode(this.node));
+		this.node.addChild(methodSignatureNode);
 	}
 
 	@Override
@@ -127,5 +151,9 @@ public class SequenceBuilder implements IBuilder {
 
 	public int getRecursionDepth() {
 		return recursionDepthLeft;
+	}
+
+	public GenericTreeNode<MethodSignature> getNode() {
+		return this.node;
 	}
 }
