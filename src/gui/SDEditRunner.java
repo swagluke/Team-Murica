@@ -22,13 +22,13 @@ public class SDEditRunner {
 
 		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
 				StandardOpenOption.CREATE);) {
-			writer.write(diagram);
-			writer.flush();
+//			writer.write(diagram);
+//			writer.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar sdedit-4.2-beta1.jar", "-o SDout.png", "-t png", "test.sd");
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "sdedit-4.2-beta1.jar", "-o", "SDout.png", "-t", "png", "test.sd");
 //		Map<String, String> env = pb.environment();
 		// pb.directory();
 		System.out.println(System.getProperty("user.dir"));

@@ -16,7 +16,7 @@ public class SDEditRunnerTest {
 	final Path outputPath = Paths.get("SDout.png");
 	
 	@Test
-	public void testCreatesFile() throws IOException {
+	public void testCreatesFile() throws IOException, InterruptedException {
 		try {
 			Files.delete(outputPath);
 		} catch (IOException e) {
@@ -25,6 +25,7 @@ public class SDEditRunnerTest {
 		assertTrue(file.exists());
 		assertFalse(outputPath.toFile().exists());
 		SDEditRunner.main(new String[] {"gui.UmlRunner"});
+		Thread.sleep(500); // wait for file to write
 		assertTrue(outputPath.toFile().exists());
 	}
 }
