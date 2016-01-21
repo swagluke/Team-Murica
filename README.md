@@ -28,7 +28,10 @@ Please follow the instruction below.
 2. Add the path of this folder to your PATH system variable
 3. Folk this repository and import the project into Eclipse.
 4. Change the run configuration.
-5. Related Sequence Graph and UML Diagram will show up inside the project folder.
+5. Related UML Diagram will show up inside the project folder.
+6. Download SDEdit from http://iweb.dl.sourceforge.net/project/sdedit/sdedit/4.0/sdedit-4.01.jar
+7. Place the downloaded .jar in the same folder as this README.md file
+8. Change the run configuration, follow the format as classpath of the root class for your sequence diagram as the first argument, the method signature as the second argument, and the depth as the third (can be omitted - defaults to 5).
 
 
 # Work Distribution
