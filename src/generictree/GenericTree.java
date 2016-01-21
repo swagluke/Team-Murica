@@ -189,8 +189,7 @@ public class GenericTree<T>  implements Iterable<T>{
 	}
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new GenericTreeIterator(this.root);
 	}
     
 	public class GenericTreeIterator implements Iterator<T>{

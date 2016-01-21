@@ -43,7 +43,7 @@ public class SDEditRunner {
 		createDiagram(s.getSequenceUML());
 	}
 	public static void createDiagram(String diagram){
-		final Path path = Paths.get("test.sd");
+		final Path path = Paths.get("temp.sd");
 
 		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
 				StandardOpenOption.CREATE);) {
@@ -53,7 +53,7 @@ public class SDEditRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "sdedit-4.2-beta1.jar", "-o", "SDout.png", "-t", "png", "test.sd");
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "sdedit-4.2-beta1.jar", "-o", "SDout.png", "-t", "png", "temp.sd");
 //		Map<String, String> env = pb.environment();
 		// pb.directory();
 		System.out.println(System.getProperty("user.dir"));

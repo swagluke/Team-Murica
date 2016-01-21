@@ -25,9 +25,12 @@ public class SequenceRecord implements ISequenceRecord {
 	
 	@Override
 	public String getSequenceDiagram() {
+		StringBuilder sb = new StringBuilder();
 		createLifelines();//populate the lifelines data
-		
-		return buildMethodCalls(methodCalls.getRoot(),0);
+		for(String s:lifeLines)
+			sb.append(s+"\n");
+		sb.append( buildMethodCalls(methodCalls.getRoot(),0));
+		return sb.toString();
 	}
 	/**
 	 * goes through the list of method calls and finds the ones that exist at the start
