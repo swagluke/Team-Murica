@@ -24,16 +24,22 @@ public class SDEditRunner {
 	public static void main(String[] args){
 		System.out.println(Arrays.toString(args));
 		//construct the "methodField" argument
-		String[] paramTypes = Arrays.copyOfRange(args, 4, args.length);
+		String[] paramTypes = Arrays.copyOfRange(args, 3, args.length);
 		Type[] typeDesc = new Type[paramTypes.length];
 		for(int i=0;i<paramTypes.length;i++){
-			typeDesc[i]=Type.getType(paramTypes[i]);
+			try {
+				typeDesc[i]=Type.getType(Type.getInternalName(Class.forName(paramTypes[i])));
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		String methodDesc = Type.getMethodDescriptor(Type.getType(args[3]), typeDesc);
 			
 		
 		MethodSignature m = new MethodSignature(args[1], args[2], methodDesc);
 		SequenceBuilder s = new SequenceBuilder(m, Integer.parseInt(args[0]));
+		s.build();
 		createDiagram(s.getSequenceUML());
 	}
 	public static void createDiagram(String diagram){

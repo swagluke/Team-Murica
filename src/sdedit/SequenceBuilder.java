@@ -123,13 +123,13 @@ public class SequenceBuilder implements IBuilder {
 	public ISequenceRecord build(ClassVisitor visitor) {
 		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-		// record.setClassName(declVisitor.getClassName());
-		// record.setMethodsList(methodVisitor.getMethods());
-		// for(MethodInsVisitor m:methodInstVisitor.methodVisitors){
-		// if(m.methodName.equals(methodSignature.methodName)){
-		//
-		// }
-		// }
+//		record.setClassName(declVisitor.getClassName());
+//		record.setMethodsList(methodVisitor.getMethods());
+//		for(MethodInsVisitor m:methodInstVisitor.methodVisitors){
+//			if(m.methodName.equals(methodSignature.methodName)){
+//
+//			}
+//		}
 		return record;
 
 	}
@@ -141,8 +141,7 @@ public class SequenceBuilder implements IBuilder {
 
 	@Override
 	public String getSequenceUML() {
-		// TODO Auto-generated method stub
-		return null;
+		return record.getSequenceDiagram();
 	}
 
 	public MethodSignature getSignature() {
