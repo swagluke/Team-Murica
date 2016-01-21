@@ -24,7 +24,7 @@ public class SequenceRecord implements ISequenceRecord {
 	public String getSequenceDiagram() {
 		createLifelines();//populate the lifelines data
 		
-		return "";
+		return buildMethodCalls(methodCalls.getRoot(),0);
 	}
 	/**
 	 * goes through the list of method calls and finds the ones that exist at the start
@@ -44,10 +44,16 @@ public class SequenceRecord implements ISequenceRecord {
 		}
 	}
 	
-	private String buildMethodCalls(GenericTreeNode<MethodSignature> node){
+	private String buildMethodCalls(GenericTreeNode<MethodSignature> node, int depth){
 		StringBuilder sb = new StringBuilder();
-		
-		return null;
+		for(GenericTreeNode<MethodSignature> n:node.children){
+			for(int i=0;i<depth;i++){
+				sb.append(" ");
+			}
+			sb.append(node.data.getClassName()+ ":"+n.data.getClassName()+"."+n.data.getMethodName()+"()");
+			sb.append(buildMethodCalls(n, depth+1));
+		}
+		return sb.toString();
 		
 	}
 }
