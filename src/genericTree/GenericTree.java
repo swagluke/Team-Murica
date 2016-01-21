@@ -1,6 +1,11 @@
-package generictree;
+package genericTree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 // from http://vivin.net/2010/01/30/generic-n-ary-tree-in-java/
 public class GenericTree<T>  implements Iterable<T>{
@@ -214,5 +219,10 @@ public class GenericTree<T>  implements Iterable<T>{
 				toVisit.push(n);
 			return ret.data;
 		}
+	}
+	@Override 
+	public boolean equals(Object tree) {
+		GenericTree<T> t = (GenericTree<T>) tree;
+		return t.getRoot().equals(t.getRoot());
 	}
 }

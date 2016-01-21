@@ -29,18 +29,16 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-//		System.out.println("sequence method ins visitor, name: " + name + ": " + this.methodName + ", " + desc
-//				+ ": " + this.signature);
+		// System.out.println("sequence method ins visitor, name: " + name + ": " + this.methodName + ", " + desc
+		// + ": " + this.signature);
 		// System.out.println(desc);
 		if (name.equals(this.methodName) && desc.equals(this.signature)) {
-			// && (desc.equals(this.signature) || (signature != null && signature.equals(this.signature)))) {
-			
-			for (int i=3-this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
-				System.out.print("\t");
-				}
-			System.out.println("found method: " + name + ", " + desc);
-			MethodSequenceInsVisitor methodVisitor = new MethodSequenceInsVisitor(Opcodes.ASM5, toDecorate); // move
-			// methodVisitor.setMethodName(name);
+
+//			for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
+//				System.out.print("\t");
+//			}
+//			System.out.println("found method: " + name + ", " + desc);
+			MethodSequenceInsVisitor methodVisitor = new MethodSequenceInsVisitor(Opcodes.ASM5, toDecorate);
 			methodVisitor.setSequenceBuilder(this.sequenceBuilder);
 			methodVisitors.add(methodVisitor);
 
@@ -68,24 +66,6 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
-
-	// public HashSet<String> getUsesNames() {
-	// HashSet<String> usesNames = new HashSet<String>();
-	// for (String returnParam: returnParams) {
-	// usesNames.add(returnParam.replace(".", "/"));
-	// }
-	// for (MethodSequenceInsVisitor methodVisitor : methodVisitors) {
-	// for (String instantiation : methodVisitor.getInstantiations()) {
-	// Class<?> superClass;
-	// if ((superClass = isSubClassOfReturnOrParam(instantiation)) != null) {
-	// usesNames.remove(Type.getInternalName(superClass));
-	// usesNames.add(instantiation);
-	// }
-	// }
-	// }
-	// usesNames.remove("void");
-	// return usesNames;
-	// }
 
 	private Class<?> isSubClassOfReturnOrParam(String instantiation) {
 		try {

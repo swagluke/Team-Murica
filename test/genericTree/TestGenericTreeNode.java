@@ -1,5 +1,6 @@
-package generictree;
+package genericTree;
 import static org.junit.Assert.*;
+import genericTree.GenericTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

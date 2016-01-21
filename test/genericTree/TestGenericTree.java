@@ -1,6 +1,13 @@
-package generictree;
+package genericTree;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import genericTree.GenericTree;
+import genericTree.GenericTreeNode;
+import genericTree.GenericTreeTraversalOrderEnum;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -30,7 +37,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestExistsIsFalseOnNewTreeCreation() {
+    public void TestExistsIsFalseOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> nodeToFind = new GenericTreeNode<String>();
 
@@ -38,7 +45,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestFindReturnsNullOnNewTreeCreation() {
+    public void TestFindReturnsNullOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> nodeToFind = new GenericTreeNode<String>();
 
@@ -46,49 +53,49 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestPreOrderBuildReturnsNullListOnNewTreeCreation() {
+    public void TestPreOrderBuildReturnsNullListOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
 
         assertNull(tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER));
     }
 
     @Test
-    void TestPostOrderBuildReturnsNullListOnNewTreeCreation() {
+    public void TestPostOrderBuildReturnsNullListOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
 
         assertNull(tree.build(GenericTreeTraversalOrderEnum.POST_ORDER));
     }
 
     @Test
-    void TestPreOrderBuildWithDepthReturnsNullMapOnNewTreeCreation() {
+    public void TestPreOrderBuildWithDepthReturnsNullMapOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
 
         assertNull(tree.buildWithDepth(GenericTreeTraversalOrderEnum.PRE_ORDER));
     }
 
     @Test
-    void TestPostOrderBuildWithDepthReturnsNullMapOnNewTreeCreation() {
+    public void TestPostOrderBuildWithDepthReturnsNullMapOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
 
         assertNull(tree.buildWithDepth(GenericTreeTraversalOrderEnum.POST_ORDER));
     }
 
     @Test
-    void TestToStringReturnsEmptyStringOnNewTreeCreation() {
+    public void TestToStringReturnsEmptyStringOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
 
         assertEquals(tree.toString(), "");
     }
 
     @Test
-    void TestToStringWithDepthReturnsEmptyStringOnNewTreeCreation() {
+    public void TestToStringWithDepthReturnsEmptyStringOnNewTreeCreation() {
         GenericTree<String> tree = new GenericTree<String>();
 
         assertEquals(tree.toStringWithDepth(), "");
     }
 
     @Test
-    void TestSetRootGetRoot() {
+    public void TestSetRootGetRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>();
         tree.setRoot(root);
@@ -97,7 +104,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestNumberOfNodesIsOneWithNonNullRoot() {
+    public void TestNumberOfNodesIsOneWithNonNullRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>();
         tree.setRoot(root);
@@ -106,7 +113,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestEmptyIsFalseWithNonNullRoot() {
+    public void TestEmptyIsFalseWithNonNullRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>();
         tree.setRoot(root);
@@ -115,7 +122,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestPreOrderBuildListSizeIsOneWithNonNullRoot() {
+    public void TestPreOrderBuildListSizeIsOneWithNonNullRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>("root");
         tree.setRoot(root);
@@ -124,7 +131,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestPostOrderBuildListSizeIsOneWithNonNullRoot() {
+    public void TestPostOrderBuildListSizeIsOneWithNonNullRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>("root");
         tree.setRoot(root);
@@ -133,7 +140,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestPreOrderBuildWithDepthSizeIsOneWithNonNullRoot() {
+    public void TestPreOrderBuildWithDepthSizeIsOneWithNonNullRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>("root");
         tree.setRoot(root);
@@ -142,7 +149,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestPostOrderBuildWithDepthSizeIsOneWithNonNullRoot() {
+    public void TestPostOrderBuildWithDepthSizeIsOneWithNonNullRoot() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> root = new GenericTreeNode<String>("root");
         tree.setRoot(root);
@@ -162,7 +169,7 @@ public class TestGenericTree {
 
      */
     @Test
-    void TestNumberOfNodes() {
+    public void TestNumberOfNodes() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -180,7 +187,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestExistsReturnsTrue() {
+    public void TestExistsReturnsTrue() {
         GenericTree<String> tree = new GenericTree<String>();
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
         GenericTreeNode<String> childB = new GenericTreeNode<String>("B");
@@ -199,7 +206,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestFindReturnsNonNull() {
+    public void TestFindReturnsNonNull() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -219,7 +226,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestExistsReturnsFalse() {
+    public void TestExistsReturnsFalse() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -239,7 +246,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestFindReturnsNull() {
+    public void TestFindReturnsNull() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -260,7 +267,7 @@ public class TestGenericTree {
 
     // Pre-order traversal will give us A B C D
     @Test
-    void TestPreOrderBuild() {
+    public void TestPreOrderBuild() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -288,7 +295,7 @@ public class TestGenericTree {
 
     //Post-order traversal will give us B D C A
     @Test
-    void TestPostOrderBuild() {
+    public void TestPostOrderBuild() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -316,7 +323,7 @@ public class TestGenericTree {
 
     //Pre-order traversal with depth will give us A:0, B:1, C:1, D:2
     @Test
-    void TestPreOrderBuildWithDepth() {
+    public void TestPreOrderBuildWithDepth() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -344,7 +351,7 @@ public class TestGenericTree {
 
      //Post-order traversal with depth will give us B:1, D:2, C:1, A:0
     @Test
-    void TestPostOrderBuildWithDepth() {
+    public void TestPostOrderBuildWithDepth() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -372,7 +379,7 @@ public class TestGenericTree {
 
     //toString and toStringWithDepth both use pre-order traversal
     @Test
-    void TestToString() {
+    public void TestToString() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");
@@ -396,7 +403,7 @@ public class TestGenericTree {
     }
 
     @Test
-    void TestToStringWithDepth() {
+    public void TestToStringWithDepth() {
         GenericTree<String> tree = new GenericTree<String>();
 
         GenericTreeNode<String> rootA = new GenericTreeNode<String>("A");

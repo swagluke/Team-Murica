@@ -1,4 +1,4 @@
-package generictree;
+package genericTree;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -94,6 +94,12 @@ public class GenericTreeNode<T>{
         stringRepresentation += "]";
 
         return stringRepresentation;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+    	GenericTreeNode<T> node = (GenericTreeNode<T>) o;
+    	return node.children.equals(children) && node.getData().equals(data);
     }
 
 	
