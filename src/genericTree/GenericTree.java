@@ -227,6 +227,9 @@ public class GenericTree<T> implements Iterable<T> {
 	@Override
 	public boolean equals(Object tree) {
 		GenericTree<T> t = (GenericTree<T>) tree;
+		if (t.getRoot() == null || root == null) {
+			return false;
+		}
 		return t.getRoot().equals(root);
 	}
 }
