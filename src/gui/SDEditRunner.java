@@ -11,11 +11,30 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
+import org.objectweb.asm.Type;
+
+import records.MethodSignature;
+import sdedit.SequenceBuilder;
+
 public class SDEditRunner {
-	
+	/**
+	 * args fields: int depth, classname, method name, method parameter types...
+	 * @param args
+	 */
 	public static void main(String[] args){
 		System.out.println(Arrays.toString(args));
-		createDiagram("");
+		//construct the "methodField" argument
+		String[] paramTypes = Arrays.copyOfRange(args, 4, args.length);
+		Type[] typeDesc = new Type[paramTypes.length];
+		for(int i=0;i<paramTypes.length;i++){
+			typeDesc[i]=Type.getType(paramTypes[i]);
+		}
+		String methodDesc = Type.getMethodDescriptor(Type.getType(args[3]), typeDesc);
+			
+		
+		MethodSignature m = new MethodSignature(args[1], args[2], methodDesc);
+		SequenceBuilder s = new SequenceBuilder(m, Integer.parseInt(args[0]));
+		createDiagram(s.getSequenceUML());
 	}
 	public static void createDiagram(String diagram){
 		final Path path = Paths.get("test.sd");
