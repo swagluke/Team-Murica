@@ -7,7 +7,6 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
 import asm.ClassDeclarationVisitor;
-import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import asm.SequenceMethodInsVisitor;
 import jdk.internal.org.objectweb.asm.Type;
@@ -31,8 +30,26 @@ public class SequenceBuilder implements IBuilder {
 	}
 
 	public SequenceBuilder(MethodSignature m, int recursionDepth) {
-		this(m, null);
 		this.recursionDepthLeft = recursionDepth;
+		this.record = new SequenceRecord();
+		this.addMethodSignature(m);
+		System.out.println(
+				"\nCreated new sequence builder for " + m.getClassName() + ", depth: " + this.recursionDepthLeft);
+		try {
+			reader = new ClassReader(Type.getObjectType(m.getClassName()).getClassName());
+		} catch (IOException e) {
+			System.err.println(m.getClassName());
+			e.printStackTrace();
+		}
+		this.methodSignature = m;
+
+		this.declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+		this.methodVisitor = new SequenceMethodInsVisitor(Opcodes.ASM5, this.declVisitor);
+
+		this.methodVisitor.setMethodName(m.getMethodName());
+		this.methodVisitor.setSignature(m.getSignature());
+		this.methodVisitor.setSequenceBuilder(this);
+
 	}
 
 	public SequenceBuilder(MethodSignature m, SequenceBuilder previous) {
@@ -56,12 +73,10 @@ public class SequenceBuilder implements IBuilder {
 
 		this.declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 		this.methodVisitor = new SequenceMethodInsVisitor(Opcodes.ASM5, this.declVisitor);
-		;
 
 		this.methodVisitor.setMethodName(m.getMethodName());
 		this.methodVisitor.setSignature(m.getSignature());
 		this.methodVisitor.setSequenceBuilder(this);
-
 	}
 
 	public void addMethodSignature(MethodSignature m) {
