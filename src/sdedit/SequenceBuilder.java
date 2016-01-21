@@ -4,56 +4,93 @@ import java.io.IOException;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
-import asm.ClassMethodInsVisitor;
 import asm.ClassMethodVisitor;
-import asm.MethodInsVisitor;
-import records.ClassRecord;
-import records.IClassRecord;
+import asm.SequenceMethodInsVisitor;
+import jdk.internal.org.objectweb.asm.Type;
+import records.ISequenceRecord;
 import records.MethodSignature;
+import records.SequenceRecord;
 
 public class SequenceBuilder implements IBuilder{
 	MethodSignature signature;
 	private ClassReader reader;
-	ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
-	ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
-	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
-	private ClassRecord record;
-	private ClassMethodInsVisitor methodInstVisitor;
+	private ClassDeclarationVisitor declVisitor; 
+//	ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
+	private SequenceMethodInsVisitor methodVisitor;
+	private SequenceRecord record;
+	private int recursionDepthLeft;
 	private MethodSignature methodSignature;
 	
 	
-	public SequenceBuilder(MethodSignature m){
+	public SequenceBuilder(MethodSignature m) {
+		this(m, 5);
+		this.record = new SequenceRecord();
+	}
+	
+	public SequenceBuilder(MethodSignature m, int recusionDepth){
+		System.out.println("\nCreated new sequence builder for " + m.getClassName() + ", depth: " + recusionDepth);
+		this.recursionDepthLeft = recusionDepth;
 		try {
-			reader = new ClassReader(m.className);
+			reader = new ClassReader(Type.getObjectType(m.getClassName()).getClassName());
 		} catch (IOException e) {
-			System.err.println(m.className);
+			System.err.println(m.getClassName());
 			e.printStackTrace();
 		}
 		this.methodSignature = m;
-		this.methodInstVisitor = new ClassMethodInsVisitor(Opcodes.ASM5, methodVisitor);
+		
+		this.declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+		this.methodVisitor = new SequenceMethodInsVisitor(Opcodes.ASM5, this.declVisitor);;
+
+		this.methodVisitor.setMethodName(m.getMethodName());
+		this.methodVisitor.setSignature(m.getSignature());
+		this.methodVisitor.setSequenceBuilder(this);
+		
 
 	}
 	
-	public IClassRecord build() {
-//		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
+	@Override
+	public ClassVisitor getVisitor() {
+		return declVisitor;
+	}
+
+	public ClassMethodVisitor getMethodVisitor() {
+		return this.methodVisitor;
+	}
+
+	public ISequenceRecord build(ClassVisitor visitor) {
+		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-		reader.accept(methodInstVisitor, ClassReader.EXPAND_FRAMES);
-//		record = new SequenceRecord();
-		record.setClassName(declVisitor.getClassName());
-		record.setExtendsName(declVisitor.getExtendsName());
-		record.setImplementsList(declVisitor.getImplementsList());
-		record.setMethodsList(methodVisitor.getMethods());
-		for(MethodInsVisitor m:methodInstVisitor.methodVisitors){
-			if(m.methodName.equals(methodSignature.methodName)){
-				
-			}
-		}
+//		record.setClassName(declVisitor.getClassName());
+//		record.setMethodsList(methodVisitor.getMethods());
+//		for(MethodInsVisitor m:methodInstVisitor.methodVisitors){
+//			if(m.methodName.equals(methodSignature.methodName)){
+//				
+//			}
+//		}
 		return record;
 
+	}
+
+	@Override
+	public ISequenceRecord build() {
+		return this.build(this.getVisitor());
+	}
+
+	@Override
+	public String getSequenceUML() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public MethodSignature getSignature() {
+		return signature;
+	}
+
+	public int getRecursionDepth() {
+		return recursionDepthLeft;
 	}
 }
