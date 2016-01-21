@@ -24,7 +24,7 @@ public class SDEditRunnerTest {
 		File file = inputPath.toFile();
 		assertTrue(file.exists());
 		assertFalse(outputPath.toFile().exists());
-		SDEditRunner.main(new String[0]);
+		SDEditRunner.main(new String[] {"gui.UmlRunner"});
 		assertTrue(outputPath.toFile().exists());
 	}
 }
