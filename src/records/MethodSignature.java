@@ -1,11 +1,11 @@
 package records;
 
 public class MethodSignature {
-	
+
 	private String className;
 	private String methodName;
 	private String methodSignature;
-	
+
 	public MethodSignature(String className, String methodName, String signature) {
 		this.className = className;
 		this.methodName = methodName;
@@ -34,5 +34,17 @@ public class MethodSignature {
 
 	public void setSignature(String signature) {
 		this.methodSignature = signature;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		MethodSignature o = (MethodSignature) other;
+		return o.getClassName().equals(this.className) && o.getMethodName().equals(this.getMethodName())
+				&& o.getSignature().equals(this.methodSignature);
+	}
+	
+	@Override
+	public String toString() {
+		return this.getClassName() + ": " + this.getMethodName() + "(" + this.getSignature() + ")";
 	}
 }

@@ -30,6 +30,11 @@ public class SequenceBuilder implements IBuilder {
 		this(m, null);
 	}
 
+	public SequenceBuilder(MethodSignature m, int recursionDepth) {
+		this(m, null);
+		this.recursionDepthLeft = recursionDepth;
+	}
+
 	public SequenceBuilder(MethodSignature m, SequenceBuilder previous) {
 		this.previous = previous;
 		if (previous != null) {
