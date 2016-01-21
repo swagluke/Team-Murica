@@ -3,8 +3,8 @@ package records;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-import generictree.GenericTree;
-import generictree.GenericTreeNode;
+import genericTree.GenericTree;
+import genericTree.GenericTreeNode;
 
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();

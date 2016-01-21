@@ -1,4 +1,4 @@
-package generictree;
+package genericTree;
 
 import java.util.*;
 
@@ -214,5 +214,10 @@ public class GenericTree<T>  implements Iterable<T>{
 				toVisit.push(n);
 			return ret.data;
 		}
+	}
+	@Override 
+	public boolean equals(Object tree) {
+		GenericTree<T> t = (GenericTree<T>) tree;
+		return t.getRoot().equals(t.getRoot());
 	}
 }
