@@ -22,8 +22,8 @@ public class SDEditRunner {
 
 		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
 				StandardOpenOption.CREATE);) {
-//			writer.write(diagram);
-//			writer.flush();
+			writer.write(diagram);
+			writer.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
