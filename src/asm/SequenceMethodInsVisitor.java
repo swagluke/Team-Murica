@@ -34,10 +34,14 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 		// System.out.println(desc);
 		if (name.equals(this.methodName) && desc.equals(this.signature)) {
 			// && (desc.equals(this.signature) || (signature != null && signature.equals(this.signature)))) {
+			
+			for (int i=3-this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
+				System.out.print("\t");
+				}
 			System.out.println("found method: " + name + ", " + desc);
 			MethodSequenceInsVisitor methodVisitor = new MethodSequenceInsVisitor(Opcodes.ASM5, toDecorate); // move
 			// methodVisitor.setMethodName(name);
-			methodVisitor.setLastSequenceBuilder(this.sequenceBuilder);
+			methodVisitor.setSequenceBuilder(this.sequenceBuilder);
 			methodVisitors.add(methodVisitor);
 
 			return methodVisitor;
