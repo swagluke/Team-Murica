@@ -1,6 +1,6 @@
 package sdedit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class SequenceBuilderTest {
 						new MethodSignature("sdedit/Foo", "addOne", "(I)I"),
 						new MethodSignature("sdedit/Foo", "addOne", "(I)I"))),
 				"");
+		fail(); // refactor to add parent method sigs
 	}
 
 	@Test

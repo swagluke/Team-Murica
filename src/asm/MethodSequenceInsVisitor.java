@@ -17,7 +17,8 @@ public class MethodSequenceInsVisitor extends MethodVisitor {
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		// creat new method signature
-		MethodSignature methodSignature = new MethodSignature(owner, name, desc);
+		// TODO thread the parent method signature through
+		MethodSignature methodSignature = new MethodSignature(owner, name, desc, null);
 		System.out.println("HEllo name: " + name + " owner: " + owner + " desc: " + desc);
 
 		if (this.lastSequenceBuilder.getRecursionDepth() > 1) {
