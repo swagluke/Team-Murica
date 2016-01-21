@@ -1,6 +1,6 @@
 package records;
 
 public interface ISequenceRecord {
-	public String getSequenceUml();
+	public String getSequenceDiagram();
 
 }

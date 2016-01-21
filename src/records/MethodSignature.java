@@ -1,16 +1,20 @@
 package records;
 
+import java.util.ArrayList;
+
 public class MethodSignature {
 
 	private String className;
 	private String methodName;
 	private String methodSignature;
 	private MethodSignature parent;
+	private ArrayList<MethodSignature> children;
 
-	public MethodSignature(String className, String methodName, String signature, MethodSignature parent) {
+	public MethodSignature(String className, String methodName, String signature, ArrayList<MethodSignature> children, MethodSignature parent) {
 		this.className = className;
 		this.methodName = methodName;
 		this.methodSignature = signature;
+		this.children = children;
 		this.parent = parent;
 	}
 
@@ -38,8 +42,8 @@ public class MethodSignature {
 		this.methodSignature = signature;
 	}
 
-	public MethodSignature getParent() {
-		return this.parent;
+	public ArrayList<MethodSignature> getChildren() {
+		return this.children;
 	}
 	@Override
 	public boolean equals(Object other) {
@@ -51,5 +55,13 @@ public class MethodSignature {
 	@Override
 	public String toString() {
 		return this.getClassName() + ": " + this.getMethodName() + "(" + this.getSignature() + ")";
+	}
+
+	public MethodSignature getParent() {
+		return parent;
+	}
+
+	public void setParent(MethodSignature parent) {
+		this.parent = parent;
 	}
 }

@@ -50,7 +50,7 @@ public class SequenceBuilderTest {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature);
 		SequenceRecord record = (SequenceRecord) builder.build();
 		assertEquals(expectedResult, record.getMethodCalls());
-		assertEquals(expectedSequenceUml, record.getSequenceUml());
+		assertEquals(expectedSequenceUml, record.getSequenceDiagram());
 	}
 
 	public void assertSequenceBuilder(MethodSignature methodSignature, int recursionDepth,
@@ -58,6 +58,6 @@ public class SequenceBuilderTest {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
 		assertEquals(expectedResult, record.getMethodCalls());
-		assertEquals(expectedSequenceUml, record.getSequenceUml());
+		assertEquals(expectedSequenceUml, record.getSequenceDiagram());
 	}
 }

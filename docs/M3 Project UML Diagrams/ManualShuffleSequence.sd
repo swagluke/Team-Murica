@@ -5,8 +5,9 @@ list:List<?>
 /listIterator:ListIterator
 /atomiclong:AtomicLong
 /illegalArgumentException:IllegalArgumentException
-long:Long
 system:System
+long:Long
+
 
 process:collections.shuffle
  collections:random.new()
