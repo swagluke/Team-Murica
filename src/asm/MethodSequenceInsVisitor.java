@@ -7,7 +7,6 @@ import records.SequenceRecord;
 import sdedit.SequenceBuilder;
 
 public class MethodSequenceInsVisitor extends MethodVisitor {
-	private SequenceRecord record = new SequenceRecord(); // not sure if should be creating each time
 	private SequenceBuilder lastSequenceBuilder;
 //	public String methodName;
 
@@ -20,11 +19,8 @@ public class MethodSequenceInsVisitor extends MethodVisitor {
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		// creat new method signature
 		MethodSignature methodSignature = new MethodSignature(owner, name, desc);
-		SequenceBuilder sequenceBuilder = new SequenceBuilder(methodSignature, this.lastSequenceBuilder.getRecursionDepth() - 1);
+		SequenceBuilder sequenceBuilder = new SequenceBuilder(methodSignature, this.lastSequenceBuilder);
 		// create new sequence builder here
-		if (desc.equals("(Ljava/util/List;Ljava/util/Random;)V") ) {
-			System.out.println();
-		}
 		 System.out.println("HEllo name: " + name + " owner: " + owner + " desc: " + desc);
 		 sequenceBuilder.build();
 		 
@@ -38,10 +34,6 @@ public class MethodSequenceInsVisitor extends MethodVisitor {
 		this.lastSequenceBuilder = lastSequenceBuilder;
 	}
 
-	public SequenceRecord getRecord() {
-		return this.record;
-	}
-	
 //	public void setMethodName(String name) {
 //		this.methodName = name;
 //	}

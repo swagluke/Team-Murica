@@ -18,4 +18,8 @@ public class SequenceRecord implements ISequenceRecord {
 	public void setMethodCalls(ArrayList<MethodSignature> methodCalls) {
 		this.methodCalls = methodCalls;
 	}
+	
+	public void addMethodCall(MethodSignature m) {
+		this.methodCalls.add(m);
+	}
 }
