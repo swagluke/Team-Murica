@@ -14,7 +14,6 @@ public class SingletonRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
-		System.out.println("hello");
 		String innerUML = innerRecord.getClassUml();
 		if(!this.isSingleton()){
 			return innerUML;
@@ -48,13 +47,13 @@ public class SingletonRecord implements IClassRecord {
 
 		return s.toString();
 	}
-	//TODO: do stuff here 
-	private boolean isSingleton() {
+
+	public boolean isSingleton() {
 		ClassRecord baseRecord = this.getBaseRecord();
 		boolean hasField = false;
 		for (InstanceVarRecord field : baseRecord.getFieldsList()) {
 			if (field.getAccess() == 10 && field.getType().equals(baseRecord.getClassName().replace("/", "."))) {
-				System.out.println("has singleton field");
+//				System.out.println("has singleton field");
 				hasField = true;
 				break;
 			}
@@ -66,19 +65,19 @@ public class SingletonRecord implements IClassRecord {
 		boolean hasGetter = false;
 		for (MethodRecord method : baseRecord.getMethodsList()) {
 			if (method.getAccess() == 1 && method.getName().equals("<init>")) {
-				System.out.println("has public constructor");
+//				System.out.println("has public constructor");
 				hasPublicConstructor = true;
 			}
 			if (method.getAccess() == 9 && method.getReturnType().equals(baseRecord.getClassName().replace("/", "."))) {
-				System.out.println("has getter");
+//				System.out.println("has getter");
 				hasGetter = true;
 			}
-			System.out.println(method.getName());
-			System.out.println(method.getAccess());
-			System.out.println(method.getReturnType());
-			System.out.println();
+//			System.out.println(method.getName());
+//			System.out.println(method.getAccess());
+//			System.out.println(method.getReturnType());
+//			System.out.println();
 		}
-		System.out.println("hasField: " + hasField + ", !hasPublicConstructor: " + !hasPublicConstructor + ", hasGetter: " + hasGetter);
+//		System.out.println("hasField: " + hasField + ", !hasPublicConstructor: " + !hasPublicConstructor + ", hasGetter: " + hasGetter);
 		return hasField && !hasPublicConstructor && hasGetter;
 	}
 

@@ -39,14 +39,14 @@ public class UmlRunner {
 		for (String className : args) {
 			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
 			SingletonBuilder sb = new SingletonBuilder(d);
-//			ExtensionBuilder e = new ExtensionBuilder(d);
-//			ImplementsBuilder i = new ImplementsBuilder(e);
-//			UsesBuilder u = new UsesBuilder(i);
-//			AssociationBuilder a = new AssociationBuilder(u);
+			ExtensionBuilder e = new ExtensionBuilder(sb);
+			ImplementsBuilder i = new ImplementsBuilder(e);
+			UsesBuilder u = new UsesBuilder(i);
+			AssociationBuilder a = new AssociationBuilder(u);
 			// s.append(d.getClassUML() + "\n");
-			sb.build();
+			a.build();
 //			s.append(d.getClassUML());
-			s.append(sb.getClassUML());
+//			s.append(a.getClassUML());
 //			s.append(e.getClassUML());
 //			s.append(i.getClassUML());
 //			s.append(u.getClassUML());

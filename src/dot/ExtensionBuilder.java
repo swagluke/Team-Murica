@@ -33,7 +33,7 @@ public class ExtensionBuilder implements IBuilder {
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
 		IClassRecord record = builder.build(visitor);
-		extendedRecord = new ExtendedClassRecord((ClassRecord) record);
+		extendedRecord = new ExtendedClassRecord(record.getBaseRecord());
 		extendedRecord.setExtendsName(this.visitor.getExtendsName());
 		return extendedRecord;
 	}
@@ -50,7 +50,7 @@ public class ExtensionBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		return this.extendedRecord.getClassUml();
+		return this.builder.getClassUML() + this.extendedRecord.getClassUml();
 	}
 
 }
