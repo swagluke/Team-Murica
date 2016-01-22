@@ -57,7 +57,7 @@ public class SequenceBuilder implements IBuilder {
 		this.methodVisitor = new SequenceMethodInsVisitor(Opcodes.ASM5, this.declVisitor);
 
 		this.methodVisitor.setMethodName(m.getMethodName());
-		this.methodVisitor.setSignature(m.getSignature());
+		this.methodVisitor.setSignature(m.getMethodArgs());
 		this.methodVisitor.setSequenceBuilder(this);
 
 	}
@@ -89,7 +89,7 @@ public class SequenceBuilder implements IBuilder {
 		this.methodVisitor = new SequenceMethodInsVisitor(Opcodes.ASM5, this.declVisitor);
 
 		this.methodVisitor.setMethodName(m.getMethodName());
-		this.methodVisitor.setSignature(m.getSignature());
+		this.methodVisitor.setSignature(m.getMethodArgs());
 		this.methodVisitor.setSequenceBuilder(this);
 	}
 

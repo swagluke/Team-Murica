@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.objectweb.asm.Type;
 
 import generictree.GenericTree;
 import generictree.GenericTreeNode;
@@ -18,21 +19,21 @@ public class SequenceBuilderTest {
 		GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();
 
 		GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Foo", "<init>", "()V"));
+				new MethodSignature("sdedit/Foo", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node0 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node1 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Bar", "<init>", "(Lsdedit/Foo;)V"));
+				new MethodSignature("sdedit/Bar", "<init>", Type.getArgumentTypes("(Lsdedit/Foo;)V")));
 		GenericTreeNode<MethodSignature> node10 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node11 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Bar", "methodA", "()V"));
+				new MethodSignature("sdedit/Bar", "methodA", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node110 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Bar", "methodB", "(I)I"));
+				new MethodSignature("sdedit/Bar", "methodB", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node1100 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Foo", "addOne", "(I)I"));
+				new MethodSignature("sdedit/Foo", "addOne", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node2 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Foo", "addOne", "(I)I"));
+				new MethodSignature("sdedit/Foo", "addOne", Type.getArgumentTypes("(I)I")));
 
 		tree.setRoot(root);
 		root.addChild(node0);
@@ -43,7 +44,7 @@ public class SequenceBuilderTest {
 		node110.addChild(node1100);
 		root.addChild(node2);
 
-		assertSequenceBuilder(new MethodSignature("sdedit/Foo", "<init>", "()V"), tree, "");
+		assertSequenceBuilder(new MethodSignature("sdedit/Foo", "<init>", Type.getArgumentTypes("()V")), tree, "");
 	}
 
 	@Test
@@ -51,19 +52,19 @@ public class SequenceBuilderTest {
 		GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();
 
 		GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Foo", "<init>", "()V"));
+				new MethodSignature("sdedit/Foo", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node0 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node1 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Bar", "<init>", "(Lsdedit/Foo;)V"));
+				new MethodSignature("sdedit/Bar", "<init>", Type.getArgumentTypes("(Lsdedit/Foo;)V")));
 		GenericTreeNode<MethodSignature> node10 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node11 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Bar", "methodA", "()V"));
+				new MethodSignature("sdedit/Bar", "methodA", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node110 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Bar", "methodB", "(I)I"));
+				new MethodSignature("sdedit/Bar", "methodB", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node2 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sdedit/Foo", "addOne", "(I)I"));
+				new MethodSignature("sdedit/Foo", "addOne", Type.getArgumentTypes("(I)I")));
 
 		tree.setRoot(root);
 		root.addChild(node0);
@@ -73,7 +74,7 @@ public class SequenceBuilderTest {
 		node11.addChild(node110);
 		root.addChild(node2);
 
-		assertSequenceBuilder(new MethodSignature("sdedit/Foo", "<init>", "()V"), 3, tree, "");
+		assertSequenceBuilder(new MethodSignature("sdedit/Foo", "<init>", Type.getArgumentTypes("()V")), 3, tree, "");
 	}
 
 	@Test
@@ -81,115 +82,115 @@ public class SequenceBuilderTest {
 		GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();
 
 		GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"));
+				new MethodSignature("java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;)V")));
 		GenericTreeNode<MethodSignature> node0 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "<init>", "()V"));
+				new MethodSignature("java/util/Random", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node00 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "seedUniquifier", "()J"));
+				new MethodSignature("java/util/Random", "seedUniquifier", Type.getArgumentTypes("()J")));
 		GenericTreeNode<MethodSignature> node000 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", "()J"));
-		GenericTreeNode<MethodSignature> node001 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "compareAndSet", "(JJ)Z"));
-		GenericTreeNode<MethodSignature> node0010 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sun/misc/Unsafe", "compareAndSwapLong", "(Ljava/lang/Object;JJJ)Z"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", Type.getArgumentTypes("()J")));
+		GenericTreeNode<MethodSignature> node001 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/concurrent/atomic/AtomicLong", "compareAndSet", Type.getArgumentTypes("(JJ)Z")));
+		GenericTreeNode<MethodSignature> node0010 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"sun/misc/Unsafe", "compareAndSwapLong", Type.getArgumentTypes("(Ljava/lang/Object;JJJ)Z")));
 		GenericTreeNode<MethodSignature> node01 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/System", "nanoTime", "()J"));
+				new MethodSignature("java/lang/System", "nanoTime", Type.getArgumentTypes("()J")));
 		GenericTreeNode<MethodSignature> node02 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "<init>", "(J)V"));
+				new MethodSignature("java/util/Random", "<init>", Type.getArgumentTypes("(J)V")));
 		GenericTreeNode<MethodSignature> node020 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node021 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "getClass", "()Ljava/lang/Class;"));
+				new MethodSignature("java/lang/Object", "getClass", Type.getArgumentTypes("()Ljava/lang/Class);")));
 		GenericTreeNode<MethodSignature> node022 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "initialScramble", "(J)J"));
+				new MethodSignature("java/util/Random", "initialScramble", Type.getArgumentTypes("(J)J")));
 		GenericTreeNode<MethodSignature> node023 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "<init>", "(J)V"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "<init>", Type.getArgumentTypes("(J)V")));
 		GenericTreeNode<MethodSignature> node0230 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Number", "<init>", "()V"));
+				new MethodSignature("java/lang/Number", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node02300 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node024 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "<init>", "()V"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node0240 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Number", "<init>", "()V"));
+				new MethodSignature("java/lang/Number", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node02400 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Object", "<init>", "()V"));
+				new MethodSignature("java/lang/Object", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node025 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "setSeed", "(J)V"));
+				new MethodSignature("java/util/Random", "setSeed", Type.getArgumentTypes("(J)V")));
 		GenericTreeNode<MethodSignature> node0250 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "initialScramble", "(J)J"));
+				new MethodSignature("java/util/Random", "initialScramble", Type.getArgumentTypes("(J)J")));
 		GenericTreeNode<MethodSignature> node0251 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "set", "(J)V"));
-		GenericTreeNode<MethodSignature> node1 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;Ljava/util/Random;)V"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "set", Type.getArgumentTypes("(J)V")));
+		GenericTreeNode<MethodSignature> node1 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;Ljava/util/Random;)V")));
 		GenericTreeNode<MethodSignature> node10 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "size", "()I"));
+				new MethodSignature("java/util/List", "size", Type.getArgumentTypes("()I")));
 		GenericTreeNode<MethodSignature> node11 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "nextInt", "(I)I"));
-		GenericTreeNode<MethodSignature> node110 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V"));
-		GenericTreeNode<MethodSignature> node1100 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/RuntimeException", "<init>", "(Ljava/lang/String;)V"));
+				new MethodSignature("java/util/Random", "nextInt", Type.getArgumentTypes("(I)I")));
+		GenericTreeNode<MethodSignature> node110 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/lang/IllegalArgumentException", "<init>", Type.getArgumentTypes("(Ljava/lang/String;)V")));
+		GenericTreeNode<MethodSignature> node1100 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/lang/RuntimeException", "<init>", Type.getArgumentTypes("(Ljava/lang/String;)V")));
 		GenericTreeNode<MethodSignature> node11000 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Exception", "<init>", "(Ljava/lang/String;)V"));
+				new MethodSignature("java/lang/Exception", "<init>", Type.getArgumentTypes("(Ljava/lang/String;)V")));
 		GenericTreeNode<MethodSignature> node111 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "next", "(I)I"));
+				new MethodSignature("java/util/Random", "next", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node1110 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", "()J"));
-		GenericTreeNode<MethodSignature> node1111 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "compareAndSet", "(JJ)Z"));
-		GenericTreeNode<MethodSignature> node11110 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sun/misc/Unsafe", "compareAndSwapLong", "(Ljava/lang/Object;JJJ)Z"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", Type.getArgumentTypes("()J")));
+		GenericTreeNode<MethodSignature> node1111 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/concurrent/atomic/AtomicLong", "compareAndSet", Type.getArgumentTypes("(JJ)Z")));
+		GenericTreeNode<MethodSignature> node11110 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"sun/misc/Unsafe", "compareAndSwapLong", Type.getArgumentTypes("(Ljava/lang/Object;JJJ)Z")));
 		GenericTreeNode<MethodSignature> node112 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "next", "(I)I"));
+				new MethodSignature("java/util/Random", "next", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node1120 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", "()J"));
-		GenericTreeNode<MethodSignature> node1121 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "compareAndSet", "(JJ)Z"));
-		GenericTreeNode<MethodSignature> node11210 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sun/misc/Unsafe", "compareAndSwapLong", "(Ljava/lang/Object;JJJ)Z"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", Type.getArgumentTypes("()J")));
+		GenericTreeNode<MethodSignature> node1121 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/concurrent/atomic/AtomicLong", "compareAndSet", Type.getArgumentTypes("(JJ)Z")));
+		GenericTreeNode<MethodSignature> node11210 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"sun/misc/Unsafe", "compareAndSwapLong", Type.getArgumentTypes("(Ljava/lang/Object;JJJ)Z")));
 		GenericTreeNode<MethodSignature> node12 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "swap", "(Ljava/util/List;II)V"));
+				new MethodSignature("java/util/Collections", "swap", Type.getArgumentTypes("(Ljava/util/List;II)V")));
 		GenericTreeNode<MethodSignature> node120 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "get", "(I)Ljava/lang/Object;"));
-		GenericTreeNode<MethodSignature> node121 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "set", "(ILjava/lang/Object;)Ljava/lang/Object;"));
-		GenericTreeNode<MethodSignature> node122 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "set", "(ILjava/lang/Object;)Ljava/lang/Object;"));
+				new MethodSignature("java/util/List", "get", Type.getArgumentTypes("(I)Ljava/lang/Object);")));
+		GenericTreeNode<MethodSignature> node121 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/List", "set", Type.getArgumentTypes("(ILjava/lang/Object;)Ljava/lang/Object);")));
+		GenericTreeNode<MethodSignature> node122 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/List", "set", Type.getArgumentTypes("(ILjava/lang/Object;)Ljava/lang/Object);")));
 		GenericTreeNode<MethodSignature> node13 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "toArray", "()[Ljava/lang/Object;"));
+				new MethodSignature("java/util/List", "toArray", Type.getArgumentTypes("()[Ljava/lang/Object);")));
 		GenericTreeNode<MethodSignature> node14 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "nextInt", "(I)I"));
-		GenericTreeNode<MethodSignature> node140 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V"));
-		GenericTreeNode<MethodSignature> node1400 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/RuntimeException", "<init>", "(Ljava/lang/String;)V"));
+				new MethodSignature("java/util/Random", "nextInt", Type.getArgumentTypes("(I)I")));
+		GenericTreeNode<MethodSignature> node140 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/lang/IllegalArgumentException", "<init>", Type.getArgumentTypes("(Ljava/lang/String;)V")));
+		GenericTreeNode<MethodSignature> node1400 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/lang/RuntimeException", "<init>", Type.getArgumentTypes("(Ljava/lang/String;)V")));
 		GenericTreeNode<MethodSignature> node14000 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/Exception", "<init>", "(Ljava/lang/String;)V"));
+				new MethodSignature("java/lang/Exception", "<init>", Type.getArgumentTypes("(Ljava/lang/String;)V")));
 		GenericTreeNode<MethodSignature> node141 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "next", "(I)I"));
+				new MethodSignature("java/util/Random", "next", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node1410 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", "()J"));
-		GenericTreeNode<MethodSignature> node1411 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "compareAndSet", "(JJ)Z"));
-		GenericTreeNode<MethodSignature> node14110 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sun/misc/Unsafe", "compareAndSwapLong", "(Ljava/lang/Object;JJJ)Z"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", Type.getArgumentTypes("()J")));
+		GenericTreeNode<MethodSignature> node1411 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/concurrent/atomic/AtomicLong", "compareAndSet", Type.getArgumentTypes("(JJ)Z")));
+		GenericTreeNode<MethodSignature> node14110 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"sun/misc/Unsafe", "compareAndSwapLong", Type.getArgumentTypes("(Ljava/lang/Object;JJJ)Z")));
 		GenericTreeNode<MethodSignature> node142 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "next", "(I)I"));
+				new MethodSignature("java/util/Random", "next", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node1420 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", "()J"));
-		GenericTreeNode<MethodSignature> node1421 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "compareAndSet", "(JJ)Z"));
-		GenericTreeNode<MethodSignature> node14210 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("sun/misc/Unsafe", "compareAndSwapLong", "(Ljava/lang/Object;JJJ)Z"));
-		GenericTreeNode<MethodSignature> node15 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "swap", "([Ljava/lang/Object;II)V"));
-		GenericTreeNode<MethodSignature> node16 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "listIterator", "()Ljava/util/ListIterator;"));
+				new MethodSignature("java/util/concurrent/atomic/AtomicLong", "get", Type.getArgumentTypes("()J")));
+		GenericTreeNode<MethodSignature> node1421 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/concurrent/atomic/AtomicLong", "compareAndSet", Type.getArgumentTypes("(JJ)Z")));
+		GenericTreeNode<MethodSignature> node14210 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"sun/misc/Unsafe", "compareAndSwapLong", Type.getArgumentTypes("(Ljava/lang/Object;JJJ)Z")));
+		GenericTreeNode<MethodSignature> node15 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/Collections", "swap", Type.getArgumentTypes("([Ljava/lang/Object;II)V")));
+		GenericTreeNode<MethodSignature> node16 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/List", "listIterator", Type.getArgumentTypes("()Ljava/util/ListIterator);")));
 		GenericTreeNode<MethodSignature> node17 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/ListIterator", "next", "()Ljava/lang/Object;"));
+				new MethodSignature("java/util/ListIterator", "next", Type.getArgumentTypes("()Ljava/lang/Object);")));
 		GenericTreeNode<MethodSignature> node18 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/ListIterator", "set", "(Ljava/lang/Object;)V"));
+				new MethodSignature("java/util/ListIterator", "set", Type.getArgumentTypes("(Ljava/lang/Object;)V")));
 
 		tree.setRoot(root);
 		root.addChild(node0);
@@ -247,7 +248,9 @@ public class SequenceBuilderTest {
 		node1.addChild(node17);
 		node1.addChild(node18);
 
-		assertSequenceBuilder(new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"), tree, "");
+		assertSequenceBuilder(
+				new MethodSignature("java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;)V")),
+				tree, "");
 	}
 
 	@Test
@@ -255,35 +258,35 @@ public class SequenceBuilderTest {
 		GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();
 
 		GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"));
+				new MethodSignature("java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;)V")));
 		GenericTreeNode<MethodSignature> node0 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "<init>", "()V"));
+				new MethodSignature("java/util/Random", "<init>", Type.getArgumentTypes("()V")));
 		GenericTreeNode<MethodSignature> node00 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "seedUniquifier", "()J"));
+				new MethodSignature("java/util/Random", "seedUniquifier", Type.getArgumentTypes("()J")));
 		GenericTreeNode<MethodSignature> node01 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/lang/System", "nanoTime", "()J"));
+				new MethodSignature("java/lang/System", "nanoTime", Type.getArgumentTypes("()J")));
 		GenericTreeNode<MethodSignature> node02 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "<init>", "(J)V"));
-		GenericTreeNode<MethodSignature> node1 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;Ljava/util/Random;)V"));
+				new MethodSignature("java/util/Random", "<init>", Type.getArgumentTypes("(J)V")));
+		GenericTreeNode<MethodSignature> node1 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;Ljava/util/Random;)V")));
 		GenericTreeNode<MethodSignature> node10 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "size", "()I"));
+				new MethodSignature("java/util/List", "size", Type.getArgumentTypes("()I")));
 		GenericTreeNode<MethodSignature> node11 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "nextInt", "(I)I"));
+				new MethodSignature("java/util/Random", "nextInt", Type.getArgumentTypes("(I)I")));
 		GenericTreeNode<MethodSignature> node12 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "swap", "(Ljava/util/List;II)V"));
+				new MethodSignature("java/util/Collections", "swap", Type.getArgumentTypes("(Ljava/util/List;II)V")));
 		GenericTreeNode<MethodSignature> node13 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "toArray", "()[Ljava/lang/Object;"));
+				new MethodSignature("java/util/List", "toArray", Type.getArgumentTypes("()[Ljava/lang/Object);")));
 		GenericTreeNode<MethodSignature> node14 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Random", "nextInt", "(I)I"));
-		GenericTreeNode<MethodSignature> node15 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/Collections", "swap", "([Ljava/lang/Object;II)V"));
-		GenericTreeNode<MethodSignature> node16 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/List", "listIterator", "()Ljava/util/ListIterator;"));
+				new MethodSignature("java/util/Random", "nextInt", Type.getArgumentTypes("(I)I")));
+		GenericTreeNode<MethodSignature> node15 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/Collections", "swap", Type.getArgumentTypes("([Ljava/lang/Object;II)V")));
+		GenericTreeNode<MethodSignature> node16 = new GenericTreeNode<MethodSignature>(new MethodSignature(
+				"java/util/List", "listIterator", Type.getArgumentTypes("()Ljava/util/ListIterator);")));
 		GenericTreeNode<MethodSignature> node17 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/ListIterator", "next", "()Ljava/lang/Object;"));
+				new MethodSignature("java/util/ListIterator", "next", Type.getArgumentTypes("()Ljava/lang/Object);")));
 		GenericTreeNode<MethodSignature> node18 = new GenericTreeNode<MethodSignature>(
-				new MethodSignature("java/util/ListIterator", "set", "(Ljava/lang/Object;)V"));
+				new MethodSignature("java/util/ListIterator", "set", Type.getArgumentTypes("(Ljava/lang/Object;)V")));
 
 		tree.setRoot(root);
 		root.addChild(node0);
@@ -301,8 +304,9 @@ public class SequenceBuilderTest {
 		node1.addChild(node17);
 		node1.addChild(node18);
 
-		assertSequenceBuilder(new MethodSignature("java/util/Collections", "shuffle", "(Ljava/util/List;)V"), 2, tree,
-				"");
+		assertSequenceBuilder(
+				new MethodSignature("java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;)V")),
+				2, tree, "");
 	}
 
 	public void assertSequenceBuilder(MethodSignature methodSignature, GenericTree<MethodSignature> expectedResult,
@@ -310,21 +314,21 @@ public class SequenceBuilderTest {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature);
 		SequenceRecord record = (SequenceRecord) builder.build();
 
-//		GenericTree<MethodSignature> methods = record.getMethodCalls();
-//		GenericTreeNode<MethodSignature> root = methods.getRoot();
-//		StringBuilder decl = new StringBuilder();
-//		StringBuilder add = new StringBuilder();
-//		for (int i = 0; i < root.getNumberOfChildren(); i++) {
-//			printNode(root.getChildAt(i), new ArrayList<Integer>(Arrays.asList(new Integer[] { i })), decl, add);
-//		}
-//		System.out.println("GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();\n");
-//		System.out.println(
-//				"GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(new MethodSignature(\""
-//						+ methodSignature.getClassName() + "\", \"" + methodSignature.getMethodName() + "\", \""
-//						+ methodSignature.getSignature() + "\"));");
-//		System.out.println(decl.toString());
-//		System.out.println("tree.setRoot(root);");
-//		System.out.println(add.toString());
+		// GenericTree<MethodSignature> methods = record.getMethodCalls();
+		// GenericTreeNode<MethodSignature> root = methods.getRoot();
+		// StringBuilder decl = new StringBuilder();
+		// StringBuilder add = new StringBuilder();
+		// for (int i = 0; i < root.getNumberOfChildren(); i++) {
+		// printNode(root.getChildAt(i), new ArrayList<Integer>(Arrays.asList(new Integer[] { i })), decl, add);
+		// }
+		// System.out.println("GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();\n");
+		// System.out.println(
+		// "GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(new MethodSignature(\""
+		// + methodSignature.getClassName() + "\", \"" + methodSignature.getMethodName() + "\", \""
+		// + methodSignature.getSignature() + "\"));");
+		// System.out.println(decl.toString());
+		// System.out.println("tree.setRoot(root);");
+		// System.out.println(add.toString());
 
 		assertEquals(expectedResult, record.getMethodCalls());
 		// assertEquals(expectedSequenceUml, record.getSequenceDiagram());
@@ -334,29 +338,28 @@ public class SequenceBuilderTest {
 			GenericTree<MethodSignature> expectedResult, String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
-		for(MethodSignature m:record.getMethodCalls()){
-			System.out.println("className: "+m.getClassName() + " MethodName: "+ m.getMethodName());
+		for (MethodSignature m : record.getMethodCalls()) {
+			System.out.println("className: " + m.getClassName() + " MethodName: " + m.getMethodName());
 		}
-//		GenericTree<MethodSignature> methods = record.getMethodCalls();
-//		GenericTreeNode<MethodSignature> root = methods.getRoot();
-//		StringBuilder decl = new StringBuilder();
-//		StringBuilder add = new StringBuilder();
-//		for (int i = 0; i < root.getNumberOfChildren(); i++) {
-//			printNode(root.getChildAt(i), new ArrayList<Integer>(Arrays.asList(new Integer[] { i })), decl, add);
-//		}
-//		System.out.println("GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();\n");
-//		System.out.println(
-//				"GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(new MethodSignature(\""
-//						+ methodSignature.getClassName() + "\", \"" + methodSignature.getMethodName() + "\", \""
-//						+ methodSignature.getSignature() + "\"));");
-//		System.out.println(decl.toString());
-//		System.out.println("tree.setRoot(root);");
-//		System.out.println(add.toString());
-
-		assertEquals(expectedResult, record.getMethodCalls());
+		// GenericTree<MethodSignature> methods = record.getMethodCalls();
+		// GenericTreeNode<MethodSignature> root = methods.getRoot();
+		// StringBuilder decl = new StringBuilder();
+		// StringBuilder add = new StringBuilder();
+		// for (int i = 0; i < root.getNumberOfChildren(); i++) {
+		// printNode(root.getChildAt(i), new ArrayList<Integer>(Arrays.asList(new Integer[] { i })), decl, add);
+		// }
+		// System.out.println("GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();\n");
+		// System.out.println(
+		// "GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(new MethodSignature(\""
+		// + methodSignature.getClassName() + "\", \"" + methodSignature.getMethodName() + "\", \""
+		// + methodSignature.getSignature() + "\"));");
+		// System.out.println(decl.toString());
+		// System.out.println("tree.setRoot(root);");
+		// System.out.println(add.toString());
+		 assertEquals(expectedResult, record.getMethodCalls());
 		// assertEquals(expectedSequenceUml, record.getSequenceDiagram());
 	}
-	
+
 	public void printNode(GenericTreeNode<MethodSignature> node, ArrayList<Integer> level, StringBuilder decl,
 			StringBuilder add) {
 		MethodSignature data = node.data;
@@ -365,7 +368,7 @@ public class SequenceBuilderTest {
 			decl.append(i);
 		}
 		decl.append(" = new GenericTreeNode<MethodSignature>(new MethodSignature(\"" + data.getClassName() + "\", \""
-				+ data.getMethodName() + "\", \"" + data.getSignature() + "\"));\n");
+				+ data.getMethodName() + "\", \"" + data.getMethodArgs() + "\"));\n");
 		if (level.size() == 1) {
 			add.append("root.addChild(node" + level.get(0) + ");\n");
 		} else {

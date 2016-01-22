@@ -1,15 +1,19 @@
 package records;
 
+import java.util.Arrays;
+
+import org.objectweb.asm.Type;
+
 public class MethodSignature {
 
 	private String className;
 	private String methodName;
-	private String methodSignature;
+	private Type[] methodArgs;
 
-	public MethodSignature(String className, String methodName, String signature) {
+	public MethodSignature(String className, String methodName, Type[] methodArgs) {
 		this.className = className;
 		this.methodName = methodName;
-		this.methodSignature = signature;
+		this.methodArgs = methodArgs;
 	}
 
 	public String getClassName() {
@@ -28,23 +32,23 @@ public class MethodSignature {
 		this.methodName = methodName;
 	}
 
-	public String getSignature() {
-		return methodSignature;
+	public Type[] getMethodArgs() {
+		return methodArgs;
 	}
 
-	public void setSignature(String signature) {
-		this.methodSignature = signature;
+	public void setMethodArgs(Type[] methodArgs) {
+		this.methodArgs = methodArgs;
 	}
 
 	@Override
 	public boolean equals(Object other) {
 		MethodSignature o = (MethodSignature) other;
 		return o.getClassName().equals(this.className) && o.getMethodName().equals(this.getMethodName())
-				&& o.getSignature().equals(this.methodSignature);
+				&& Arrays.equals(o.getMethodArgs(), this.methodArgs);
 	}
 	
 	@Override
 	public String toString() {
-		return this.getClassName() + ": " + this.getMethodName() + "(" + this.getSignature() + ")";
+		return this.getClassName() + ": " + this.getMethodName() + "(" + Arrays.toString(this.getMethodArgs()) + ")";
 	}
 }

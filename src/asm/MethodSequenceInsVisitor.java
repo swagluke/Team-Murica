@@ -1,6 +1,7 @@
 package asm;
 
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
 
 import generictree.GenericTreeNode;
 import records.MethodSignature;
@@ -17,7 +18,7 @@ public class MethodSequenceInsVisitor extends MethodVisitor {
 
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
-		MethodSignature methodSignature = new MethodSignature(owner, name, desc);
+		MethodSignature methodSignature = new MethodSignature(owner, name, Type.getArgumentTypes(desc));
 //		System.out.println();
 //		for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
 //			System.out.print("\t");
