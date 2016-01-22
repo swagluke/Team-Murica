@@ -1,4 +1,4 @@
-package genericTree;
+package generictree;
 
 import java.util.ArrayList;
 import java.util.Iterator;

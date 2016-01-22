@@ -1,11 +1,12 @@
-package genericTree;
+package generictree;
 import static org.junit.Assert.*;
-import genericTree.GenericTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import generictree.GenericTreeNode;
 
 // from http://vivin.net/2010/01/30/generic-n-ary-tree-in-java/3/
 public class TestGenericTreeNode {

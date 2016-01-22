@@ -1,13 +1,10 @@
-package genericTree;
+package generictree;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import genericTree.GenericTree;
-import genericTree.GenericTreeNode;
-import genericTree.GenericTreeTraversalOrderEnum;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+
+import generictree.GenericTree;
+import generictree.GenericTreeNode;
+import generictree.GenericTreeTraversalOrderEnum;
 
 // from http://vivin.net/2010/01/30/generic-n-ary-tree-in-java/3/
 public class TestGenericTree {
