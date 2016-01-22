@@ -1,17 +1,15 @@
 package records;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-
 import generictree.GenericTree;
 import generictree.GenericTreeNode;
+
+import java.util.HashSet;
 
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
 	HashSet<ClassNameStringWrapper> seenClasses= new HashSet<ClassNameStringWrapper>();
-//	HashSet<String> createdLines = new HashSet<String>();
 	StringBuilder methodCallsStrings = new StringBuilder();
+	
 	public SequenceRecord(GenericTreeNode<MethodSignature> node) {
 		this.methodCalls.setRoot(node);
 	}
