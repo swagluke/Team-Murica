@@ -5,13 +5,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
+import org.objectweb.asm.Type;
+
 import generictree.GenericTree;
 import generictree.GenericTreeNode;
 
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
 	HashSet<ClassNameStringWrapper> seenClasses= new HashSet<ClassNameStringWrapper>();
-//	HashSet<String> createdLines = new HashSet<String>();
+	//	HashSet<String> createdLines = new HashSet<String>();
 	StringBuilder methodCallsStrings = new StringBuilder();
 	public SequenceRecord(GenericTreeNode<MethodSignature> node) {
 		this.methodCalls.setRoot(node);
@@ -46,18 +48,25 @@ public class SequenceRecord implements ISequenceRecord {
 			for(int i=0;i<depth;i++){
 				sb.append(" ");
 			}
-			String params = Arrays.toString(n.data.getMethodArgs());
-			params=params.substring(1, params.length()-1);
+			Type[] params = n.data.getMethodArgs();
+			StringBuilder sbb = new StringBuilder();
+			for(Type t:params){
+				sbb.append(t.getClassName()+", ");
+			}
+			if(params.length >0){
+				sbb.deleteCharAt(sbb.length()-1);
+				sbb.deleteCharAt(sbb.length()-1);//removes the ", " 
+			}
 			if(!seenClasses.contains(new ClassNameStringWrapper(nClassName+":"+nClassName))&&n.getData().getMethodName().equals("<init>")){
-				sb.append(nodeClassName+ ":"+nClassName+"."+"new"+"(+"+params+")\n");
+				sb.append(nodeClassName+ ":"+nClassName+"."+"new"+"(+"+sbb.toString()+")\n");
 				seenClasses.add(new ClassNameStringWrapper("/"+nClassName.toLowerCase()+":"+nClassName));
 			}
 			else if(!seenClasses.contains(new ClassNameStringWrapper(nClassName+":"+nClassName))){
-				sb.append(nodeClassName+ ":"+nClassName+"."+n.getData().getMethodName()+"("+params+")\n");
+				sb.append(nodeClassName+ ":"+nClassName+"."+n.getData().getMethodName()+"("+sbb.toString()+")\n");
 				seenClasses.add(new ClassNameStringWrapper(nClassName.toLowerCase()+":"+nClassName));
 			}
 			else{
-				sb.append(nodeClassName+ ":"+nClassName+"."+n.data.getMethodName()+"("+params+")\n");
+				sb.append(nodeClassName+ ":"+nClassName+"."+n.data.getMethodName()+"("+sbb.toString()+")\n");
 			}
 			sb.append(buildMethodCalls(n, depth+1));
 		}
