@@ -45,9 +45,13 @@ public class SequenceBuilderTest {
 		node110.addChild(node1100);
 		root.addChild(node2);
 
+		String sequenceUml = "/bar:bar\n/object:object\nfoo:foo\n\n"
+				+ "foo:object.new(+)\nfoo:bar.new(+sdedit.Foo)\n bar:object.<init>()\n bar:bar.methodA()\n  "
+				+ "bar:int=bar.methodB(int)\n   bar:int=foo.addOne(int)\nfoo:int=foo.addOne(int)\n";
+
 		assertSequenceBuilder(
 				new MethodSignature("sdedit/Foo", "<init>", Type.getArgumentTypes("()V"), Type.getReturnType("()V")),
-				tree, "");
+				tree, sequenceUml);
 	}
 
 	@Test
@@ -77,9 +81,12 @@ public class SequenceBuilderTest {
 		node11.addChild(node110);
 		root.addChild(node2);
 
+		String sequenceUml = "/bar:bar\n/object:object\nfoo:foo\n\n"
+				+ "foo:object.new(+)\nfoo:bar.new(+sdedit.Foo)\n bar:object.<init>()\n bar:bar.methodA()\n  "
+				+ "bar:int=bar.methodB(int)\nfoo:int=foo.addOne(int)\n";
 		assertSequenceBuilder(
 				new MethodSignature("sdedit/Foo", "<init>", Type.getArgumentTypes("()V"), Type.getReturnType("()V")),
-				3, tree, "");
+				3, tree, sequenceUml);
 	}
 
 	@Test
@@ -289,9 +296,36 @@ public class SequenceBuilderTest {
 		node1.addChild(node17);
 		node1.addChild(node18);
 
+		String sequenceUml = "collections:collections\nsystem:system\n/runtimeexception:runtimeexception\n"
+				+ "/exception:exception\nlistiterator:listiterator\nlist:list\n/number:number\natomiclong:atomiclong\n"
+				+ "/random:random\nunsafe:unsafe\n/object:object\n/illegalargumentexception:illegalargumentexception\n\n"
+				+ "collections:random.new(+)\n random:long=random.seedUniquifier()\n  random:long=atomiclong.get()\n  "
+				+ "random:boolean=atomiclong.compareAndSet(long, long)\n   atomiclong:boolean=unsafe.compareAndSwapLong(java.lang.Object, long, long, long)\n "
+				+ "random:long=system.nanoTime()\n random:random.<init>(long)\n  random:object.new(+)\n  random:java.lang.Class=object.getClass()\n  "
+				+ "random:long=random.initialScramble(long)\n  random:atomiclong.<init>(long)\n   atomiclong:number.new(+)\n    "
+				+ "number:object.<init>()\n  random:atomiclong.<init>()\n   atomiclong:number.<init>()\n    number:object.<init>()\n  "
+				+ "random:random.setSeed(long)\n   random:long=random.initialScramble(long)\n   "
+				+ "random:atomiclong.set(long)\ncollections:collections.shuffle(java.util.List, java.util.Random)\n collections:int=list.size()\n "
+				+ "collections:int=random.nextInt(int)\n  random:illegalargumentexception.new(+java.lang.String)\n   "
+				+ "illegalargumentexception:runtimeexception.new(+java.lang.String)\n    runtimeexception:exception.new(+java.lang.String)\n  "
+				+ "random:int=random.next(int)\n   random:long=atomiclong.get()\n   random:boolean=atomiclong.compareAndSet(long, long)\n    "
+				+ "atomiclong:boolean=unsafe.compareAndSwapLong(java.lang.Object, long, long, long)\n  random:int=random.next(int)\n   "
+				+ "random:long=atomiclong.get()\n   random:boolean=atomiclong.compareAndSet(long, long)\n    "
+				+ "atomiclong:boolean=unsafe.compareAndSwapLong(java.lang.Object, long, long, long)\n "
+				+ "collections:collections.swap(java.util.List, int, int)\n  collections:java.lang.Object=list.get(int)\n  "
+				+ "collections:java.lang.Object=list.set(int, java.lang.Object)\n  collections:java.lang.Object=list.set(int, java.lang.Object)\n "
+				+ "collections:java.lang.Object[]=list.toArray()\n collections:int=random.nextInt(int)\n  "
+				+ "random:illegalargumentexception.<init>(java.lang.String)\n   illegalargumentexception:runtimeexception.<init>(java.lang.String)\n    "
+				+ "runtimeexception:exception.<init>(java.lang.String)\n  random:int=random.next(int)\n   random:long=atomiclong.get()\n   "
+				+ "random:boolean=atomiclong.compareAndSet(long, long)\n    atomiclong:boolean=unsafe.compareAndSwapLong(java.lang.Object, long, long, long)\n  "
+				+ "random:int=random.next(int)\n   random:long=atomiclong.get()\n   random:boolean=atomiclong.compareAndSet(long, long)\n    "
+				+ "atomiclong:boolean=unsafe.compareAndSwapLong(java.lang.Object, long, long, long)\n collections:collections.swap(java.lang.Object[], int, int)\n "
+				+ "collections:java.util.ListIterator=list.listIterator()\n collections:java.lang.Object=listiterator.next()\n "
+				+ "collections:listiterator.set(java.lang.Object)\n";
+
 		assertSequenceBuilder(
 				new MethodSignature("java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;)V"),
-						Type.getReturnType("(Ljava/util/List;)V")), tree, "");
+						Type.getReturnType("(Ljava/util/List;)V")), tree, sequenceUml);
 	}
 
 	@Test
@@ -352,9 +386,18 @@ public class SequenceBuilderTest {
 		node1.addChild(node16);
 		node1.addChild(node17);
 		node1.addChild(node18);
+		
+		String sequenceUml = "collections:collections\nsystem:system\nlistiterator:listiterator\nlist:list\n/random:random\n\n"
+				+ "collections:random.new(+)\n random:long=random.seedUniquifier()\n random:long=system.nanoTime()\n random:random.<init>(long)\n"
+				+ "collections:collections.shuffle(java.util.List, java.util.Random)\n collections:int=list.size()\n "
+				+ "collections:int=random.nextInt(int)\n collections:collections.swap(java.util.List, int, int)\n "
+				+ "collections:java.lang.Object[]=list.toArray()\n collections:int=random.nextInt(int)\n "
+				+ "collections:collections.swap(java.lang.Object[], int, int)\n collections:java.util.ListIterator=list.listIterator()\n "
+				+ "collections:java.lang.Object=listiterator.next()\n collections:listiterator.set(java.lang.Object)\n";
+		
 		assertSequenceBuilder(
 				new MethodSignature("java/util/Collections", "shuffle", Type.getArgumentTypes("(Ljava/util/List;)V"),
-						Type.getReturnType("(Ljava/util/List;)V")), 2, tree, "");
+						Type.getReturnType("(Ljava/util/List;)V")), 2, tree, sequenceUml);
 	}
 
 	public void assertSequenceBuilder(MethodSignature methodSignature, GenericTree<MethodSignature> expectedResult,
@@ -366,60 +409,7 @@ public class SequenceBuilderTest {
 			GenericTree<MethodSignature> expectedResult, String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
-		// GenericTree<MethodSignature> methods = record.getMethodCalls();
-		// GenericTreeNode<MethodSignature> root = methods.getRoot();
-		// StringBuilder decl = new StringBuilder();
-		// StringBuilder add = new StringBuilder();
-		// for (int i = 0; i < root.getNumberOfChildren(); i++) {
-		// printNode(root.getChildAt(i), new ArrayList<Integer>(Arrays.asList(new Integer[] { i })), decl, add);
-		// }
-		// System.out.println("GenericTree<MethodSignature> tree = new GenericTree<MethodSignature>();\n");
-		// System.out
-		// .println("GenericTreeNode<MethodSignature> root = new GenericTreeNode<MethodSignature>(new MethodSignature(\""
-		// + methodSignature.getClassName()
-		// + "\", \""
-		// + methodSignature.getMethodName()
-		// + "\", Type.getArgumentTypes(\""
-		// + Type.getMethodDescriptor(methodSignature.getReturnType(), methodSignature.getMethodArgs())
-		// + "\"), Type.getReturnType(\""
-		// + Type.getMethodDescriptor(methodSignature.getReturnType(), methodSignature.getMethodArgs())
-		// + "\")));");
-		// System.out.println(decl.toString());
-		// System.out.println("tree.setRoot(root);");
-		// System.out.println(add.toString());
 		assertEquals(expectedResult, record.getMethodCalls());
-		System.out.println(record.getSequenceDiagram());
-		// assertEquals(expectedSequenceUml, record.getSequenceDiagram());
-	}
-
-	public void printNode(GenericTreeNode<MethodSignature> node, ArrayList<Integer> level, StringBuilder decl,
-			StringBuilder add) {
-		MethodSignature data = node.data;
-		decl.append("GenericTreeNode<MethodSignature> node");
-		for (Integer i : level) {
-			decl.append(i);
-		}
-		decl.append(" = new GenericTreeNode<MethodSignature>(new MethodSignature(\"" + data.getClassName() + "\", \""
-				+ data.getMethodName() + "\", Type.getArgumentTypes(\""
-				+ Type.getMethodDescriptor(data.getReturnType(), data.getMethodArgs()) + "\"), Type.getReturnType(\""
-				+ Type.getMethodDescriptor(data.getReturnType(), data.getMethodArgs()) + "\")));\n");
-		if (level.size() == 1) {
-			add.append("root.addChild(node" + level.get(0) + ");\n");
-		} else {
-			add.append("node");
-			for (int i = 0; i < level.size() - 1; i++) {
-				add.append(level.get(i));
-			}
-			add.append(".addChild(node");
-			for (int i = 0; i < level.size(); i++) {
-				add.append(level.get(i));
-			}
-			add.append(");\n");
-		}
-		for (int i = 0; i < node.getNumberOfChildren(); i++) {
-			ArrayList<Integer> newLevel = new ArrayList<Integer>(level);
-			newLevel.add(i);
-			printNode(node.getChildAt(i), newLevel, decl, add);
-		}
+		assertEquals(expectedSequenceUml, record.getSequenceDiagram());
 	}
 }
