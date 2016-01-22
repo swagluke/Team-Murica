@@ -37,7 +37,7 @@ public class SDEditRunner {
 				e.printStackTrace();
 			}
 		}
-		MethodSignature m = new MethodSignature(args[1], args[2], typeDesc);
+		MethodSignature m = new MethodSignature(args[1].replace(".", "/"), args[2], typeDesc);
 		SequenceBuilder s = new SequenceBuilder(m, Integer.parseInt(args[0]));
 		SequenceRecord temp = (SequenceRecord) s.build();
 		System.out.println(temp.getMethodCalls());
