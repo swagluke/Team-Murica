@@ -1,6 +1,7 @@
 package records;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
@@ -45,16 +46,18 @@ public class SequenceRecord implements ISequenceRecord {
 			for(int i=0;i<depth;i++){
 				sb.append(" ");
 			}
+			String params = Arrays.toString(n.data.getMethodArgs());
+			params=params.substring(1, params.length()-1);
 			if(!seenClasses.contains(new ClassNameStringWrapper(nClassName+":"+nClassName))&&n.getData().getMethodName().equals("<init>")){
-				sb.append(nodeClassName+ ":"+nClassName+"."+"new"+"()\n");
+				sb.append(nodeClassName+ ":"+nClassName+"."+"new"+"(+"+params+")\n");
 				seenClasses.add(new ClassNameStringWrapper("/"+nClassName.toLowerCase()+":"+nClassName));
 			}
 			else if(!seenClasses.contains(new ClassNameStringWrapper(nClassName+":"+nClassName))){
-				sb.append(nodeClassName+ ":"+nClassName+"."+n.getData().getMethodName()+"()\n");
+				sb.append(nodeClassName+ ":"+nClassName+"."+n.getData().getMethodName()+"("+params+")\n");
 				seenClasses.add(new ClassNameStringWrapper(nClassName.toLowerCase()+":"+nClassName));
 			}
 			else{
-				sb.append(nodeClassName+ ":"+nClassName+"."+n.data.getMethodName()+"()\n");
+				sb.append(nodeClassName+ ":"+nClassName+"."+n.data.getMethodName()+"("+params+")\n");
 			}
 			sb.append(buildMethodCalls(n, depth+1));
 		}
