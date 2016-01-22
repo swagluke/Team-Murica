@@ -44,7 +44,7 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 //			for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
 //				System.out.print("\t");
 //			}
-			System.out.println("found method: " + name + ", " + desc);
+//			System.out.println("found method: " + name + ", " + desc);
 			MethodSequenceInsVisitor methodVisitor = new MethodSequenceInsVisitor(Opcodes.ASM5, toDecorate);
 			methodVisitor.setSequenceBuilder(this.sequenceBuilder);
 			methodVisitors.add(methodVisitor);

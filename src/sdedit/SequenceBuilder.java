@@ -58,6 +58,7 @@ public class SequenceBuilder implements IBuilder {
 
 		this.methodVisitor.setMethodName(m.getMethodName());
 		this.methodVisitor.setSignature(m.getMethodArgs());
+		this.methodVisitor.setOriginalMethod(m);
 		this.methodVisitor.setSequenceBuilder(this);
 
 	}
