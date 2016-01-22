@@ -1,16 +1,14 @@
 package sdedit;
 
 import static org.junit.Assert.assertEquals;
-import generictree.GenericTree;
-import generictree.GenericTreeNode;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Test;
 import org.objectweb.asm.Type;
 
+import generictree.GenericTree;
+import generictree.GenericTreeNode;
 import records.MethodSignature;
 import records.SequenceRecord;
 

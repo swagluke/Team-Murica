@@ -10,7 +10,7 @@ import records.SingletonRecord;
 public class SingletonBuilder implements IBuilder {
 
 	private UmlBuilder builder;
-	private IClassRecord record;
+	private SingletonRecord record;
 
 	public SingletonBuilder(UmlBuilder b) {
 		this.builder = b;
@@ -23,12 +23,12 @@ public class SingletonBuilder implements IBuilder {
 
 	@Override
 	public IClassRecord build() {
-		return new SingletonRecord(this.build(this.getVisitor()));
+		return this.build(this.getVisitor());
 	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
-		this.record = builder.build(visitor);
+		this.record = new SingletonRecord(builder.build(visitor));
 		return record;
 	}
 

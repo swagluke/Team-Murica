@@ -17,6 +17,7 @@ import java.util.Map;
 import dot.AssociationBuilder;
 import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
+import dot.SingletonBuilder;
 import dot.UmlBuilder;
 import dot.UsesBuilder;
 
@@ -37,17 +38,19 @@ public class UmlRunner {
 		// extensions to the respective lists.
 		for (String className : args) {
 			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
-			ExtensionBuilder e = new ExtensionBuilder(d);
-			ImplementsBuilder i = new ImplementsBuilder(e);
-			UsesBuilder u = new UsesBuilder(i);
-			AssociationBuilder a = new AssociationBuilder(u);
+			SingletonBuilder sb = new SingletonBuilder(d);
+//			ExtensionBuilder e = new ExtensionBuilder(d);
+//			ImplementsBuilder i = new ImplementsBuilder(e);
+//			UsesBuilder u = new UsesBuilder(i);
+//			AssociationBuilder a = new AssociationBuilder(u);
 			// s.append(d.getClassUML() + "\n");
-			a.build();
-			s.append(d.getClassUML());
-			s.append(e.getClassUML());
-			s.append(i.getClassUML());
-			s.append(u.getClassUML());
-			s.append(a.getClassUML());
+			sb.build();
+//			s.append(d.getClassUML());
+			s.append(sb.getClassUML());
+//			s.append(e.getClassUML());
+//			s.append(i.getClassUML());
+//			s.append(u.getClassUML());
+//			s.append(a.getClassUML());
 			// for (String imp : i.implementsList) {
 			// HashSet<String> list = implementsMap.get(className);
 			// if (list == null)
