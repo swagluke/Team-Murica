@@ -41,12 +41,12 @@ public class SequenceBuilder implements IBuilder {
 		this.record = new SequenceRecord(this.node);
 		// this.record.setRoot(this.node);
 		// this.addMethodSignature(m);
-		for (int i = 3 - this.getRecursionDepth(); i > 0; i--) {
-			System.out.print("\t");
-		}
-
-		System.out.println(System.identityHashCode(this.node) + " Created new sequence builder for " + m.getClassName()
-				+ ", depth: " + this.recursionDepthLeft);
+//		for (int i = 3 - this.getRecursionDepth(); i > 0; i--) {
+//			System.out.print("\t");
+//		}
+//
+//		System.out.println(System.identityHashCode(this.node) + " Created new sequence builder for " + m.getClassName()
+//				+ ", depth: " + this.recursionDepthLeft);
 		try {
 			reader = new ClassReader(Type.getObjectType(m.getClassName()).getClassName());
 		} catch (IOException e) {
