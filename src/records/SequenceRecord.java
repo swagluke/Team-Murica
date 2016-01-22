@@ -1,10 +1,10 @@
 package records;
 
-import genericTree.GenericTree;
-import genericTree.GenericTreeNode;
-
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+
+import generictree.GenericTree;
+import generictree.GenericTreeNode;
 
 public class SequenceRecord implements ISequenceRecord {
 	GenericTree<MethodSignature> methodCalls = new GenericTree<MethodSignature>();
@@ -46,7 +46,7 @@ public class SequenceRecord implements ISequenceRecord {
 		}
 		for(String s:lines){
 			lifeLines.add(s);
-			System.out.println(s);
+			System.out.println("classLine : "+s);
 		}
 	}
 	

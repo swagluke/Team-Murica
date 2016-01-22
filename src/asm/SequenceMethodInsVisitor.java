@@ -1,5 +1,6 @@
 package asm;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
@@ -14,7 +15,7 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 	private HashSet<MethodRecord> methods = new HashSet<MethodRecord>();
 	public HashSet<MethodSequenceInsVisitor> methodVisitors = new HashSet<MethodSequenceInsVisitor>();
 	private String methodName;
-	private String signature;
+	private Type[] signature;
 	private HashSet<String> returnParams = new HashSet<String>();
 	private SequenceBuilder sequenceBuilder;
 
@@ -32,7 +33,8 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 		// System.out.println("sequence method ins visitor, name: " + name + ": " + this.methodName + ", " + desc
 		// + ": " + this.signature);
 		// System.out.println(desc);
-		if (name.equals(this.methodName) && desc.equals(this.signature)) {
+		if (name.equals(this.methodName) && Arrays.equals(this.signature, Type.getArgumentTypes(desc))){
+//				desc.equals(this.signature)) {
 
 //			for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
 //				System.out.print("\t");
@@ -59,11 +61,11 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 		this.methodName = methodName;
 	}
 
-	public String getSignature() {
+	public Type[] getSignature() {
 		return signature;
 	}
 
-	public void setSignature(String signature) {
+	public void setSignature(Type[] signature) {
 		this.signature = signature;
 	}
 

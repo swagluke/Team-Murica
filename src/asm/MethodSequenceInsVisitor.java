@@ -1,9 +1,8 @@
 package asm;
 
-import genericTree.GenericTreeNode;
-
 import org.objectweb.asm.MethodVisitor;
 
+import generictree.GenericTreeNode;
 import records.MethodSignature;
 import sdedit.SequenceBuilder;
 

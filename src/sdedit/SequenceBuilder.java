@@ -1,7 +1,5 @@
 package sdedit;
 
-import genericTree.GenericTreeNode;
-
 import java.io.IOException;
 
 import jdk.internal.org.objectweb.asm.Type;
@@ -16,6 +14,7 @@ import records.SequenceRecord;
 import asm.ClassDeclarationVisitor;
 import asm.ClassMethodVisitor;
 import asm.SequenceMethodInsVisitor;
+import generictree.GenericTreeNode;
 
 public class SequenceBuilder implements IBuilder {
 	public static int created = 0;

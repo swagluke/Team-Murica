@@ -4,12 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Test;
 
-import genericTree.GenericTree;
-import genericTree.GenericTreeNode;
+import generictree.GenericTree;
+import generictree.GenericTreeNode;
 import records.MethodSignature;
 import records.SequenceRecord;
 
@@ -335,7 +334,9 @@ public class SequenceBuilderTest {
 			GenericTree<MethodSignature> expectedResult, String expectedSequenceUml) {
 		SequenceBuilder builder = new SequenceBuilder(methodSignature, recursionDepth);
 		SequenceRecord record = (SequenceRecord) builder.build();
-
+		for(MethodSignature m:record.getMethodCalls()){
+			System.out.println("className: "+m.getClassName() + " MethodName: "+ m.getMethodName());
+		}
 //		GenericTree<MethodSignature> methods = record.getMethodCalls();
 //		GenericTreeNode<MethodSignature> root = methods.getRoot();
 //		StringBuilder decl = new StringBuilder();

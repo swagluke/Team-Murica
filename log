@@ -2,3 +2,63 @@ Error: temp.dot: syntax error in line 2 near '/'
 Error: temp.dot: syntax error in line 2 near '/'
 Error: temp.dot: syntax error in line 2 near '/'
 Error: temp.dot: syntax error in line 2 near '/'
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)
+Exception in thread "main" java.lang.NullPointerException
+	at net.sf.sdedit.ui.G2DGraphicsDevice.drawAll(G2DGraphicsDevice.java:73)
+	at net.sf.sdedit.ui.ImageGraphicsDevice.writeToStream(ImageGraphicsDevice.java:66)
+	at net.sf.sdedit.Main.createImage(Main.java:276)
+	at net.sf.sdedit.Main.main(Main.java:135)

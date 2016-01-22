@@ -13,7 +13,9 @@ import java.util.Arrays;
 
 import org.objectweb.asm.Type;
 
+import records.ISequenceRecord;
 import records.MethodSignature;
+import records.SequenceRecord;
 import sdedit.SequenceBuilder;
 
 public class SDEditRunner {
@@ -29,6 +31,7 @@ public class SDEditRunner {
 		for(int i=0;i<paramTypes.length;i++){
 			try {
 				typeDesc[i]=Type.getType(Type.getInternalName(Class.forName(paramTypes[i])));
+				System.out.println("Type:"+typeDesc[i].getInternalName());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -36,10 +39,12 @@ public class SDEditRunner {
 		}
 		String methodDesc = Type.getMethodDescriptor(Type.getType(args[3]), typeDesc);
 			
+		System.out.println("methodDesc: "+methodDesc);
 		
 		MethodSignature m = new MethodSignature(args[1], args[2], methodDesc);
 		SequenceBuilder s = new SequenceBuilder(m, Integer.parseInt(args[0]));
-		s.build();
+		SequenceRecord temp = (SequenceRecord) s.build();
+		System.out.println(temp.getMethodCalls());
 		createDiagram(s.getSequenceUML());
 	}
 	public static void createDiagram(String diagram){
