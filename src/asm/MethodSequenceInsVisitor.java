@@ -18,7 +18,7 @@ public class MethodSequenceInsVisitor extends MethodVisitor {
 
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
-		MethodSignature methodSignature = new MethodSignature(owner, name, Type.getArgumentTypes(desc));
+		MethodSignature methodSignature = new MethodSignature(owner, name, Type.getArgumentTypes(desc), Type.getReturnType(desc));
 //		System.out.println();
 //		for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
 //			System.out.print("\t");

@@ -9,11 +9,21 @@ public class MethodSignature {
 	private String className;
 	private String methodName;
 	private Type[] methodArgs;
+	private Type returnType;
 
-	public MethodSignature(String className, String methodName, Type[] methodArgs) {
+	public MethodSignature(String className, String methodName, Type[] methodArgs, Type returnType) {
 		this.className = className;
 		this.methodName = methodName;
 		this.methodArgs = methodArgs;
+		this.returnType = returnType;
+	}
+
+	public Type getReturnType() {
+		return returnType;
+	}
+
+	public void setReturnType(Type returnType) {
+		this.returnType = returnType;
 	}
 
 	public String getClassName() {
