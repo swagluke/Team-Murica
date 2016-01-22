@@ -9,6 +9,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import records.MethodRecord;
+import records.MethodSignature;
 import sdedit.SequenceBuilder;
 
 public class SequenceMethodInsVisitor extends ClassMethodVisitor {
@@ -18,6 +19,7 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 	private Type[] signature;
 	private HashSet<String> returnParams = new HashSet<String>();
 	private SequenceBuilder sequenceBuilder;
+	private MethodSignature originalMethod;
 
 	public SequenceMethodInsVisitor(int arg0) {
 		super(arg0);
@@ -33,13 +35,16 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 		// System.out.println("sequence method ins visitor, name: " + name + ": " + this.methodName + ", " + desc
 		// + ": " + this.signature);
 		// System.out.println(desc);
+		if (this.originalMethod != null && name.equals(this.originalMethod.getClassName()) && Arrays.equals(Type.getArgumentTypes(desc), this.originalMethod.getMethodArgs())) {
+			this.originalMethod.setReturnType(Type.getReturnType(desc));
+		}
 		if (name.equals(this.methodName) && Arrays.equals(this.signature, Type.getArgumentTypes(desc))){
 //				desc.equals(this.signature)) {
 
 //			for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
 //				System.out.print("\t");
 //			}
-//			System.out.println("found method: " + name + ", " + desc);
+			System.out.println("found method: " + name + ", " + desc);
 			MethodSequenceInsVisitor methodVisitor = new MethodSequenceInsVisitor(Opcodes.ASM5, toDecorate);
 			methodVisitor.setSequenceBuilder(this.sequenceBuilder);
 			methodVisitors.add(methodVisitor);
@@ -96,5 +101,9 @@ public class SequenceMethodInsVisitor extends ClassMethodVisitor {
 
 	public SequenceBuilder getSequenceBuilder() {
 		return this.sequenceBuilder;
+	}
+
+	public void setOriginalMethod(MethodSignature m) {
+		this.originalMethod = m;
 	}
 }

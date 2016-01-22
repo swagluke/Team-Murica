@@ -23,7 +23,7 @@ public class MethodSequenceInsVisitor extends MethodVisitor {
 //		for (int i = 3 - this.sequenceBuilder.getRecursionDepth(); i > 0; i--) {
 //			System.out.print("\t");
 //		}
-//		System.out.println("\tname: " + name + " owner: " + owner + " desc: " + desc);
+		System.out.println("\tname: " + name + " owner: " + owner + " desc: " + desc);
 		GenericTreeNode<MethodSignature> node = new GenericTreeNode<MethodSignature>(methodSignature);
 		this.sequenceBuilder.addMethodSignature(node);
 		if (this.sequenceBuilder.getRecursionDepth() > 1) {
