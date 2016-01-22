@@ -7,7 +7,7 @@ public class ClassNameStringWrapper{
 	}
 	@Override
 	public int hashCode(){
-		System.out.print("Hashcode String = "+string);
+//		System.out.print("Hashcode String = "+string);
 		if(string.charAt(0) == '/'){
 //			System.out.println(string.substring(1).hashCode());
 			return string.substring(1).hashCode();
