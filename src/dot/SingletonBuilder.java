@@ -10,29 +10,25 @@ import records.InstanceVarRecord;
 import records.MethodRecord;
 import records.SingletonRecord;
 
-public class SingletonBuilder implements IBuilder {
+public class SingletonBuilder extends PatternDetection {
 
-	private UmlBuilder builder;
 	private SingletonRecord record;
 
-	public SingletonBuilder(UmlBuilder b) {
-		this.builder = b;
-		
+	public SingletonBuilder(String className,  HashSet<String> classNameList) {
+		super(className, classNameList);
 	}
-	@Override
-	public ClassVisitor getVisitor() {
-		return builder.getVisitor();
-	}
-
+	
 	@Override
 	public IClassRecord build() {
-		return this.build(this.getVisitor());
+		this.record = new SingletonRecord(super.build());
+		this.record.setIsSingleton(this.isPattern());
+		return record;
 	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
-		this.record = new SingletonRecord(builder.build(visitor));
-		this.record.setIsSingleton(this.isSingleton());
+		this.record = new SingletonRecord(super.build(visitor));
+		this.record.setIsSingleton(this.isPattern());
 		return record;
 	}
 
@@ -41,12 +37,7 @@ public class SingletonBuilder implements IBuilder {
 		return this.record.getClassUml();
 	}
 
-	@Override
-	public HashSet<String> getClassList() {
-		return builder.getClassList();
-	}
-	
-	private boolean isSingleton() {
+	public boolean isPattern() {
 		ClassRecord baseRecord = this.record.getBaseRecord();
 		boolean hasField = false;
 		for (InstanceVarRecord field : baseRecord.getFieldsList()) {

@@ -15,7 +15,6 @@ import records.IClassRecord;
 
 public class UmlBuilder implements IBuilder {
 	private ClassRecord record;
-	private HashSet<String> associationList;
 	HashSet<String> classList;
 	ClassReader reader = null;
 	ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);

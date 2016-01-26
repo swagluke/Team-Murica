@@ -41,7 +41,6 @@ public class ClassMethodInsVisitor extends ClassVisitor {
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			symbol = "+";
 		}
-		System.out.println(signature);
 		methods.add(new MethodRecord(access, name, returnType, argTypes, stypes));
 		// System.out.println(" method " + symbol + returnType + " " + name + " " + stypes.toString());
 		methodVisitor.methodName = name;

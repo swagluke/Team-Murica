@@ -65,8 +65,9 @@ public class SDEditRunner {
 			pb.redirectErrorStream(true);
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
-//			Files.delete(path);//uncomment to clean up after yourself
-		} catch (IOException e) {
+			Thread.sleep(750);
+			Files.delete(path);//uncomment to clean up after yourself
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

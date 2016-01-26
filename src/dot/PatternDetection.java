@@ -10,14 +10,13 @@ public abstract class PatternDetection extends UmlBuilder {
 
 	public PatternDetection(String className, HashSet<String> classNameList) {
 		super(className, classNameList);
-		// TODO Auto-generated constructor stub
 	}
 
 	public abstract boolean isPattern();
 
 	@Override
 	public IClassRecord build(){
-		return record;
+		return super.build();
 	}
 
 	@Override
