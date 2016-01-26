@@ -25,6 +25,7 @@ public class SDEditRunner {
 	 */
 	public static void main(String[] args){
 //		System.out.println(Arrays.toString(args));
+		System.out.println(Type.getType(args.getClass()).getClassName());
 		//construct the "methodField" argument
 		String[] paramTypes = Arrays.copyOfRange(args, 3, args.length);
 		Type[] typeDesc = new Type[paramTypes.length];
@@ -64,7 +65,7 @@ public class SDEditRunner {
 			pb.redirectErrorStream(true);
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
-			Files.delete(path);//uncomment to clean up after yourself
+//			Files.delete(path);//uncomment to clean up after yourself
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

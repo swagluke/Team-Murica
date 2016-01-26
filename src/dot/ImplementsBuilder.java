@@ -49,7 +49,7 @@ public class ImplementsBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		return this.record.getClassUml();
+		return this.builder.getClassUML() + this.record.getClassUml();
 	}
 
 }

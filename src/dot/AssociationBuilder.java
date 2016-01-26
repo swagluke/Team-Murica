@@ -48,6 +48,6 @@ public class AssociationBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		return this.associationRecord.getClassUml();
+		return this.builder.getClassUML() + this.associationRecord.getClassUml();
 	}
 }

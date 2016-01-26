@@ -50,7 +50,7 @@ public class ExtensionBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		return this.extendedRecord.getClassUml();
+		return this.builder.getClassUML() + this.extendedRecord.getClassUml();
 	}
 
 }

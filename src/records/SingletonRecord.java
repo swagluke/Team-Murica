@@ -7,6 +7,7 @@ import org.objectweb.asm.Type;
 public class SingletonRecord implements IClassRecord {
 
 	private IClassRecord innerRecord;
+	private boolean isSingleton;
 
 	public SingletonRecord(IClassRecord innerRecord) {
 		this.innerRecord = innerRecord;
@@ -14,9 +15,8 @@ public class SingletonRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
-		System.out.println("hello");
 		String innerUML = innerRecord.getClassUml();
-		if(!this.isSingleton()){
+		if (!this.isSingleton) {
 			return innerUML;
 		}
 		ClassRecord baseRecord = this.getBaseRecord();
@@ -48,38 +48,9 @@ public class SingletonRecord implements IClassRecord {
 
 		return s.toString();
 	}
-	//TODO: do stuff here 
-	private boolean isSingleton() {
-		ClassRecord baseRecord = this.getBaseRecord();
-		boolean hasField = false;
-		for (InstanceVarRecord field : baseRecord.getFieldsList()) {
-			if (field.getAccess() == 10 && field.getType().equals(baseRecord.getClassName().replace("/", "."))) {
-				System.out.println("has singleton field");
-				hasField = true;
-				break;
-			}
-//			System.out.println(field.getAccess());
-//			System.out.println(field.getType());
-//			System.out.println(baseRecord.getClassName());
-		}
-		boolean hasPublicConstructor = false;
-		boolean hasGetter = false;
-		for (MethodRecord method : baseRecord.getMethodsList()) {
-			if (method.getAccess() == 1 && method.getName().equals("<init>")) {
-				System.out.println("has public constructor");
-				hasPublicConstructor = true;
-			}
-			if (method.getAccess() == 9 && method.getReturnType().equals(baseRecord.getClassName().replace("/", "."))) {
-				System.out.println("has getter");
-				hasGetter = true;
-			}
-			System.out.println(method.getName());
-			System.out.println(method.getAccess());
-			System.out.println(method.getReturnType());
-			System.out.println();
-		}
-		System.out.println("hasField: " + hasField + ", !hasPublicConstructor: " + !hasPublicConstructor + ", hasGetter: " + hasGetter);
-		return hasField && !hasPublicConstructor && hasGetter;
+
+	public boolean isSingleton() {
+		return this.isSingleton;
 	}
 
 	@Override
@@ -97,8 +68,12 @@ public class SingletonRecord implements IClassRecord {
 		return this.innerRecord;
 	}
 
-	@Override 
+	@Override
 	public ClassRecord getBaseRecord() {
 		return this.innerRecord.getBaseRecord();
+	}
+
+	public void setIsSingleton(boolean b) {
+		this.isSingleton = b;
 	}
 }
