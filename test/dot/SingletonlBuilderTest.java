@@ -1,6 +1,7 @@
 package dot;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -152,9 +153,9 @@ public class SingletonlBuilderTest {
 	}
 
 	public void assertSingleton(String className, boolean expectedIsSingleton, String expectedUml) {
-		SingletonBuilder builder = new SingletonBuilder(className, new HashSet<String>(Arrays.asList(className)));
+		SingletonBuilder builder = new SingletonBuilder(new UmlBuilder(className, new HashSet<String>(Arrays.asList(className))));
 		SingletonRecord record = (SingletonRecord) builder.build();
-		assertEquals(expectedIsSingleton, record.isSingleton());
+		assertTrue(expectedIsSingleton == record.getBaseRecord().getPatternNames().contains("Singleton"));
 		assertEquals(expectedUml, record.getClassUml());
 	}
 }

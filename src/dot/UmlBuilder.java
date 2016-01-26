@@ -1,6 +1,7 @@
 package dot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
@@ -22,7 +23,6 @@ public class UmlBuilder implements IBuilder {
 	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 
 	public UmlBuilder(String className, HashSet<String> classNameList) {
-
 		this.classList = classNameList;
 		try {
 			reader = new ClassReader(className);
