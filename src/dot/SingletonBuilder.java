@@ -35,8 +35,9 @@ public class SingletonBuilder implements IBuilder {
 		if (this.isPattern()) {
 			this.record.getBaseRecord().setBoxColor("blue1");
 			this.record.getBaseRecord().addPattern("Singleton");
-
-			this.record.getBaseRecord().addEdge(this.record.getClassName() + " -> " + this.record.getClassName() + "\n");
+			String[] shortClassNames = this.record.getClassName().split("/");
+			String shortClassName = shortClassNames[shortClassNames.length - 1];
+			this.record.getBaseRecord().addEdge(shortClassName + " -> " + shortClassName + "\n");
 		}
 		return record;
 	}
