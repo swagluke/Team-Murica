@@ -37,8 +37,8 @@ public class UmlRunner {
 		// creates each class diagram and adds their implementations and
 		// extensions to the respective lists.
 		for (String className : args) {
-//			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
-			SingletonBuilder sb = new SingletonBuilder(className, new HashSet<String>(Arrays.asList(args)));
+			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
+			SingletonBuilder sb = new SingletonBuilder(d);
 			ExtensionBuilder e = new ExtensionBuilder(sb);
 			ImplementsBuilder i = new ImplementsBuilder(e);
 			UsesBuilder u = new UsesBuilder(i);

@@ -1,5 +1,6 @@
 package records;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.objectweb.asm.Type;
@@ -11,9 +12,13 @@ public class ClassRecord implements IClassRecord {
 	private HashSet<InstanceVarRecord> fieldsList;
 	private HashSet<String> implementsList;
 	private HashSet<String> classList;
+	private ArrayList<String> patternNames;
+	private String boxColor;
+	private ArrayList<String> extraEdges;
 
 	public ClassRecord() {
-
+		this.patternNames = new ArrayList<String>();
+		this.extraEdges = new ArrayList<String>();
 	}
 
 	@Override
@@ -46,7 +51,17 @@ public class ClassRecord implements IClassRecord {
 		StringBuilder s = new StringBuilder();
 		String[] n = className.split("/");
 		String name = n[n.length - 1];
-		s.append(name + " [label = \"{" + name + "|");
+		s.append(name + " [");
+		if (this.hasBoxColor()) {
+			s.append("color = \"" + this.boxColor + "\" ");
+		}
+		s.append("label = \"{" + name);
+		for (String patternName : this.patternNames) {
+			s.append("\\n\\<\\<" + patternName + "\\>\\>");
+		}
+		s.append("|");
+		// here
+		// s.append(name + " [label = \"{" + name + "|");
 		for (InstanceVarRecord f : fieldsList) {
 			s.append("+" + f.getName() + " : " + f.getType() + "\\l\n");
 		}
@@ -63,6 +78,9 @@ public class ClassRecord implements IClassRecord {
 			s.append(m.getReturnType() + "\\l\n");
 		}
 		s.append("}\"]");
+		for (String str : this.extraEdges) {
+			s.append(str);
+		}
 
 		return s.toString();
 	}
@@ -91,14 +109,38 @@ public class ClassRecord implements IClassRecord {
 	public void setClassList(HashSet<String> classList) {
 		this.classList = classList;
 	}
-	
+
 	@Override
 	public IClassRecord getInnerRecord() {
 		return null;
 	}
-	
-	@Override 
+
+	@Override
 	public ClassRecord getBaseRecord() {
 		return this;
+	}
+
+	public ArrayList<String> getPatternNames() {
+		return this.patternNames;
+	}
+
+	public void addPattern(String patternName) {
+		this.patternNames.add(patternName);
+	}
+	
+	private boolean hasBoxColor() {
+		return this.boxColor != null;
+	}
+	
+	public void setBoxColor(String boxColor) {
+		this.boxColor = boxColor;
+	}
+
+	public void addEdge(String string) {
+		this.extraEdges.add(string);
+	}
+	
+	public ArrayList<String> getExtraEdges() {
+		return this.extraEdges;
 	}
 }

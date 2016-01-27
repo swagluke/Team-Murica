@@ -10,25 +10,35 @@ import records.InstanceVarRecord;
 import records.MethodRecord;
 import records.SingletonRecord;
 
-public class SingletonBuilder extends PatternDetection {
+public class SingletonBuilder implements IBuilder {
 
+	private UmlBuilder builder;
 	private SingletonRecord record;
 
-	public SingletonBuilder(String className,  HashSet<String> classNameList) {
-		super(className, classNameList);
+	public SingletonBuilder(UmlBuilder b) {
+		this.builder = b;
+		
 	}
-	
+	@Override
+	public ClassVisitor getVisitor() {
+		return builder.getVisitor();
+	}
+
 	@Override
 	public IClassRecord build() {
-		this.record = new SingletonRecord(super.build());
-		this.record.setIsSingleton(this.isPattern());
-		return record;
+		return this.build(this.getVisitor());
 	}
 
 	@Override
 	public IClassRecord build(ClassVisitor visitor) {
-		this.record = new SingletonRecord(super.build(visitor));
-		this.record.setIsSingleton(this.isPattern());
+		this.record = new SingletonRecord(builder.build(visitor));
+		if (this.isPattern()) {
+			this.record.getBaseRecord().setBoxColor("blue1");
+			this.record.getBaseRecord().addPattern("Singleton");
+			String[] shortClassNames = this.record.getClassName().split("/");
+			String shortClassName = shortClassNames[shortClassNames.length - 1];
+			this.record.getBaseRecord().addEdge(shortClassName + " -> " + shortClassName + "\n");
+		}
 		return record;
 	}
 
@@ -37,6 +47,11 @@ public class SingletonBuilder extends PatternDetection {
 		return this.record.getClassUml();
 	}
 
+	@Override
+	public HashSet<String> getClassList() {
+		return builder.getClassList();
+	}
+	
 	public boolean isPattern() {
 		ClassRecord baseRecord = this.record.getBaseRecord();
 		boolean hasField = false;

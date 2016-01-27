@@ -22,7 +22,6 @@ public class UmlBuilder implements IBuilder {
 	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 
 	public UmlBuilder(String className, HashSet<String> classNameList) {
-
 		this.classList = classNameList;
 		try {
 			reader = new ClassReader(className);
