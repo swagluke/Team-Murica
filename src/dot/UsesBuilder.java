@@ -48,7 +48,7 @@ public class UsesBuilder implements IBuilder {
 
 	@Override
 	public String getClassUML() {
-		return this.record.getClassUml();
+		return this.builder.getClassUML() + this.record.getClassUml();
 	}
 
 	@Override

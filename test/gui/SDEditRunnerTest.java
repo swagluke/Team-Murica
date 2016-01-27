@@ -21,11 +21,10 @@ public class SDEditRunnerTest {
 			Files.delete(outputPath);
 		} catch (IOException e) {
 		}
-		File file = inputPath.toFile();
-		assertTrue(file.exists());
 		assertFalse(outputPath.toFile().exists());
-		SDEditRunner.main(new String[] {"gui.UmlRunner"});
-		Thread.sleep(500); // wait for file to write
-		assertTrue(outputPath.toFile().exists());
+		SDEditRunner.main(new String[] {"1", "java.util.Collections", "shuffle", "java.util.List"});
+		Thread.sleep(750); // wait for file to write
+		assertTrue(new File("SDout.png").exists());
+//		assertFalse(inputPath.toFile().exists());
 	}
 }

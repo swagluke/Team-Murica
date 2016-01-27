@@ -95,6 +95,12 @@ public class GenericTreeNode<T>{
 
         return stringRepresentation;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+    	GenericTreeNode<T> node = (GenericTreeNode<T>) o;
+    	return node.children.equals(children) && node.getData().equals(data);
+    }
 
 	
 }
