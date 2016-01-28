@@ -37,8 +37,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 			symbol = "+";
 		}
 		methods.add(new MethodRecord(access, name, returnType, argTypes, stypes));
-		// System.out.println(" method " + symbol + returnType + " " + name + "
-		// " + stypes.toString());
+//		 System.out.println(" method " + symbol + returnType + " " + name + " " + stypes.toString());
 		return toDecorate;
 	}
 

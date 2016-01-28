@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
 
-import records.IClassRecord;
+import records.ClassRecord;
 
 public interface IBuilder {
 	/**
@@ -16,8 +16,9 @@ public interface IBuilder {
 	 * called once on the outer builder, used to build all builders in the chain
 	 * @return
 	 */
-	IClassRecord build();
-	IClassRecord build(ClassVisitor visitor);
+	ClassRecord build();
+	ClassRecord build(ClassVisitor visitor);
 	String getClassUML();
 	HashSet<String> getClassList();
+	ClassRecord getClassRecord();
 }

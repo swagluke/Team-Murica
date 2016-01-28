@@ -14,11 +14,11 @@ public class ClassRecord implements IClassRecord {
 	private HashSet<String> classList;
 	private ArrayList<String> patternNames;
 	private String boxColor;
-	private ArrayList<String> extraEdges;
+	private HashSet<String> extraEdges;
 
 	public ClassRecord() {
 		this.patternNames = new ArrayList<String>();
-		this.extraEdges = new ArrayList<String>();
+		this.extraEdges = new HashSet<String>();
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class ClassRecord implements IClassRecord {
 		this.extraEdges.add(string);
 	}
 	
-	public ArrayList<String> getExtraEdges() {
+	public HashSet<String> getExtraEdges() {
 		return this.extraEdges;
 	}
 }

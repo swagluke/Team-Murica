@@ -67,12 +67,17 @@ public class UmlBuilder implements IBuilder {
 	}
 
 	@Override
-	public IClassRecord build() {
+	public ClassRecord build() {
 		return this.build(this.getVisitor());
 	}
 
 	@Override
 	public String getClassUML() {
 		return this.record.getClassUml();
+	}
+
+	@Override
+	public ClassRecord getClassRecord() {
+		return this.record;
 	}
 }

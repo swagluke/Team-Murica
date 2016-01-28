@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import records.ExtendedClassRecord;
+import records.ClassRecord;
 
 public class ExtensionBuilderTest {
 	@Test
@@ -41,10 +41,10 @@ public class ExtensionBuilderTest {
 	public void assertExtends(String className, HashSet<String> includedClasses, String expectedResult,
 			String expectedUml) {
 		ExtensionBuilder builder = new ExtensionBuilder(className, includedClasses);
-		ExtendedClassRecord record = (ExtendedClassRecord) builder.build();
+		ClassRecord record = builder.build();
 
 		assertEquals(expectedResult, record.getExtendsName());
-		assertEquals(expectedUml, record.getClassUml());
+		assertEquals(new UmlBuilder(className, includedClasses).build().getClassUml() + expectedUml, record.getClassUml());
 	}
 
 }

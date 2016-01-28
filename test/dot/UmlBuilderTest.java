@@ -8,8 +8,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.Test;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
+import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import records.ClassRecord;
 import records.InstanceVarRecord;
 import records.MethodRecord;
@@ -18,29 +20,23 @@ public class UmlBuilderTest {
 
 	@Test
 	public void testGettingClassUML() throws IOException, ClassNotFoundException {
-		String className = "dot.AssociationBuilder";
-		String expectedClassName = "dot/AssociationBuilder";
+		String className = "headfirst.factory.pizzas.Pizza";
+		String expectedClassName = "headfirst/factory/pizzas/Pizza";
 		String expectedExtendsName = "java/lang/Object";
-		HashSet<MethodRecord> expectedMethods = new HashSet<MethodRecord>(Arrays.asList(new MethodRecord[] {
-				new MethodRecord(1, "<init>", "void",
-						new Type[] { Type.getType(Class.forName("java.lang.String")),
-								Type.getType(Class.forName("java.util.HashSet")), },
-						new ArrayList<String>(Arrays.asList(new String[] { "java.lang.String", "java.util.HashSet" }))),
-				new MethodRecord(1, "<init>", "void", new Type[] { Type.getType(Class.forName("dot.IBuilder")), },
-						new ArrayList<String>(Arrays.asList(new String[] { "dot.IBuilder" }))),
-				new MethodRecord(1, "getClassList", "java.util.HashSet", new Type[0], new ArrayList<String>()),
-				new MethodRecord(1, "build", "records.IClassRecord",
-						new Type[] { Type.getType(Class.forName("org.objectweb.asm.ClassVisitor")), },
-						new ArrayList<String>(Arrays.asList(new String[] { "org.objectweb.asm.ClassVisitor" }))),
-				new MethodRecord(1, "build", "records.IClassRecord", new Type[0], new ArrayList<String>()),
-				new MethodRecord(1, "getVisitor", "org.objectweb.asm.ClassVisitor", new Type[0],
-						new ArrayList<String>()),
-				new MethodRecord(1, "getClassUML", "java.lang.String", new Type[0], new ArrayList<String>()), }));
+		HashSet<MethodRecord> expectedMethods = new HashSet<MethodRecord>(Arrays.asList(
+				new MethodRecord[] { new MethodRecord(1, "<init>", "void", new Type[0], new ArrayList<String>()),
+						new MethodRecord(1, "getName", "java.lang.String", new Type[0], new ArrayList<String>()),
+						new MethodRecord(1, "prepare", "void", new Type[0], new ArrayList<String>()),
+						new MethodRecord(1, "bake", "void", new Type[0], new ArrayList<String>()),
+						new MethodRecord(1, "cut", "void", new Type[0], new ArrayList<String>()),
+						new MethodRecord(1, "box", "void", new Type[0], new ArrayList<String>()),
+						new MethodRecord(1, "toString", "java.lang.String", new Type[0], new ArrayList<String>()), }));
 		HashSet<InstanceVarRecord> expectedFieldsList = new HashSet<InstanceVarRecord>(
-				Arrays.asList(new InstanceVarRecord[] { new InstanceVarRecord("builder", "dot.IBuilder", 2),
-						new InstanceVarRecord("visitor", "asm.ClassFieldSignatureVisitor", 2),
-						new InstanceVarRecord("associationRecord", "records.AssociationClassRecord", 2) }));
-		HashSet<String> expectedImplementsList = new HashSet<String>(Arrays.asList(new String[] { "dot/IBuilder" }));
+				Arrays.asList(new InstanceVarRecord[] { new InstanceVarRecord("name", "java.lang.String", 0),
+						new InstanceVarRecord("dough", "java.lang.String", 0),
+						new InstanceVarRecord("sauce", "java.lang.String", 0),
+						new InstanceVarRecord("toppings", "java.util.ArrayList", 0) }));
+		HashSet<String> expectedImplementsList = new HashSet<String>();
 		assertBuild(className, expectedClassName, expectedExtendsName, expectedMethods, expectedFieldsList,
 				expectedImplementsList);
 	}
