@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import records.SingletonRecord;
+import records.ClassRecord;
 
 public class SingletonlBuilderTest {
 
@@ -154,7 +154,7 @@ public class SingletonlBuilderTest {
 
 	public void assertSingleton(String className, boolean expectedIsSingleton, String expectedUml) {
 		SingletonBuilder builder = new SingletonBuilder(new UmlBuilder(className, new HashSet<String>(Arrays.asList(className))));
-		SingletonRecord record = (SingletonRecord) builder.build();
+		ClassRecord record = (ClassRecord) builder.build();
 		assertTrue(expectedIsSingleton == record.getBaseRecord().getPatternNames().contains("Singleton"));
 		assertEquals(expectedUml, record.getClassUml());
 	}
