@@ -38,19 +38,19 @@ public class UmlRunner {
 		// extensions to the respective lists.
 		for (String className : args) {
 			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
-			SingletonBuilder sb = new SingletonBuilder(d);
-			ExtensionBuilder e = new ExtensionBuilder(sb);
-			ImplementsBuilder i = new ImplementsBuilder(e);
-			UsesBuilder u = new UsesBuilder(i);
-			AssociationBuilder a = new AssociationBuilder(u);
+//			SingletonBuilder sb = new SingletonBuilder(d);
+//			ExtensionBuilder e = new ExtensionBuilder(d);
+//			ImplementsBuilder i = new ImplementsBuilder(e);
+//			UsesBuilder u = new UsesBuilder(i);
+//			AssociationBuilder a = new AssociationBuilder(u);
 			// s.append(d.getClassUML() + "\n");
-			a.build();
+			d.build();
 //			s.append(d.getClassUML());
 //			s.append(sb.getClassUML());
 //			s.append(e.getClassUML());
 //			s.append(i.getClassUML());
 //			s.append(u.getClassUML());
-			s.append(a.getClassUML());
+			s.append(d.getClassUML());
 //			 for (String imp : i.implementsList) {
 			// HashSet<String> list = implementsMap.get(className);
 			// if (list == null)
@@ -128,7 +128,7 @@ public class UmlRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o out.png");
+		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o", "out.png");
 		Map<String, String> env = pb.environment();
 		// pb.directory();
 		System.out.println(System.getProperty("user.dir"));

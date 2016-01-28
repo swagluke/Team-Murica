@@ -7,11 +7,15 @@ import org.objectweb.asm.ClassVisitor;
 import records.ClassRecord;
 import records.IClassRecord;
 
-abstract public class IPatternBuilder implements IBuilder {
+abstract public class AbstractBuilderDecorator implements IBuilder{
 	protected IBuilder builder;
 	protected ClassRecord record;
+	
+	public AbstractBuilderDecorator(String className, HashSet<String> classNames) {
+		this(new UmlBuilder(className, classNames));
+	}
 
-	public IPatternBuilder(IBuilder b) {
+	public AbstractBuilderDecorator(IBuilder b) {
 		this.builder = b;
 	}
 
@@ -21,28 +25,27 @@ abstract public class IPatternBuilder implements IBuilder {
 
 	public ClassRecord build(ClassVisitor visitor) {
 		this.record = this.builder.build(visitor);
-		if (this.isPattern()) {
-			this.applyPattern(this.record);
-		}
+		this.applyPattern(this.builder.getClassRecord());
 		return this.record;
 	}
 
-	public ClassVisitor getVisitor() {
-		return builder.getVisitor();
-	}
+	abstract public ClassVisitor getVisitor();
+//	public ClassVisitor getVisitor() {
+//		return builder.getVisitor();
+//	}
 
 	public String getClassUML() {
-		return this.getClassRecord().getClassUml();
+		return this.record.getClassUml();
 	}
 
 	public HashSet<String> getClassList() {
-		return this.builder.getClassList();
+		return builder.getClassList();
 	}
 	
 	public ClassRecord getClassRecord() {
 		return this.builder.getClassRecord();
 	}
 	
-	abstract protected boolean isPattern();
-	abstract protected void applyPattern(ClassRecord record);
+	abstract public void applyPattern(ClassRecord record);
+
 }

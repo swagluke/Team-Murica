@@ -10,9 +10,9 @@ public class SingletonBuilder extends IPatternBuilder {
 		super(b);
 	}
 
-	protected void applyPattern() {
-		this.record.getBaseRecord().setBoxColor("blue1");
-		this.record.getBaseRecord().addPattern("Singleton");
+	protected void applyPattern(ClassRecord record) {
+		record.setBoxColor("blue1");
+		record.addPattern("Singleton");
 		String[] shortClassNames = this.record.getClassName().split("/");
 		String shortClassName = shortClassNames[shortClassNames.length - 1];
 		this.record.getBaseRecord().addEdge(shortClassName + " -> " + shortClassName + "\n");
