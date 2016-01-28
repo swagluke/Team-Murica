@@ -51,7 +51,7 @@ public class UmlBuilder implements IBuilder {
 	}
 
 	@Override
-	public IClassRecord build(ClassVisitor visitor) {
+	public ClassRecord build(ClassVisitor visitor) {
 		reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		reader.accept(fieldVisitor, ClassReader.EXPAND_FRAMES);

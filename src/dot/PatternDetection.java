@@ -6,7 +6,7 @@ import records.IClassRecord;
 
 public abstract class PatternDetection extends UmlBuilder {
 
-	private IClassRecord record;
+	protected IClassRecord record;
 
 	public PatternDetection(String className, HashSet<String> classNameList) {
 		super(className, classNameList);
