@@ -13,14 +13,12 @@ public class SingletonBuilder extends APatternBuilder {
 		super(b);
 	}
 
-	protected IClassRecord applyPattern(IClassRecord record) {
-		ClassRecord baseRecord = record.getBaseRecord();
-		baseRecord.setBoxColor("blue1");
-		baseRecord.addPattern("Singleton");
-		String[] shortClassNames = baseRecord.getClassName().split("/");
+	protected void applyPattern(ClassRecord record) {
+		record.setBoxColor("blue1");
+		record.addPattern("Singleton");
+		String[] shortClassNames = record.getClassName().split("/");
 		String shortClassName = shortClassNames[shortClassNames.length - 1];
-		baseRecord.addEdge(shortClassName + " -> " + shortClassName + "\n");
-		return record;
+		record.addEdge(shortClassName + " -> " + shortClassName + "\n");
 	};
 
 	protected boolean isPattern() {
@@ -61,4 +59,6 @@ public class SingletonBuilder extends APatternBuilder {
 	public ClassVisitor getVisitor() {
 		return this.builder.getVisitor();
 	}
+
+
 }

@@ -26,7 +26,7 @@ public class ImplementsBuilder extends AbstractBuilderDecorator {
 	}
 
 	@Override
-	protected IClassRecord applyPattern(IClassRecord record) {
+	protected IClassRecord applyDecoration(IClassRecord record) {
 		ImplementsClassRecord implementsRecord = new ImplementsClassRecord(record);
 		implementsRecord.setImplementsList(this.visitor.getImplementsList());
 		return implementsRecord;

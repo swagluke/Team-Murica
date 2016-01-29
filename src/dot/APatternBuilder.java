@@ -2,6 +2,7 @@ package dot;
 
 import org.objectweb.asm.ClassVisitor;
 
+import records.ClassRecord;
 import records.IClassRecord;
 
 abstract public class APatternBuilder extends AbstractBuilderDecorator {
@@ -10,17 +11,19 @@ abstract public class APatternBuilder extends AbstractBuilderDecorator {
 		super(b);
 	}
 
-	public IClassRecord build() {
-		return this.build(this.getVisitor());
+	@Override
+	public ClassVisitor getVisitor() {
+		return this.builder.getVisitor();
 	}
-
-	public IClassRecord build(ClassVisitor visitor) {
-		this.record = this.builder.build(visitor);
+	
+	@Override
+	protected IClassRecord applyDecoration(IClassRecord record) {
 		if (this.isPattern()) {
-			this.record = this.applyPattern(this.record);
+			this.applyPattern(record.getBaseRecord());
 		}
-		return this.record;
+		return record;
 	}
 	
 	abstract protected boolean isPattern();
+	abstract protected void applyPattern(ClassRecord record);
 }

@@ -25,7 +25,7 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 
 	public IClassRecord build(ClassVisitor visitor) {
 		this.record = this.builder.build(visitor);
-		this.record = this.applyPattern(this.builder.getClassRecord());
+		this.record = this.applyDecoration(this.builder.getClassRecord());
 		return this.record;
 	}
 
@@ -46,6 +46,6 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 		return this.builder.getClassRecord();
 	}
 	
-	protected abstract IClassRecord applyPattern(IClassRecord record);
+	protected abstract IClassRecord applyDecoration(IClassRecord record);
 
 }
