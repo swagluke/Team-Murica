@@ -6,8 +6,6 @@ import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
 import records.ClassRecord;
-import records.ExtendedClassRecord;
-import records.IClassRecord;
 
 public class ExtensionBuilder extends AbstractBuilderDecorator{
 	private ClassDeclarationVisitor visitor;
