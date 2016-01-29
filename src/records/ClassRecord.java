@@ -29,23 +29,7 @@ public class ClassRecord implements IClassRecord {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-
-	public String getExtendsName() {
-		return extendsName;
-	}
-
-	public void setExtendsName(String extendsName) {
-		this.extendsName = extendsName;
-	}
-
-	public HashSet<String> getImplementsList() {
-		return implementsList;
-	}
-
-	public void setImplementsList(HashSet<String> implementsList) {
-		this.implementsList = implementsList;
-	}
-
+	
 	@Override
 	public String getClassUml() {
 		StringBuilder s = new StringBuilder();

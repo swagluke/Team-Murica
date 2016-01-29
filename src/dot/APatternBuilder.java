@@ -4,9 +4,9 @@ import org.objectweb.asm.ClassVisitor;
 
 import records.IClassRecord;
 
-abstract public class IPatternBuilder extends AbstractBuilderDecorator {
+abstract public class APatternBuilder extends AbstractBuilderDecorator {
 
-	public IPatternBuilder(IBuilder b) {
+	public APatternBuilder(IBuilder b) {
 		super(b);
 	}
 

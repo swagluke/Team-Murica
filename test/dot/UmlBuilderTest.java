@@ -22,7 +22,6 @@ public class UmlBuilderTest {
 	public void testGettingClassUML() throws IOException, ClassNotFoundException {
 		String className = "headfirst.factory.pizzas.Pizza";
 		String expectedClassName = "headfirst/factory/pizzas/Pizza";
-		String expectedExtendsName = "java/lang/Object";
 		HashSet<MethodRecord> expectedMethods = new HashSet<MethodRecord>(Arrays.asList(
 				new MethodRecord[] { new MethodRecord(1, "<init>", "void", new Type[0], new ArrayList<String>()),
 						new MethodRecord(1, "getName", "java.lang.String", new Type[0], new ArrayList<String>()),
@@ -36,20 +35,16 @@ public class UmlBuilderTest {
 						new InstanceVarRecord("dough", "java.lang.String", 0),
 						new InstanceVarRecord("sauce", "java.lang.String", 0),
 						new InstanceVarRecord("toppings", "java.util.ArrayList", 0) }));
-		HashSet<String> expectedImplementsList = new HashSet<String>();
-		assertBuild(className, expectedClassName, expectedExtendsName, expectedMethods, expectedFieldsList,
-				expectedImplementsList);
+
+		assertBuild(className, expectedClassName, expectedMethods, expectedFieldsList);
 	}
 
-	public void assertBuild(String className, String expectedClassName, String expectedExtendsName,
-			HashSet<MethodRecord> expectedMethods, HashSet<InstanceVarRecord> expectedFieldsList,
-			HashSet<String> expectedImplementsList) {
+	public void assertBuild(String className, String expectedClassName, HashSet<MethodRecord> expectedMethods,
+			HashSet<InstanceVarRecord> expectedFieldsList) {
 		UmlBuilder builder = new UmlBuilder(className, new HashSet<String>(Arrays.asList(className)));
 		ClassRecord record = (ClassRecord) builder.build();
 		assertEquals(expectedClassName, record.getClassName());
-		assertEquals(expectedExtendsName, record.getExtendsName());
 		assertEquals(expectedMethods, record.getMethodsList());
 		assertEquals(expectedFieldsList, record.getFieldsList());
-		assertEquals(expectedImplementsList, record.getImplementsList());
 	}
 }

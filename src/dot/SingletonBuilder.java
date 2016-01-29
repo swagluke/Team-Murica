@@ -7,7 +7,7 @@ import records.IClassRecord;
 import records.InstanceVarRecord;
 import records.MethodRecord;
 
-public class SingletonBuilder extends IPatternBuilder {
+public class SingletonBuilder extends APatternBuilder {
 
 	public SingletonBuilder(IBuilder b) {
 		super(b);
