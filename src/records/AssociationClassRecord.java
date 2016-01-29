@@ -12,8 +12,11 @@ public class AssociationClassRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
+		if (this.associationNames.isEmpty()) {
+			return this.innerRecord.getClassUml();
+		}
 		StringBuilder s = new StringBuilder();
-		s.append("edge [ style = \"normal\" arrowhead = \"vee\"]\n");
+		boolean firstTime = true;
 		String className = this.getClassName();
 		String[] shortClassNameList = className.replace("/", ".").split("\\.");
 		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
@@ -21,7 +24,12 @@ public class AssociationClassRecord implements IClassRecord {
 			String[] shortAssociationNameList = associationName.replace("/", ".").split("\\.");
 			String shortAssociationName = shortAssociationNameList[shortAssociationNameList.length - 1];
 			if (this.getClassList().contains(associationName.replace("/", "."))) {
-//				s.append("edge [ style = \"normal\"]\n");
+				// s.append("edge [ style = \"normal\"]\n");
+				if (firstTime) {
+					s.append(this.innerRecord.getClassUml());
+					s.append("edge [ style = \"normal\" arrowhead = \"vee\"]\n");
+					firstTime = false;
+				}
 				s.append(shortClassName + " -> " + shortAssociationName + "\n");
 			}
 
@@ -52,8 +60,8 @@ public class AssociationClassRecord implements IClassRecord {
 	public IClassRecord getInnerRecord() {
 		return this.innerRecord;
 	}
-	
-	@Override 
+
+	@Override
 	public ClassRecord getBaseRecord() {
 		return this.innerRecord.getBaseRecord();
 	}

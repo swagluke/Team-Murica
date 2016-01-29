@@ -15,7 +15,7 @@ public class AssociationBuilderTest {
 	public void testNoAssociation() throws IOException {
 		assertAssociations(this.getClass().getName(),
 				new HashSet<String>(Arrays.asList(new String[] { this.getClass().getName() })), new HashSet<String>(),
-				"edge [ style = \"normal\" arrowhead = \"vee\"]\n");
+				"");
 	}
 
 	@Test
