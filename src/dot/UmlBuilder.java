@@ -11,7 +11,6 @@ import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import records.ClassRecord;
-import records.IClassRecord;
 
 public class UmlBuilder implements IBuilder {
 	private ClassRecord record;

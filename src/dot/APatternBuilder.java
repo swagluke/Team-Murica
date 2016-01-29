@@ -10,17 +10,19 @@ abstract public class APatternBuilder extends AbstractBuilderDecorator {
 		super(b);
 	}
 
-	public IClassRecord build() {
-		return this.build(this.getVisitor());
-	}
-
-	public IClassRecord build(ClassVisitor visitor) {
-		this.record = this.builder.build(visitor);
-		if (this.isPattern()) {
-			this.record = this.applyPattern(this.record);
-		}
-		return this.record;
+	@Override
+	public ClassVisitor getVisitor() {
+		return this.builder.getVisitor();
 	}
 	
-	abstract protected boolean isPattern();
+	@Override
+	protected IClassRecord applyDecoration(IClassRecord record) {
+		if (this.isPattern(record)) {
+			this.applyPattern(record);
+		}
+		return record;
+	}
+	
+	abstract protected boolean isPattern(IClassRecord record);
+	abstract protected void applyPattern(IClassRecord record);
 }

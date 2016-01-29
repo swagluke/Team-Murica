@@ -5,11 +5,8 @@ import java.util.HashSet;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-import com.sun.corba.se.impl.oa.poa.AOMEntry;
-
 import asm.ClassFieldSignatureVisitor;
 import records.AssociationClassRecord;
-import records.ClassRecord;
 import records.IClassRecord;
 
 public class AssociationBuilder extends AbstractBuilderDecorator {
@@ -31,7 +28,7 @@ public class AssociationBuilder extends AbstractBuilderDecorator {
 	}
 
 	@Override
-	protected IClassRecord applyPattern(IClassRecord record) {
+	protected IClassRecord applyDecoration(IClassRecord record) {
 		AssociationClassRecord associationRecord = new AssociationClassRecord(record);
 		associationRecord.setAssociationNames(this.visitor.getAssociationNames());
 		return associationRecord;

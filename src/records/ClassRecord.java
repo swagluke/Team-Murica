@@ -7,10 +7,8 @@ import org.objectweb.asm.Type;
 
 public class ClassRecord implements IClassRecord {
 	public String className;
-	private String extendsName;
 	private HashSet<MethodRecord> methodsList;
 	private HashSet<InstanceVarRecord> fieldsList;
-	private HashSet<String> implementsList;
 	private HashSet<String> classList;
 	private ArrayList<String> patternNames;
 	private String boxColor;
@@ -29,7 +27,7 @@ public class ClassRecord implements IClassRecord {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	
+
 	@Override
 	public String getClassUml() {
 		StringBuilder s = new StringBuilder();
@@ -111,11 +109,11 @@ public class ClassRecord implements IClassRecord {
 	public void addPattern(String patternName) {
 		this.patternNames.add(patternName);
 	}
-	
+
 	private boolean hasBoxColor() {
 		return this.boxColor != null;
 	}
-	
+
 	public void setBoxColor(String boxColor) {
 		this.boxColor = boxColor;
 	}
@@ -123,8 +121,18 @@ public class ClassRecord implements IClassRecord {
 	public void addEdge(String string) {
 		this.extraEdges.add(string);
 	}
-	
+
 	public HashSet<String> getExtraEdges() {
 		return this.extraEdges;
+	}
+
+	@Override
+	public IClassRecord tryConvertRecord(Class<?> classVar) {
+		return null;
+	}
+
+	@Override
+	public boolean canConvertRecord(Class<?> classVar) {
+		return false;
 	}
 }

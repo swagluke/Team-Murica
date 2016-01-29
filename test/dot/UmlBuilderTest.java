@@ -8,10 +8,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.Test;
-import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import records.ClassRecord;
 import records.InstanceVarRecord;
 import records.MethodRecord;
