@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import records.ClassRecord;
 
-public class SingletonlBuilderTest {
+public class SingletonBuilderTest {
 
 	@Test
 	public void testNotASingleton() throws IOException, ClassNotFoundException {
