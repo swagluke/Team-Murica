@@ -2,7 +2,6 @@ package dot;
 
 import org.objectweb.asm.ClassVisitor;
 
-import records.ClassRecord;
 import records.IClassRecord;
 
 abstract public class APatternBuilder extends AbstractBuilderDecorator {
@@ -18,12 +17,12 @@ abstract public class APatternBuilder extends AbstractBuilderDecorator {
 	
 	@Override
 	protected IClassRecord applyDecoration(IClassRecord record) {
-		if (this.isPattern()) {
-			this.applyPattern(record.getBaseRecord());
+		if (this.isPattern(record)) {
+			this.applyPattern(record);
 		}
 		return record;
 	}
 	
-	abstract protected boolean isPattern();
-	abstract protected void applyPattern(ClassRecord record);
+	abstract protected boolean isPattern(IClassRecord record);
+	abstract protected void applyPattern(IClassRecord record);
 }

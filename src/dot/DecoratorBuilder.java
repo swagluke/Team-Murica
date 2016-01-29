@@ -3,6 +3,7 @@ package dot;
 import java.util.ArrayList;
 
 import records.ClassRecord;
+import records.IClassRecord;
 
 public class DecoratorBuilder extends APatternBuilder {
 
@@ -16,13 +17,13 @@ public class DecoratorBuilder extends APatternBuilder {
 
 
 	@Override
-	public boolean isPattern() {
-		// TODO Auto-generated method stub
+	public boolean isPattern(IClassRecord record) {
+		if (record.get)
 		return false;
 	}
 
 	@Override
-	protected void applyPattern(ClassRecord record) {
+	protected void applyPattern(IClassRecord record) {
 		// TODO Auto-generated method stub
 	}
 

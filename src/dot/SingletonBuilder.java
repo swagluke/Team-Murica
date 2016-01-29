@@ -13,16 +13,17 @@ public class SingletonBuilder extends APatternBuilder {
 		super(b);
 	}
 
-	protected void applyPattern(ClassRecord record) {
-		record.setBoxColor("blue1");
-		record.addPattern("Singleton");
-		String[] shortClassNames = record.getClassName().split("/");
+	protected void applyPattern(IClassRecord record) {
+		ClassRecord baseRecord = record.getBaseRecord();
+		baseRecord.setBoxColor("blue1");
+		baseRecord.addPattern("Singleton");
+		String[] shortClassNames = baseRecord.getClassName().split("/");
 		String shortClassName = shortClassNames[shortClassNames.length - 1];
-		record.addEdge(shortClassName + " -> " + shortClassName + "\n");
+		baseRecord.addEdge(shortClassName + " -> " + shortClassName + "\n");
 	};
 
-	protected boolean isPattern() {
-		ClassRecord baseRecord = this.record.getBaseRecord();
+	protected boolean isPattern(IClassRecord record) {
+		ClassRecord baseRecord = record.getBaseRecord();
 		boolean hasField = false;
 		for (InstanceVarRecord field : baseRecord.getFieldsList()) {
 			if (field.getAccess() == 10 && field.getType().equals(baseRecord.getClassName().replace("/", "."))) {
