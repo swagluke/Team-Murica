@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import records.ImplementsClassRecord;
+import records.ClassRecord;
 
 public class ImplementsBuilderTest {
 	@Test
@@ -20,10 +20,10 @@ public class ImplementsBuilderTest {
 
 	@Test
 	public void testBasicImplements() throws IOException {
-		assertImplements("dot.ImplementsBuilder",
+		assertImplements("dot.UmlBuilder",
 				new HashSet<String>(Arrays.asList(new String[] { "dot.ImplementsBuilder", "dot.IBuilder" })),
 				new HashSet<String>(Arrays.asList(new String[] { "dot/IBuilder" })),
-				"edge [ arrowhead = \"empty\" style = \"dotted\"]\nImplementsBuilder -> IBuilder\n");
+				"edge [ arrowhead = \"empty\" style = \"dotted\"]\nUmlBuilder -> IBuilder\n");
 	}
 
 	@Test
@@ -39,8 +39,9 @@ public class ImplementsBuilderTest {
 	public void assertImplements(String className, HashSet<String> includedClasses, HashSet<String> expectedResult,
 			String expectedUml) {
 		ImplementsBuilder builder = new ImplementsBuilder(className, includedClasses);
-		ImplementsClassRecord record = (ImplementsClassRecord) builder.build();
+		ClassRecord record = builder.build();
+		
 		assertEquals(expectedResult, record.getImplementsList());
-		assertEquals(expectedUml, record.getClassUml());
+		assertEquals(new UmlBuilder(className, includedClasses).build().getClassUml() + expectedUml, record.getClassUml());
 	}
 }

@@ -21,7 +21,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
-		System.out.println(access);
 		String type = Type.getType(desc).getClassName();
 		fields.add(new InstanceVarRecord(name, type, access));
 		return toDecorate;

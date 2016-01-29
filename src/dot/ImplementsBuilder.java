@@ -6,56 +6,41 @@ import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
 import records.ClassRecord;
-import records.IClassRecord;
-import records.ImplementsClassRecord;
 
-public class ImplementsBuilder implements IBuilder {
-	public HashSet<String> implementsList;
-	IBuilder builder;
+public class ImplementsBuilder extends AbstractBuilderDecorator {
 	private ClassDeclarationVisitor visitor;
-	private ClassRecord record;
 
 	public ImplementsBuilder(String className, HashSet<String> classNames) {
-		this(new ExtensionBuilder(className, classNames));
+		this(new UmlBuilder(className, classNames));
 	}
 
-	public ImplementsBuilder(IBuilder extensionBuilder) {
-		this.builder = extensionBuilder;
+	public ImplementsBuilder(IBuilder b) {
+		super(b);
 		this.visitor = (ClassDeclarationVisitor) builder.getVisitor();
 
 	}
 	
-	@Override
-	public HashSet<String> getClassList() {
-		return this.builder.getClassList();
-	}
-
-	@Override
-	public ClassRecord getClassRecord() {
-		return record;
-	}
-
 	@Override
 	public ClassVisitor getVisitor() {
 		return visitor;
 	}
 
 	@Override
-	public ClassRecord build(ClassVisitor visitor) {
-		record = this.builder.build(visitor);
-		this.implementsList = this.visitor.getImplementsList();
-		record.setImplementsList(implementsList);
-		return record;
-	}
+	public void applyPattern(ClassRecord record) {
+		StringBuilder s = new StringBuilder();
+		String className = record.getClassName();
+		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
+		String[] shortClassNameList = className.replace("/", ".").split("\\.");
+		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
 
-	@Override
-	public ClassRecord build() {
-		return this.build(this.getVisitor());
+		for (String implement : record.getImplementsList()) {
+			String[] shortImplementList = implement.replace("/", ".").split("\\.");
+			String shortImplement = shortImplementList[shortImplementList.length - 1];
+			if (this.getClassList().contains(implement.replace("/", "."))) {
+				s.append(shortClassName + " -> " + shortImplement + "\n");
+			}
+		}
+		record.addEdge(s.toString());
+		
 	}
-
-	@Override
-	public String getClassUML() {
-		return this.builder.getClassUML() + this.record.getClassUml();
-	}
-
 }

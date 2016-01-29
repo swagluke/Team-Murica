@@ -20,6 +20,11 @@ public class ExtensionBuilder extends AbstractBuilderDecorator{
 	}
 
 	@Override
+	public ClassVisitor getVisitor() {
+		return this.visitor;
+	}
+
+	@Override
 	public void applyPattern(ClassRecord record) {
 		String extendsName = record.getExtendsName();
 		if (extendsName == null) {
@@ -38,38 +43,4 @@ public class ExtensionBuilder extends AbstractBuilderDecorator{
 		}
 		record.addEdge(s.toString());
 	}
-
-	@Override
-	public ClassVisitor getVisitor() {
-		return this.visitor;
-	}
-	
-//	@Override
-//	public HashSet<String> getClassList() {
-//		return this.builder.getClassList();
-//	}
-//
-//	@Override
-//	public ClassRecord build(ClassVisitor visitor) {
-//		ClassRecord record = builder.build(visitor);
-//		extendedRecord = new ExtendedClassRecord(record.getBaseRecord());
-//		extendedRecord.setExtendsName(this.visitor.getExtendsName());
-//		return extendedRecord;
-//	}
-//
-//	@Override
-//	public ClassVisitor getVisitor() {
-//		return this.visitor;
-//	}
-//
-//	@Override
-//	public ClassRecord build() {
-//		return this.build(visitor);
-//	}
-//
-//	@Override
-//	public String getClassUML() {
-//		return this.builder.getClassUML() + this.extendedRecord.getClassUml();
-//	}
-
 }
