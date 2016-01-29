@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import records.ClassRecord;
+import records.ImplementsClassRecord;
 
 public class ImplementsBuilderTest {
 	@Test
@@ -39,7 +39,7 @@ public class ImplementsBuilderTest {
 	public void assertImplements(String className, HashSet<String> includedClasses, HashSet<String> expectedResult,
 			String expectedUml) {
 		ImplementsBuilder builder = new ImplementsBuilder(className, includedClasses);
-		ClassRecord record = builder.build();
+		ImplementsClassRecord record = (ImplementsClassRecord) builder.build();
 		
 		assertEquals(expectedResult, record.getImplementsList());
 		assertEquals(new UmlBuilder(className, includedClasses).build().getClassUml() + expectedUml, record.getClassUml());

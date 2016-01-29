@@ -9,7 +9,7 @@ import records.IClassRecord;
 
 abstract public class AbstractBuilderDecorator implements IBuilder{
 	protected IBuilder builder;
-	protected ClassRecord record;
+	protected IClassRecord record;
 	
 	public AbstractBuilderDecorator(String className, HashSet<String> classNames) {
 		this(new UmlBuilder(className, classNames));
@@ -19,13 +19,13 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 		this.builder = b;
 	}
 
-	public ClassRecord build() {
+	public IClassRecord build() {
 		return this.build(this.getVisitor());
 	}
 
-	public ClassRecord build(ClassVisitor visitor) {
+	public IClassRecord build(ClassVisitor visitor) {
 		this.record = this.builder.build(visitor);
-		this.applyPattern(this.builder.getClassRecord());
+		this.record = this.applyPattern(this.builder.getClassRecord());
 		return this.record;
 	}
 
@@ -46,6 +46,6 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 		return this.builder.getClassRecord();
 	}
 	
-	abstract public void applyPattern(ClassRecord record);
+	abstract public IClassRecord applyPattern(IClassRecord record);
 
 }

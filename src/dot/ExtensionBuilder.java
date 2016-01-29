@@ -6,6 +6,8 @@ import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
 import records.ClassRecord;
+import records.ExtendedClassRecord;
+import records.IClassRecord;
 
 public class ExtensionBuilder extends AbstractBuilderDecorator{
 	private ClassDeclarationVisitor visitor;
@@ -25,22 +27,9 @@ public class ExtensionBuilder extends AbstractBuilderDecorator{
 	}
 
 	@Override
-	public void applyPattern(ClassRecord record) {
-		String extendsName = record.getExtendsName();
-		if (extendsName == null) {
-			return;
-		}
-		StringBuilder s = new StringBuilder();
-		String className = record.getClassName();
-		String[] shortClassNameList = className.replace("/", ".").split("\\.");
-		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
-
-		String[] shortExtendNameList = extendsName.replace("/", ".").split("\\.");
-		String shortExtendName = shortExtendNameList[shortExtendNameList.length - 1];
-		if (this.getClassList().contains(extendsName.replace("/", "."))) {
-			s.append("edge [ style = \"normal\"]\n");
-			s.append(shortClassName + " -> " + shortExtendName + "\n");
-		}
-		record.addEdge(s.toString());
+	public IClassRecord applyPattern(IClassRecord record) {
+		ExtendedClassRecord extendedRecord = new ExtendedClassRecord(record);
+		extendedRecord.setExtendsName(this.visitor.getExtendsName());
+		return extendedRecord;
 	}
 }
