@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import dot.AssociationBuilder;
+import dot.DecoratorBuilder;
 import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
 import dot.SingletonBuilder;
@@ -39,18 +40,19 @@ public class UmlRunner {
 		for (String className : args) {
 			UmlBuilder d = new UmlBuilder(className, new HashSet<String>(Arrays.asList(args)));
 //			SingletonBuilder sb = new SingletonBuilder(d);
-//			ExtensionBuilder e = new ExtensionBuilder(d);
-//			ImplementsBuilder i = new ImplementsBuilder(e);
+			ExtensionBuilder e = new ExtensionBuilder(d);
+			ImplementsBuilder i = new ImplementsBuilder(e);
 //			UsesBuilder u = new UsesBuilder(i);
 //			AssociationBuilder a = new AssociationBuilder(u);
+			DecoratorBuilder db = new DecoratorBuilder(i);
 			// s.append(d.getClassUML() + "\n");
-			d.build();
+			db.build();
 //			s.append(d.getClassUML());
 //			s.append(sb.getClassUML());
 //			s.append(e.getClassUML());
 //			s.append(i.getClassUML());
 //			s.append(u.getClassUML());
-			s.append(d.getClassUML());
+			s.append(db.getClassUML());
 //			 for (String imp : i.implementsList) {
 			// HashSet<String> list = implementsMap.get(className);
 			// if (list == null)

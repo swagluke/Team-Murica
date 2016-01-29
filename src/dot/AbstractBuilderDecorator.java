@@ -25,7 +25,7 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 
 	public IClassRecord build(ClassVisitor visitor) {
 		this.record = this.builder.build(visitor);
-		this.record = this.applyDecoration(this.builder.getClassRecord());
+		this.record = this.applyDecoration(this.record);
 		return this.record;
 	}
 
