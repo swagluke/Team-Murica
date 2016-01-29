@@ -12,23 +12,27 @@ public class UsesClassRecord implements IClassRecord {
 
 	@Override
 	public String getClassUml() {
+		if (this.usesNamesList.isEmpty()) {
+			return this.innerRecord.getClassUml();
+		}
+		boolean firstTime = true;
 		StringBuilder s = new StringBuilder();
-		s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
 		for (String val : usesNamesList) {
 			String[] valList = val.replace("/", ".").split("\\.");
 			String shortValue = valList[valList.length - 1];
 			if (innerRecord.getClassList().contains(val.replace("/", "."))) {
 				String[] n = innerRecord.getClassName().split("/");
 				String name = n[n.length - 1];
+				System.out.println(shortValue);
+				if (firstTime) {
+					s.append(this.innerRecord.getClassUml());
+					s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
+					firstTime = false;
+				}
 				s.append(name + " -> " + shortValue + "\n");
 			}
 		}
 		return s.toString();
-	}
-
-	public HashSet<MethodRecord> getMethods() {
-		// return innerRecord.
-		return new HashSet<MethodRecord>();
 	}
 
 	public HashSet<String> getUsesNamesList() {

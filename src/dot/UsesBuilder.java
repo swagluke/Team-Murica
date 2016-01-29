@@ -14,9 +14,7 @@ import records.ImplementsClassRecord;
 import records.MethodRecord;
 import records.UsesClassRecord;
 
-public class UsesBuilder implements IBuilder {
-	private IBuilder builder;
-	UsesClassRecord record;
+public class UsesBuilder extends AbstractBuilderDecorator{
 	private ClassMethodInsVisitor visitor;
 
 	public UsesBuilder(String className, HashSet<String> classNames) {
@@ -24,35 +22,19 @@ public class UsesBuilder implements IBuilder {
 	}
 	
 	public UsesBuilder(IBuilder b) {
-		this.builder = b;
+		super(b);
 		this.visitor = new ClassMethodInsVisitor(Opcodes.ASM5, b.getVisitor());
 	}
 
 	@Override
 	public ClassVisitor getVisitor() {
 		return this.visitor;
-
 	}
 
 	@Override
-	public IClassRecord build() {
-		return this.build(this.getVisitor());
-	}
-
-	@Override
-	public IClassRecord build(ClassVisitor visitor) {
-		record = new UsesClassRecord(builder.build(visitor));
-		record.setUsesNamesList(this.visitor.getUsesNames());
-		return record;
-	}
-
-	@Override
-	public String getClassUML() {
-		return this.builder.getClassUML() + this.record.getClassUml();
-	}
-
-	@Override
-	public HashSet<String> getClassList() {
-		return this.builder.getClassList();
+	public IClassRecord applyPattern(IClassRecord record) {
+		UsesClassRecord usesClassRecord = new UsesClassRecord(record);
+		usesClassRecord.setUsesNamesList(this.visitor.getUsesNames());
+		return usesClassRecord;
 	}
 }
