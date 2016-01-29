@@ -51,9 +51,6 @@ public class UsesBuilderTest {
 			String expectedUml) {
 		UsesBuilder builder = new UsesBuilder(className, includedClasses);
 		UsesClassRecord record = (UsesClassRecord) builder.build();
-		System.out.println(expectedResult);
-		System.out.println(record.getUsesNamesList());
-		System.out.println();
 		assertEquals(expectedResult, record.getUsesNamesList());
 		assertEquals(new UmlBuilder(className, includedClasses).build().getClassUml() + expectedUml,
 				record.getClassUml());
