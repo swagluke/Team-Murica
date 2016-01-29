@@ -7,12 +7,9 @@ import records.IClassRecord;
 import records.ImplementsClassRecord;
 
 public class DecoratorBuilder extends APatternBuilder {
-
-
 	public DecoratorBuilder(IBuilder b) {
 		super(b);
 	}
-
 
 	@Override
 	public boolean isPattern(IClassRecord record) {
