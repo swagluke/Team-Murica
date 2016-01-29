@@ -25,17 +25,21 @@ import records.IClassRecord;
 public class UmlWrapper {
 	private final static String fontName = "Comic Sans MS";
 	private HashSet<String> classNames;
-	private HashMap<String, IClassRecord> records; // convert to hashmap
+	private HashMap<String, IClassRecord> records;
 	private ArrayList<IBuilder> decorators;
 
 
 	public UmlWrapper(String[] classNames) {
 		this.classNames = new HashSet<String>(Arrays.asList(classNames));
-		this.records = new ArrayList<IClassRecord>();
+		this.records = new HashMap<String, IClassRecord>();
 		this.decorators = new ArrayList<IBuilder>();
 	}
 	
-	public void build() {
+	public void generateGraph() {
+		this.createGraph(this.build());
+	}
+	
+	public String build() {
 		for (String className : this.classNames) {
 			UmlBuilder d = new UmlBuilder(className, this.classNames);
 //			SingletonBuilder sb = new SingletonBuilder(d);
@@ -47,28 +51,28 @@ public class UmlWrapper {
 			AdapterBuilder ad = new AdapterBuilder(i);
 			this.decorators.add(ad);
 			// s.append(d.getClassUML() + "\n");
-			this.records.add(ad.build());
+			this.records.put(className, ad.build());
 		}
 		for (int i=0;i<this.decorators.size();i++) {
 //		for (IBuilder decorator : this.decorators) {
 			IBuilder decorator = this.decorators.get(i);
 			IClassRecord record = this.records.get(i);
-			decorator.calculatePattern(record, null);
+			decorator.calculatePattern(record, this.records);
 		}
 		
 		StringBuilder s = new StringBuilder();
 		s.append("digraph G {fontname = \"" + fontName + "\"  fontsize = 8  node [ fontname = \"" + fontName
 				+ "\" fontsize = 8 shape = \"record\"]" + " edge [ fontname = \"" + fontName + "\" fontsize = 8 ]\n");
 
-		for (IClassRecord record : this.records) {
-			s.append(record.getClassUml());
+		for (String className : this.records.keySet()) {
+			s.append(this.records.get(className).getClassUml());
 		}
 		s.append("}");
 
-		createGraph(s.toString());		
+		return s.toString();		
 	}
 	
-	private static void createGraph(String digraph) {
+	private void createGraph(String digraph) {
 		final Path path = Paths.get("temp.dot");
 
 		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,

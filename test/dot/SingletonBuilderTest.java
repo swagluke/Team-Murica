@@ -5,11 +5,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.junit.Test;
 
 import records.ClassRecord;
+import records.IClassRecord;
 
 public class SingletonBuilderTest {
 
@@ -153,6 +155,9 @@ public class SingletonBuilderTest {
 		SingletonBuilder builder = new SingletonBuilder(
 				new UmlBuilder(className, new HashSet<String>(Arrays.asList(className))));
 		ClassRecord record = (ClassRecord) builder.build();
+		HashMap<String, IClassRecord> records = new HashMap<String, IClassRecord>();
+		records.put(className, record);
+		builder.calculatePattern(record, records);
 		assertTrue(expectedIsSingleton == record.getBaseRecord().getPatternNames().contains("Singleton"));
 		if (expectedIsSingleton) {
 			assertEquals(expectedUml, record.getClassUml());

@@ -33,7 +33,7 @@ public class UmlRunner {
 
 	public static void main(String[] args) {
 		UmlWrapper umlWrapper = new UmlWrapper(args);
-		umlWrapper.build();
+		umlWrapper.generateGraph();
 //		StringBuilder s = new StringBuilder();
 //		// set up digraph information
 //		s.append("digraph G {fontname = \"" + fontName + "\"  fontsize = 8  node [ fontname = \"" + fontName
