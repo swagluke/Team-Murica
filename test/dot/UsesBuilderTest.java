@@ -13,32 +13,45 @@ import records.UsesClassRecord;
 public class UsesBuilderTest {
 	@Test
 	public void testNoUses() throws IOException {
-		assertUses(new HashSet<String>(), "asm.NoMethods");
+		assertUses("asm.NoMethods", new HashSet<String>(Arrays.asList("asm.NoMethods")), new HashSet<String>(), "");
 	}
 
 	@Test
 	public void testBasicUses() throws IOException {
-		assertUses(
+		assertUses("dot.ImplementsBuilder",
 				new HashSet<String>(
-						Arrays.asList("java/lang/String", "java/util/HashSet", "org/objectweb/asm/ClassVisitor",
-								"records/ImplementsClassRecord", "dot/ExtensionBuilder", "dot/ImplementsBuilder")),
-				"dot.implementsBuilder");
+						Arrays.asList("java.util.HashSet", "org.objectweb.asm.ClassVisitor", "java.lang.String",
+								"records.ImplementsClassRecord", "dot.UmlBuilder", "dot.ImplementsBuilder", "dot.AbstractBuilderDecorator")),
+				new HashSet<String>(
+						Arrays.asList("java/util/HashSet", "org/objectweb/asm/ClassVisitor", "java/lang/String",
+								"records/ImplementsClassRecord", "dot/UmlBuilder", "dot/ImplementsBuilder", "dot/AbstractBuilderDecorator")),
+				"edge [ style = \"dotted\" arrowhead = \"open\"]\n" + 
+				"ImplementsBuilder -> ImplementsBuilder\n");
 	}
 
 	@Test
 	public void testAdvancedUses() throws IOException {
-		assertUses(
+		assertUses("headfirst.factory.pizzafm.ChicagoPizzaStore",
 				new HashSet<String>(Arrays.asList("headfirst/factory/pizzafm/ChicagoStyleCheesePizza",
 						"headfirst/factory/pizzafm/ChicagoStyleVeggiePizza",
 						"headfirst/factory/pizzafm/ChicagoStyleClamPizza",
 						"headfirst/factory/pizzafm/ChicagoStylePepperoniPizza", "java/lang/String")),
-				"headfirst.factory.pizzafm.ChicagoPizzaStore");
+				new HashSet<String>(Arrays.asList("headfirst/factory/pizzafm/ChicagoStyleCheesePizza",
+						"headfirst/factory/pizzafm/ChicagoStyleVeggiePizza",
+						"headfirst/factory/pizzafm/ChicagoStyleClamPizza",
+						"headfirst/factory/pizzafm/ChicagoStylePepperoniPizza", "java/lang/String")),
+				"");
 	}
 
-	public void assertUses(HashSet<String> expectedResult, String className) {
-		UsesBuilder builder = new UsesBuilder(
-				new ImplementsBuilder(className, new HashSet<String>(Arrays.asList(className))));
+	public void assertUses(String className, HashSet<String> includedClasses, HashSet<String> expectedResult,
+			String expectedUml) {
+		UsesBuilder builder = new UsesBuilder(className, new HashSet<String>(Arrays.asList(className)));
 		UsesClassRecord record = (UsesClassRecord) builder.build();
+		System.out.println(expectedResult);
+		System.out.println(record.getUsesNamesList());
+		System.out.println();
 		assertEquals(expectedResult, record.getUsesNamesList());
+		assertEquals(new UmlBuilder(className, includedClasses).build().getClassUml() + expectedUml,
+				record.getClassUml());
 	}
 }
