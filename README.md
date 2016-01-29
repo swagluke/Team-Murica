@@ -70,10 +70,32 @@ README: Lujia Zhang
 
 Implementation: Primary Lucas Miller, Lujia Zhang and Philip Ross helped out.
 
-UML Diagram: Lujia Zhang
+Design: All three
+
+Sequence Diagram Manual: Lujia Zhang
+
+Automated tests: Philip Ross
+
+Milestone 4:
+
+README: Lujia Zhang
+
+Implementation: Primary Lucas Miller, Lujia Zhang and Philip Ross helped out.
+
+Singletons Manual: Lujia Zhang
 
 Design: All three
 
-UML comparison testing: Lujia Zhang
+Automated tests: Philip Ross
+
+Milestone 5:
+
+README: Lujia Zhang
+
+Implementation: Primary Lucas Miller, Lujia Zhang and Philip Ross helped out.
+
+Adapter and Decorator patterns Manual: Lujia Zhang
+
+Design: All three
 
 Automated tests: Philip Ross
