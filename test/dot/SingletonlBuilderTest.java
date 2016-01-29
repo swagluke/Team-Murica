@@ -16,12 +16,9 @@ public class SingletonlBuilderTest {
 	@Test
 	public void testNotASingleton() throws IOException, ClassNotFoundException {
 		String className = "dot.AssociationBuilder";
-		String expectedUml = "AssociationBuilder [label = \"{AssociationBuilder|+builder : dot.IBuilder\\l\n"
-				+ "+visitor : asm.ClassFieldSignatureVisitor\\l\n"
-				+ "+associationRecord : records.AssociationClassRecord\\l\n" + "|+ build : records.IClassRecord\\l\n"
-				+ "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" + "+ getClassUML : java.lang.String\\l\n"
-				+ "+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n"
-				+ "+ getClassList : java.util.HashSet\\l\n" + "}\"]";
+		String expectedUml = "AssociationBuilder [label = \"{AssociationBuilder|+visitor : asm.ClassFieldSignatureVisitor\\l\n"
+				+ "|+ applyPatternrecords.IClassRecord  : records.IClassRecord\\l\n"
+				+ "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" + "}\"]";
 		assertSingleton(className, false, expectedUml);
 	}
 
@@ -153,7 +150,8 @@ public class SingletonlBuilderTest {
 	}
 
 	public void assertSingleton(String className, boolean expectedIsSingleton, String expectedUml) {
-		SingletonBuilder builder = new SingletonBuilder(new UmlBuilder(className, new HashSet<String>(Arrays.asList(className))));
+		SingletonBuilder builder = new SingletonBuilder(
+				new UmlBuilder(className, new HashSet<String>(Arrays.asList(className))));
 		ClassRecord record = (ClassRecord) builder.build();
 		assertTrue(expectedIsSingleton == record.getBaseRecord().getPatternNames().contains("Singleton"));
 		assertEquals(expectedUml, record.getClassUml());

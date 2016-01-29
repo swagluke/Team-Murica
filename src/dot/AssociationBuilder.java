@@ -31,7 +31,7 @@ public class AssociationBuilder extends AbstractBuilderDecorator {
 	}
 
 	@Override
-	public IClassRecord applyPattern(IClassRecord record) {
+	protected IClassRecord applyPattern(IClassRecord record) {
 		AssociationClassRecord associationRecord = new AssociationClassRecord(record);
 		associationRecord.setAssociationNames(this.visitor.getAssociationNames());
 		return associationRecord;

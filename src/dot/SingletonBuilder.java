@@ -1,6 +1,9 @@
 package dot;
 
+import org.objectweb.asm.ClassVisitor;
+
 import records.ClassRecord;
+import records.IClassRecord;
 import records.InstanceVarRecord;
 import records.MethodRecord;
 
@@ -10,12 +13,14 @@ public class SingletonBuilder extends IPatternBuilder {
 		super(b);
 	}
 
-	protected void applyPattern(ClassRecord record) {
-		record.setBoxColor("blue1");
-		record.addPattern("Singleton");
-		String[] shortClassNames = this.record.getClassName().split("/");
+	protected IClassRecord applyPattern(IClassRecord record) {
+		ClassRecord baseRecord = record.getBaseRecord();
+		baseRecord.setBoxColor("blue1");
+		baseRecord.addPattern("Singleton");
+		String[] shortClassNames = baseRecord.getClassName().split("/");
 		String shortClassName = shortClassNames[shortClassNames.length - 1];
-		this.record.getBaseRecord().addEdge(shortClassName + " -> " + shortClassName + "\n");
+		baseRecord.addEdge(shortClassName + " -> " + shortClassName + "\n");
+		return record;
 	};
 
 	protected boolean isPattern() {
@@ -50,5 +55,10 @@ public class SingletonBuilder extends IPatternBuilder {
 		// System.out.println("hasField: " + hasField + ", !hasPublicConstructor: " + !hasPublicConstructor +
 		// ", hasGetter: " + hasGetter);
 		return hasField && !hasPublicConstructor && hasGetter;
+	}
+
+	@Override
+	public ClassVisitor getVisitor() {
+		return this.builder.getVisitor();
 	}
 }

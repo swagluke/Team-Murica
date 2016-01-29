@@ -32,7 +32,7 @@ public class UsesBuilder extends AbstractBuilderDecorator{
 	}
 
 	@Override
-	public IClassRecord applyPattern(IClassRecord record) {
+	protected IClassRecord applyPattern(IClassRecord record) {
 		UsesClassRecord usesClassRecord = new UsesClassRecord(record);
 		usesClassRecord.setUsesNamesList(this.visitor.getUsesNames());
 		return usesClassRecord;

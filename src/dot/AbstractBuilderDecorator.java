@@ -46,6 +46,6 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 		return this.builder.getClassRecord();
 	}
 	
-	abstract public IClassRecord applyPattern(IClassRecord record);
+	protected abstract IClassRecord applyPattern(IClassRecord record);
 
 }
