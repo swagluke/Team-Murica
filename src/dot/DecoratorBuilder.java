@@ -34,7 +34,7 @@ public class DecoratorBuilder extends APatternBuilder {
 	}
 
 	@Override
-	protected void applyPattern(IClassRecord record) {
+	public void applyPattern(IClassRecord record) {
 		// TODO Auto-generated method stub
 	}
 

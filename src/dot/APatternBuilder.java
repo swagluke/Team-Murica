@@ -16,13 +16,13 @@ abstract public class APatternBuilder extends AbstractBuilderDecorator {
 	}
 	
 	@Override
-	protected IClassRecord applyDecoration(IClassRecord record) {
-		if (this.isPattern(record)) {
-			this.applyPattern(record);
-		}
+	public IClassRecord applyDecoration(IClassRecord record) {
+//		if (this.isPattern(record)) {
+//			this.applyPattern(record);
+//		}
 		return record;
 	}
 	
-	abstract protected boolean isPattern(IClassRecord record);
-	abstract protected void applyPattern(IClassRecord record);
+	public abstract boolean isPattern(IClassRecord record);
+	public abstract void applyPattern(IClassRecord record);
 }

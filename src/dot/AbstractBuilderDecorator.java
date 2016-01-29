@@ -1,5 +1,6 @@
 package dot;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
@@ -7,10 +8,10 @@ import org.objectweb.asm.ClassVisitor;
 import records.ClassRecord;
 import records.IClassRecord;
 
-abstract public class AbstractBuilderDecorator implements IBuilder{
+abstract public class AbstractBuilderDecorator implements IBuilder {
 	protected IBuilder builder;
 	protected IClassRecord record;
-	
+
 	public AbstractBuilderDecorator(String className, HashSet<String> classNames) {
 		this(new UmlBuilder(className, classNames));
 	}
@@ -30,9 +31,9 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 	}
 
 	abstract public ClassVisitor getVisitor();
-//	public ClassVisitor getVisitor() {
-//		return builder.getVisitor();
-//	}
+	// public ClassVisitor getVisitor() {
+	// return builder.getVisitor();
+	// }
 
 	public String getClassUML() {
 		return this.record.getClassUml();
@@ -41,11 +42,24 @@ abstract public class AbstractBuilderDecorator implements IBuilder{
 	public HashSet<String> getClassList() {
 		return builder.getClassList();
 	}
-	
+
 	public ClassRecord getClassRecord() {
 		return this.builder.getClassRecord();
 	}
-	
-	protected abstract IClassRecord applyDecoration(IClassRecord record);
+
+	public abstract IClassRecord applyDecoration(IClassRecord record);
+
+	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {
+		if (this.isPattern(record)) {
+			this.applyPattern(record);
+		}
+	}
+
+	public boolean isPattern(IClassRecord record) {
+		return false;
+	};
+
+	public void applyPattern(IClassRecord record) {
+	};
 
 }
