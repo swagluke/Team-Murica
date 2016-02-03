@@ -13,7 +13,7 @@ public class SingletonBuilder extends APatternBuilder {
 		super(b);
 	}
 
-	protected void applyPattern(IClassRecord record) {
+	public void applyPattern(IClassRecord record) {
 		ClassRecord baseRecord = record.getBaseRecord();
 		baseRecord.setBoxColor("blue1");
 		baseRecord.addPattern("Singleton");
@@ -22,7 +22,7 @@ public class SingletonBuilder extends APatternBuilder {
 		baseRecord.addEdge(shortClassName + " -> " + shortClassName + "\n");
 	};
 
-	protected boolean isPattern(IClassRecord record) {
+	public boolean isPattern(IClassRecord record) {
 		ClassRecord baseRecord = record.getBaseRecord();
 		boolean hasField = false;
 		for (InstanceVarRecord field : baseRecord.getFieldsList()) {

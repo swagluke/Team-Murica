@@ -1,6 +1,7 @@
 package dot;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassReader;
@@ -11,6 +12,7 @@ import asm.ClassDeclarationVisitor;
 import asm.ClassFieldVisitor;
 import asm.ClassMethodVisitor;
 import records.ClassRecord;
+import records.IClassRecord;
 
 public class UmlBuilder implements IBuilder {
 	private ClassRecord record;
@@ -76,5 +78,14 @@ public class UmlBuilder implements IBuilder {
 	@Override
 	public ClassRecord getClassRecord() {
 		return this.record;
+	}
+
+	@Override
+	public IClassRecord applyDecoration(IClassRecord record) {
+		return record;
+	}
+
+	@Override
+	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {
 	}
 }

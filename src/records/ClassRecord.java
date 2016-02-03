@@ -128,11 +128,14 @@ public class ClassRecord implements IClassRecord {
 
 	@Override
 	public IClassRecord tryConvertRecord(Class<?> classVar) {
+		if (this.getClass() == classVar) {
+			return this;
+		}
 		return null;
 	}
 
 	@Override
 	public boolean canConvertRecord(Class<?> classVar) {
-		return false;
+		return this.getClass() == classVar;
 	}
 }

@@ -1,5 +1,6 @@
 package dot;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.objectweb.asm.ClassVisitor;
@@ -22,4 +23,6 @@ public interface IBuilder {
 	String getClassUML();
 	HashSet<String> getClassList();
 	ClassRecord getClassRecord();
+	public IClassRecord applyDecoration(IClassRecord record);
+	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records);
 }

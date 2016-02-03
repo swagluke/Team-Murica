@@ -1,29 +1,40 @@
 package dot;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
-import records.ClassRecord;
+import records.ExtendedClassRecord;
 import records.IClassRecord;
+import records.ImplementsClassRecord;
 
 public class DecoratorBuilder extends APatternBuilder {
-
-	private UmlBuilder builder;
-	private ClassRecord record;
-	private ArrayList<String> decoratorEdges;
-
 	public DecoratorBuilder(IBuilder b) {
 		super(b);
 	}
 
-
 	@Override
 	public boolean isPattern(IClassRecord record) {
-		if (record.get)
+		System.out.println("\nin is pattern");
+		System.out.println(this.getClassRecord().getClassName());
+		HashSet<String> possible = new HashSet<String>();
+		if (record.canConvertRecord(ExtendedClassRecord.class)) {
+			System.out.println("can convert to the class");
+			ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record.tryConvertRecord(ExtendedClassRecord.class);
+			System.out.println(extendedClassRecord.getExtendsName());
+			possible.add(extendedClassRecord.getExtendsName());
+		}
+		if (record.canConvertRecord(ImplementsClassRecord.class)) {
+			System.out.println("can convert to the class");
+			ImplementsClassRecord implementsClassRecord = (ImplementsClassRecord) record.tryConvertRecord(ImplementsClassRecord.class);
+			System.out.println(implementsClassRecord.getImplementsList());
+			possible.addAll(implementsClassRecord.getImplementsList());
+		}
+		System.out.println(possible);
+		
 		return false;
 	}
 
 	@Override
-	protected void applyPattern(IClassRecord record) {
+	public void applyPattern(IClassRecord record) {
 		// TODO Auto-generated method stub
 	}
 

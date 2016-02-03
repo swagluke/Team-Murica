@@ -27,7 +27,7 @@ public class ExtensionBuilder extends AbstractBuilderDecorator{
 	}
 
 	@Override
-	protected IClassRecord applyDecoration(IClassRecord record) {
+	public IClassRecord applyDecoration(IClassRecord record) {
 		ExtendedClassRecord extendedRecord = new ExtendedClassRecord(record);
 		extendedRecord.setExtendsName(this.visitor.getExtendsName());
 		return extendedRecord;

@@ -9,17 +9,15 @@ public interface IClassRecord {
 	public IClassRecord getInnerRecord();
 	public ClassRecord getBaseRecord();
 	default public boolean canConvertRecord(Class<?> classVar) {
-		IClassRecord innerRecord = this.getInnerRecord();
-		if (innerRecord.getClass().isInstance(classVar)) {
+		if (this.getClass() == classVar) {
 			return true;
 		}
-		return innerRecord.canConvertRecord(classVar);
+		return this.getInnerRecord().canConvertRecord(classVar);
 	}
 	default public IClassRecord tryConvertRecord(Class<?> classVar) {
-		IClassRecord innerRecord = this.getInnerRecord();
-		if (innerRecord.getClass().isInstance(classVar)) {
-			return innerRecord;
+		if (this.getClass() == classVar) {
+			return this;
 		}
-		return innerRecord.tryConvertRecord(classVar);
+		return this.getInnerRecord().tryConvertRecord(classVar);
 	}
 }
