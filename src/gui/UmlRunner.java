@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +34,17 @@ public class UmlRunner {
 
 	public static void main(String[] args) {
 		UmlWrapper umlWrapper = new UmlWrapper(args);
-		umlWrapper.generateGraph();
+		umlWrapper.addBuilderClass(ExtensionBuilder.class);
+		umlWrapper.addBuilderClass(ImplementsBuilder.class);
+		umlWrapper.addBuilderClass(AssociationBuilder.class);
+		try {
+			umlWrapper.generateGraph();
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+			System.out.println("Something went wrong constructing instances of builders from the given builder classes");
+			System.out.println("check to make sure that all the builder classes have a constructor that takes a IBuilder");
+		}
 //		StringBuilder s = new StringBuilder();
 //		// set up digraph information
 //		s.append("digraph G {fontname = \"" + fontName + "\"  fontsize = 8  node [ fontname = \"" + fontName

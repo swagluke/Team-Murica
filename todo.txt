@@ -1,0 +1,3 @@
+refactor builders to also be factories
+get rid of hard coded builders in umlwrapper
+getters and setters for umlwrapper
