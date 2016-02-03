@@ -26,16 +26,16 @@ import dot.UmlBuilder;
 import records.IClassRecord;
 
 public class UmlWrapper {
-	private final static String fontName = "Comic Sans MS";
+	public final static String fontName = "Comic Sans MS";
 	private HashSet<String> classNames;
 	private HashMap<String, IClassRecord> records;
-	private ArrayList<IBuilder> decorators;
+	private HashMap<String, IBuilder> decorators;
 	private ArrayList<Class<? extends IBuilder>> builderClasses;
 
 	public UmlWrapper(String[] classNames) {
 		this.classNames = new HashSet<String>(Arrays.asList(classNames));
 		this.records = new HashMap<String, IClassRecord>();
-		this.decorators = new ArrayList<IBuilder>();
+		this.decorators = new HashMap<String, IBuilder>();
 		this.builderClasses = new ArrayList<Class<? extends IBuilder>>();
 	}
 
@@ -57,14 +57,14 @@ public class UmlWrapper {
 //			// AssociationBuilder a = new AssociationBuilder(u);
 //			// DecoratorBuilder db = new DecoratorBuilder(i);
 //			AdapterBuilder ad = new AdapterBuilder(i);
-			this.decorators.add(builder);
+			this.decorators.put(className, builder);
 			// s.append(d.getClassUML() + "\n");
 			this.records.put(className, builder.build());
 		}
-		for (int i = 0; i < this.decorators.size(); i++) {
+		for (String className : this.classNames) {
 			// for (IBuilder decorator : this.decorators) {
-			IBuilder decorator = this.decorators.get(i);
-			IClassRecord record = this.records.get(i);
+			IBuilder decorator = this.decorators.get(className);
+			IClassRecord record = this.records.get(className);
 			decorator.calculatePattern(record, this.records);
 		}
 
@@ -118,5 +118,9 @@ public class UmlWrapper {
 	
 	public boolean removeBuilderClass(Class<? extends IBuilder> toRemove) {
 		return this.builderClasses.remove(toRemove);
+	}
+	
+	public HashMap<String, IClassRecord> getRecords() {
+		return this.records;
 	}
 }
