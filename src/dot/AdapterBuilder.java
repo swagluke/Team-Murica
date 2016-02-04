@@ -3,11 +3,7 @@ package dot;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import records.ExtendedClassRecord;
-import records.IClassRecord;
-import records.ImplementsClassRecord;
-import records.InstanceVarRecord;
-import records.MethodRecord;
+import records.*;
 
 public class AdapterBuilder extends APatternBuilder {
     private String adapteeName;
@@ -70,7 +66,9 @@ public class AdapterBuilder extends APatternBuilder {
 	@Override
 	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
         record.getBaseRecord().setBoxColor("red");
-        record.getBaseRecord().addPattern("Adapter");//right method?
+        record.getBaseRecord().addPattern("Adapter");
+        System.out.println(record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1));
+
         System.out.println("Target Name: " + targetName + " Adaptee Name" + adapteeName);
         IClassRecord targetRecord = recordHashMap.get(targetName);
         IClassRecord adapteeRecord = recordHashMap.get(adapteeName);
@@ -80,5 +78,13 @@ public class AdapterBuilder extends APatternBuilder {
 
         adapteeRecord.getBaseRecord().setBoxColor("red");
         adapteeRecord.getBaseRecord().addPattern("Adaptee");
+
+        System.out.println(adapteeRecord.getClassName() + " shortened: " + adapteeRecord.getClassName().substring(adapteeRecord.getClassName().lastIndexOf('/') + 1));
+        record.getBaseRecord().addEdge(
+                record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
+                        + " -> "
+                        + adapteeRecord.getClassName().substring(adapteeRecord.getClassName().lastIndexOf('/') + 1)
+                        + "[label=\"<<adapts>>\"]"
+        );
 	}
 }
