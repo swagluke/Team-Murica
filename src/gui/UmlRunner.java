@@ -1,36 +1,14 @@
 package gui;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 import dot.AdapterBuilder;
 import dot.AssociationBuilder;
-import dot.DecoratorBuilder;
 import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
-import dot.SingletonBuilder;
-import dot.UmlBuilder;
-import dot.UsesBuilder;
 
 public class UmlRunner {
-	private final static String fontName = "Comic Sans MS";
-	private static HashMap<String, HashSet<String>> implementsMap = new HashMap<String, HashSet<String>>();
-	private static HashMap<String, String> extendsMap = new HashMap<String, String>();
-	private static HashMap<String, HashSet<String>> usesMap = new HashMap<String, HashSet<String>>();
-	private static HashSet<String> classNames = new HashSet<String>();
-	private static HashMap<String, HashSet<String>> associatesMap = new HashMap<String, HashSet<String>>();
+	public final static String fontName = "Comic Sans MS";
 
 	public static void main(String[] args) {
 		UmlWrapper umlWrapper = new UmlWrapper(args);

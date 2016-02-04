@@ -35,7 +35,7 @@ public class SingletonBuilderTest {
 		String expectedUml = "digraph G {fontname = \"" + UmlWrapper.fontName + "\"  fontsize = 8  node [ fontname = \"" + UmlWrapper.fontName
 				+ "\" fontsize = 8 shape = \"record\"]" + " edge [ fontname = \"" + UmlWrapper.fontName + "\" fontsize = 8 ]\n"
 				+ "Singleton [color = \"blue1\" label = \"{Singleton\\n\\<\\<Singleton\\>\\>|+instance : singleton.Singleton\\l\n"
-				+ "|+ getInstance : singleton.Singleton\\l\n" + "}\"]Singleton -> Singleton\n}";
+				+ "|+ getInstance : singleton.Singleton\\l\n" + "}\"]\nSingleton -> Singleton\n}";
 		assertSingleton(className, true, expectedUml);
 	}
 
@@ -63,7 +63,7 @@ public class SingletonBuilderTest {
 				+ "+ runFinalizersOnExitboolean  : void\\l\n" + "+ maxMemory : long\\l\n"
 				+ "+ execjava.lang.String[]  : java.lang.Process\\l\n"
 				+ "+ getLocalizedInputStreamjava.io.InputStream  : java.io.InputStream\\l\n"
-				+ "}\"]Runtime -> Runtime\n}";
+				+ "}\"]\nRuntime -> Runtime\n}";
 		assertSingleton(className, true, expectedUml);
 	}
 

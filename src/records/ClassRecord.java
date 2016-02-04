@@ -61,7 +61,7 @@ public class ClassRecord implements IClassRecord {
 		}
 		s.append("}\"]");
 		for (String str : this.extraEdges) {
-			s.append(str + "\n");
+			s.append("\n" + str);
 		}
 
 		return s.toString();
