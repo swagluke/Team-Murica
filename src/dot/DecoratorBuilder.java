@@ -14,6 +14,9 @@ public class DecoratorBuilder extends APatternBuilder {
 
 	@Override
 	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
+		boolean hasConstructorAndField = false;
+	
+		
 		System.out.println("\nin is pattern");
 		System.out.println(this.getClassRecord().getClassName());
 		HashSet<String> possible = new HashSet<String>();
@@ -30,8 +33,8 @@ public class DecoratorBuilder extends APatternBuilder {
 			possible.addAll(implementsClassRecord.getImplementsList());
 		}
 		System.out.println(possible);
-		
-		return false;
+		// has constructorfield or extends a decorator
+		return hasConstructorAndField;
 	}
 
 	@Override
