@@ -48,7 +48,7 @@ public class UmlWrapper {
 			IBuilder builder = new UmlBuilder(className, this.classNames);
 			for (Class<? extends IBuilder> builderClass : this.builderClasses) {
 				Constructor<? extends IBuilder> constructor = builderClass.getConstructor(IBuilder.class);
-				builder = constructor.newInstance(builder); // should work 
+				builder = constructor.newInstance(builder); // should work
 			}
 			this.decorators.put(className, builder);
 			this.records.put(className, builder.build());
