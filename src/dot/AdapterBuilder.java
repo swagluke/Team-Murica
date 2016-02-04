@@ -1,5 +1,6 @@
 package dot;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import records.ExtendedClassRecord;
@@ -14,10 +15,10 @@ public class AdapterBuilder extends APatternBuilder {
 	}
 
 	@Override
-	public boolean isPattern(IClassRecord record) {
+	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
 		boolean hasAdapteeFieldAndConstructor = false;
 		boolean extendsImplementsOtherClass = false;
-		HashSet<String> possibles = new HashSet<String>();
+		HashSet<String> possibles = new HashSet<>();
 		if (record.canConvertRecord(ExtendedClassRecord.class)) {
 			ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record
 					.tryConvertRecord(ExtendedClassRecord.class);
@@ -36,7 +37,7 @@ public class AdapterBuilder extends APatternBuilder {
 		System.out.println("\nin is pattern");
 		System.out.println(this.getClassRecord().getClassName());
 		System.out.println(record.getClassList());
-		HashSet<String> fields = new HashSet<String>();
+		HashSet<String> fields = new HashSet<>();
 		if (extendsImplementsOtherClass) {
 			for (InstanceVarRecord field : record.getBaseRecord().getFieldsList()) {
 				fields.add(field.getType());
@@ -49,6 +50,7 @@ public class AdapterBuilder extends APatternBuilder {
 					System.out.println("init");
 					for (String arg : methodRecord.getStypes()) {
 						if (fields.contains(arg)) {
+                            //TODO check if the arg class does implement thingy
 							hasAdapteeFieldAndConstructor = true;
 						}
 					}
@@ -61,7 +63,7 @@ public class AdapterBuilder extends APatternBuilder {
 	}
 
 	@Override
-	public void applyPattern(IClassRecord record) {
+	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
 
 	}
 }

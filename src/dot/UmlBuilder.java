@@ -86,6 +86,5 @@ public class UmlBuilder implements IBuilder {
 	}
 
 	@Override
-	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {
-	}
+	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {}
 }

@@ -1,5 +1,6 @@
 package dot;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import records.ExtendedClassRecord;
@@ -12,7 +13,7 @@ public class DecoratorBuilder extends APatternBuilder {
 	}
 
 	@Override
-	public boolean isPattern(IClassRecord record) {
+	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
 		System.out.println("\nin is pattern");
 		System.out.println(this.getClassRecord().getClassName());
 		HashSet<String> possible = new HashSet<String>();
@@ -34,7 +35,7 @@ public class DecoratorBuilder extends APatternBuilder {
 	}
 
 	@Override
-	public void applyPattern(IClassRecord record) {
+	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
 		// TODO Auto-generated method stub
 	}
 

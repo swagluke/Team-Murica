@@ -33,10 +33,10 @@ public class UmlWrapper {
 	private ArrayList<Class<? extends IBuilder>> builderClasses;
 
 	public UmlWrapper(String[] classNames) {
-		this.classNames = new HashSet<String>(Arrays.asList(classNames));
-		this.records = new HashMap<String, IClassRecord>();
-		this.decorators = new HashMap<String, IBuilder>();
-		this.builderClasses = new ArrayList<Class<? extends IBuilder>>();
+		this.classNames = new HashSet<>(Arrays.asList(classNames));
+		this.records = new HashMap<>();
+		this.decorators = new HashMap<>();
+		this.builderClasses = new ArrayList<>();
 	}
 
 	public void generateGraph() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -47,18 +47,10 @@ public class UmlWrapper {
 		for (String className : this.classNames) {
 			IBuilder builder = new UmlBuilder(className, this.classNames);
 			for (Class<? extends IBuilder> builderClass : this.builderClasses) {
-				Constructor<? extends IBuilder> contructor = builderClass.getConstructor(IBuilder.class);
-				builder = contructor.newInstance(builder); // should work
+				Constructor<? extends IBuilder> constructor = builderClass.getConstructor(IBuilder.class);
+				builder = constructor.newInstance(builder); // should work
 			}
-//			// SingletonBuilder sb = new SingletonBuilder(d);
-//			ExtensionBuilder e = new ExtensionBuilder(d);
-//			ImplementsBuilder i = new ImplementsBuilder(e);
-//			// UsesBuilder u = new UsesBuilder(i);
-//			// AssociationBuilder a = new AssociationBuilder(u);
-//			// DecoratorBuilder db = new DecoratorBuilder(i);
-//			AdapterBuilder ad = new AdapterBuilder(i);
 			this.decorators.put(className, builder);
-			// s.append(d.getClassUML() + "\n");
 			this.records.put(className, builder.build());
 		}
 		for (String className : this.classNames) {

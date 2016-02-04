@@ -7,13 +7,15 @@ import records.IClassRecord;
 import records.InstanceVarRecord;
 import records.MethodRecord;
 
+import java.util.HashMap;
+
 public class SingletonBuilder extends APatternBuilder {
 
 	public SingletonBuilder(IBuilder b) {
 		super(b);
 	}
 
-	public void applyPattern(IClassRecord record) {
+	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
 		ClassRecord baseRecord = record.getBaseRecord();
 		baseRecord.setBoxColor("blue1");
 		baseRecord.addPattern("Singleton");
@@ -22,7 +24,7 @@ public class SingletonBuilder extends APatternBuilder {
 		baseRecord.addEdge(shortClassName + " -> " + shortClassName + "\n");
 	};
 
-	public boolean isPattern(IClassRecord record) {
+	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
 		ClassRecord baseRecord = record.getBaseRecord();
 		boolean hasField = false;
 		for (InstanceVarRecord field : baseRecord.getFieldsList()) {
