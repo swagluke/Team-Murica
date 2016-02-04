@@ -30,7 +30,7 @@ public class AdapterBuilder extends APatternBuilder {
 		}
 		for (String possible : possibles) {
 			if (record.getClassList().contains(possible.replace("/", "."))) {
-                adapteeName = possible.replace("/", ".");
+                targetName = possible.replace("/", ".");
 				extendsImplementsOtherClass = true;
 			}
 		}
@@ -51,7 +51,7 @@ public class AdapterBuilder extends APatternBuilder {
 					for (String arg : methodRecord.getStypes()) {
 						if (fields.contains(arg)) {
                             //TODO check if the arg class does implement thingy, it's creating some false positives
-                            this.targetName = arg;
+                            adapteeName= arg;
 							hasAdapteeFieldAndConstructor = true;
 						}
 					}
