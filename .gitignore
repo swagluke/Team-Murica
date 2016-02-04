@@ -28,7 +28,7 @@ log
 
 *.class
 
-out/production/Team-Murica/headfirst/files.txt
+out/production/*
 
 SDout.png
 temp.dot
