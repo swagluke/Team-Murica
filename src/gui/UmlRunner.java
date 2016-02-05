@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 import dot.*;
+import singleton.Singleton;
 
 public class UmlRunner {
 	public final static String fontName = "Comic Sans MS";
@@ -13,9 +14,10 @@ public class UmlRunner {
 		UmlWrapper umlWrapper = new UmlWrapper(args);
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
-//		umlWrapper.addBuilderClass(AssociationBuilder.class);
-//		umlWrapper.addBuilderClass(DecoratorBuilder.class);
+		umlWrapper.addBuilderClass(AssociationBuilder.class);
+		umlWrapper.addBuilderClass(DecoratorBuilder.class);
 		umlWrapper.addBuilderClass(AdapterBuilder.class);
+		umlWrapper.addBuilderClass(SingletonBuilder.class);
 		try {
 			umlWrapper.generateGraph();
 			System.out.println("done");

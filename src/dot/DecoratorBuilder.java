@@ -18,6 +18,7 @@ public class DecoratorBuilder extends APatternBuilder {
 
 	@Override
 	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
+//		System.out.println("Checking pattern in decorator");
 		try {
 			boolean hasConstructorAndField = false;
 			boolean extendsDecorator = false;
@@ -104,7 +105,8 @@ public class DecoratorBuilder extends APatternBuilder {
 
 	@Override
 	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
-		System.out.println(record.getBaseRecord().getClassName() + " is a decorator");
+//		System.out.println("Apply decorators stuff");
+//		System.out.println(record.getBaseRecord().getClassName() + " is a decorator");
 		record.getBaseRecord().setBoxColor("green");
 		record.getBaseRecord().addPattern("Decorator");
 

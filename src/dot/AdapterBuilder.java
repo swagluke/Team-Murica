@@ -6,12 +6,12 @@ import java.util.HashSet;
 import records.*;
 
 public class AdapterBuilder extends APatternBuilder {
-    private String adapteeName;
+    private HashSet<String> adapteeNames=new HashSet<>();
 
     public AdapterBuilder(IBuilder b) {
 		super(b);
 	}
-    String targetName = "";
+    HashSet<String> targetNames = new HashSet<>();
 
 	@Override
 	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
@@ -30,7 +30,7 @@ public class AdapterBuilder extends APatternBuilder {
 		}
 		for (String possible : possibles) {
 			if (record.getClassList().contains(possible.replace("/", "."))) {
-                targetName = possible.replace("/", ".");
+                targetNames.add(possible.replace("/", "."));
 				extendsImplementsOtherClass = true;
 			}
 		}
@@ -51,7 +51,7 @@ public class AdapterBuilder extends APatternBuilder {
 					for (String arg : methodRecord.getStypes()) {
 						if (fields.contains(arg)) {
                             //TODO check if the arg class does implement thingy, it's creating some false positives
-                            adapteeName= arg;
+                            adapteeNames.add(arg);
 							hasAdapteeFieldAndConstructor = true;
 						}
 					}
@@ -69,22 +69,29 @@ public class AdapterBuilder extends APatternBuilder {
         record.getBaseRecord().addPattern("Adapter");
         System.out.println(record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1));
 
-        System.out.println("Target Name: " + targetName + " Adaptee Name" + adapteeName);
-        IClassRecord targetRecord = recordHashMap.get(targetName);
-        IClassRecord adapteeRecord = recordHashMap.get(adapteeName);
+//        System.out.println("Target Name: " + targetName + " Adaptee Name" + adapteeName);
+        for(String s:targetNames) {
+            IClassRecord targetRecord = recordHashMap.get(s);
+            if (targetRecord != null) {
+                targetRecord.getBaseRecord().setBoxColor("red");
+                targetRecord.getBaseRecord().addPattern("Adapter Target");
+            }
+        }
+        for(String s:adapteeNames) {
+            IClassRecord adapteeRecord = recordHashMap.get(s);
 
-        targetRecord.getBaseRecord().setBoxColor("red");
-        targetRecord.getBaseRecord().addPattern("Adapter Target");
+            if (adapteeRecord != null) {
+                adapteeRecord.getBaseRecord().setBoxColor("red");
+                adapteeRecord.getBaseRecord().addPattern("Adaptee");
+                record.getBaseRecord().addEdge(
+                        record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
+                                + " -> "
+                                + adapteeRecord.getClassName().substring(adapteeRecord.getClassName().lastIndexOf('/') + 1)
+                                + "[label=\"<<adapts>>\"]"
+                );
+            }
+        }
+//        System.out.println(adapteeRecord.getClassName() + " shortened: " + adapteeRecord.getClassName().substring(adapteeRecord.getClassName().lastIndexOf('/') + 1));
 
-        adapteeRecord.getBaseRecord().setBoxColor("red");
-        adapteeRecord.getBaseRecord().addPattern("Adaptee");
-
-        System.out.println(adapteeRecord.getClassName() + " shortened: " + adapteeRecord.getClassName().substring(adapteeRecord.getClassName().lastIndexOf('/') + 1));
-        record.getBaseRecord().addEdge(
-                record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
-                        + " -> "
-                        + adapteeRecord.getClassName().substring(adapteeRecord.getClassName().lastIndexOf('/') + 1)
-                        + "[label=\"<<adapts>>\"]"
-        );
 	}
 }
