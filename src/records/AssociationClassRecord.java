@@ -20,13 +20,14 @@ public class AssociationClassRecord implements IClassRecord {
 		String className = this.getClassName();
 		String[] shortClassNameList = className.replace("/", ".").split("\\.");
 		String shortClassName = shortClassNameList[shortClassNameList.length - 1];
+		s.append(this.innerRecord.getClassUml());
 		for (String associationName : associationNames) {
 			String[] shortAssociationNameList = associationName.replace("/", ".").split("\\.");
 			String shortAssociationName = shortAssociationNameList[shortAssociationNameList.length - 1];
 			if (this.getClassList().contains(associationName.replace("/", "."))) {
 				// s.append("edge [ style = \"normal\"]\n");
 				if (firstTime) {
-					s.append(this.innerRecord.getClassUml());
+
 					s.append("edge [ style = \"normal\" arrowhead = \"vee\"]\n");
 					firstTime = false;
 				}
