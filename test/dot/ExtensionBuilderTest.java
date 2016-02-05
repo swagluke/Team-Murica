@@ -29,7 +29,7 @@ public class ExtensionBuilderTest {
 	public void testBasicExtend() throws IOException {
 		assertExtends(this.getClass().getName(),
 				new HashSet<String>(Arrays.asList(this.getClass().getName(), "java.lang.Object")), "java/lang/Object",
-				"edge [ style = \"normal\"]\nExtensionBuilderTest -> Object\n");
+				"edge [ style = \"normal\", arrowhead = \"normal\"]\nExtensionBuilderTest -> Object\n");
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class ExtensionBuilderTest {
 		assertExtends("asm.ClassDeclarationVisitor",
 				new HashSet<String>(Arrays.asList("asm.ClassDeclarationVisitor", "org.objectweb.asm.ClassVisitor")),
 				"org/objectweb/asm/ClassVisitor",
-				"edge [ style = \"normal\"]\nClassDeclarationVisitor -> ClassVisitor\n");
+				"edge [ style = \"normal\", arrowhead = \"normal\"]\nClassDeclarationVisitor -> ClassVisitor\n");
 	}
 
 	public void assertExtends(String className, HashSet<String> includedClasses, String expectedResult,

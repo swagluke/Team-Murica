@@ -135,7 +135,7 @@ public class DecoratorBuilder extends APatternBuilder {
 			                        + implementsName.substring(implementsName.lastIndexOf('.') + 1)
 			                        + "[label=\"<<decorates>>\"]"
 			        );
-					System.out.println(implementsName + " is the component");
+//					System.out.println(implementsName + " is the component");
 
 					implementsRecord.getBaseRecord().addPattern("Component");
 				}

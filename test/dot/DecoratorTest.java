@@ -38,7 +38,7 @@ public class DecoratorTest {
 				+ "DecoratorBuilder [color = \"green\" label = \"{DecoratorBuilder\\n\\<\\<Decorator\\>\\>||+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n"
 				+ "+ lambda$0records.IClassRecord java.lang.String  : boolean\\l\n"
 				+ "+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
-				+ "}\"]edge [ style = \"normal\"]\n" + "DecoratorBuilder -> APatternBuilder\n"
+				+ "}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" + "DecoratorBuilder -> APatternBuilder\n"
 				+ "IBuilder [color = \"green\" label = \"{IBuilder\\n\\<\\<Component\\>\\>||+ getClassRecord : records.ClassRecord\\l\n"
 				+ "+ build : records.IClassRecord\\l\n" + "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n"
 				+ "+ getClassUML : java.lang.String\\l\n"
@@ -76,7 +76,7 @@ public class DecoratorTest {
 				+ "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n"
 				+ "+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
 				+ "+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n"
-				+ "}\"]edge [ style = \"normal\"]\n" + "APatternBuilder -> AbstractBuilderDecorator\n" + "}";
+				+ "}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" + "APatternBuilder -> AbstractBuilderDecorator\n" + "}";
 		assertDecorator(classNames,
 				new String[] { "dot.DecoratorBuilder", "dot.APatternBuilder", "dot.AbstractBuilderDecorator" },
 				new String[] { "dot.IBuilder" }, new String[] { "dot.UmlBuilder" }, expectedUml);
@@ -102,6 +102,13 @@ public class DecoratorTest {
 	public void testMouseDecoratorIsNotAnDecorator() {
 		String[] classNames = new String[] { "java.awt.event.MouseAdapter", "java.awt.event.MouseListener",
 				"java.awt.event.MouseWheelListener", "java.util.EventListener" };
+		assertDecorator(classNames, new String[0], new String[0], classNames, "");
+	}
+	
+	@Test
+	public void testLabDecorator() {
+		String[] classNames = new String[] { "src.problem.DecryptionInputStream", "src.problem.EncryptionOutputStream",
+				"src.problem.IDecryption", "src.problem.IEncryption", "src.problem.SubstitutionCipher", "src.problem.TextEditorApp" };
 		assertDecorator(classNames, new String[0], new String[0], classNames, "");
 	}
 

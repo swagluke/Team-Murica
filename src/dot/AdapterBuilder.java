@@ -34,7 +34,7 @@ public class AdapterBuilder extends APatternBuilder {
         for (String possible : possibles) {
             if (record.getClassList().contains(possible.replace("/", "."))) {
                 if (recordMap.get(possible.replace("/", ".")) != null) {
-                	System.out.println(possible.replace("/", "."));
+//                	System.out.println(possible.replace("/", "."));
                     targetNames.add(possible.replace("/", "."));
                     extendsImplementsOtherClass = true;
                 }
@@ -56,7 +56,7 @@ public class AdapterBuilder extends APatternBuilder {
 //					System.out.println("init");
                     for (String arg : methodRecord.getStypes()) {
                         if (fields.contains(arg)) {
-                        	System.out.println(arg);
+//                        	System.out.println(arg);
                             //TODO check if the arg class does implement thingy, it's creating some false positives
                             if (recordMap.get(arg) != null) {
                                 if (targetNames.contains(arg)) {
@@ -78,16 +78,16 @@ public class AdapterBuilder extends APatternBuilder {
 
     @Override
     public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
-    	System.out.println("apply adapter");
-    	System.out.println(targetNames);
-    	System.out.println(adapteeNames);
+//    	System.out.println("apply adapter");
+//    	System.out.println(targetNames);
+//    	System.out.println(adapteeNames);
         record.getBaseRecord().setBoxColor("red");
         record.getBaseRecord().addPattern("Adapter");
 //        System.out.println(record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1));
 
 //        System.out.println("Target Name: " + targetName + " Adaptee Name" + adapteeName);
         for (String s : targetNames) {
-            System.out.println("targetName: " + s);
+//            System.out.println("targetName: " + s);
             IClassRecord targetRecord = recordHashMap.get(s);
             if (targetRecord != null) {
                 targetRecord.getBaseRecord().setBoxColor("red");
@@ -95,7 +95,7 @@ public class AdapterBuilder extends APatternBuilder {
             }
         }
         for (String s : adapteeNames) {
-            System.out.println("adapteeName: " + s);
+//            System.out.println("adapteeName: " + s);
             IClassRecord adapteeRecord = recordHashMap.get(s);
 
             if (adapteeRecord != null) {
