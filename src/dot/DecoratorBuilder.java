@@ -48,17 +48,21 @@ public class DecoratorBuilder extends APatternBuilder {
 						// System.out.println(methodRecord.getName() + ": " +
 						// methodRecord.getStypes());
 						for (String arg : methodRecord.getStypes()) {
-							if (Class.forName(arg).isAssignableFrom(thisClass)) {
-								// System.out.println(arg + " is assignable from
-								// " + record.getBaseRecord().getClassName());
-								for (InstanceVarRecord field : record.getBaseRecord().getFieldsList()) {
-									Class<?> fieldClass = Class.forName(field.getType());
-									if (field.getType().equals(arg)) {
-										hasConstructorAndField = true;
-										// return true
-										// System.out.println(true);
+							try {
+								if (Class.forName(arg).isAssignableFrom(thisClass)) {
+									// System.out.println(arg + " is assignable from
+									// " + record.getBaseRecord().getClassName());
+									for (InstanceVarRecord field : record.getBaseRecord().getFieldsList()) {
+										Class<?> fieldClass = Class.forName(field.getType());
+										if (field.getType().equals(arg)) {
+											hasConstructorAndField = true;
+											// return true
+											// System.out.println(true);
+										}
 									}
 								}
+							}catch(ClassNotFoundException e){
+								System.err.println("Class Not Found: " + arg);
 							}
 						}
 					}
@@ -122,6 +126,7 @@ public class DecoratorBuilder extends APatternBuilder {
 				IClassRecord implementsRecord = recordHashMap.get(implementsName);
 				if (!this.isPattern(implementsRecord, recordHashMap)) {
 					implementsRecord.getBaseRecord().addPattern("Component");
+					implementsRecord.getBaseRecord().setBoxColor("green");
 					record.getBaseRecord().addEdge(
 			                record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
 			                        + " -> "

@@ -13,12 +13,12 @@ public class ClassRecord implements IClassRecord {
 	private HashSet<MethodRecord> methodsList;
 	private HashSet<InstanceVarRecord> fieldsList;
 	private HashSet<String> classList;
-	private ArrayList<String> patternNames;
+	private HashSet<String> patternNames;
 	private String boxColor;
 	private HashSet<String> extraEdges;
 
 	public ClassRecord() {
-		this.patternNames = new ArrayList<String>();
+		this.patternNames = new HashSet<String>();
 		this.extraEdges = new HashSet<String>();
 	}
 
@@ -105,7 +105,7 @@ public class ClassRecord implements IClassRecord {
 		return this;
 	}
 
-	public ArrayList<String> getPatternNames() {
+	public HashSet<String> getPatternNames() {
 		return this.patternNames;
 	}
 
