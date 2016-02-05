@@ -4,7 +4,7 @@ import org.objectweb.asm.ClassVisitor;
 
 import records.ISequenceRecord;
 
-public interface IBuilder {
+public interface ISBuilder {
 
 	public ClassVisitor getVisitor();
 	ISequenceRecord build();

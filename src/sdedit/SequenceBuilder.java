@@ -16,7 +16,7 @@ import asm.ClassMethodVisitor;
 import asm.SequenceMethodInsVisitor;
 import generictree.GenericTreeNode;
 
-public class SequenceBuilder implements IBuilder {
+public class SequenceBuilder implements ISBuilder {
 	public static int created = 0;
 	public int id;
 	MethodSignature signature;
