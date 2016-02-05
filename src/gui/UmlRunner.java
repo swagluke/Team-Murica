@@ -21,6 +21,7 @@ public class UmlRunner {
 //		umlWrapper.addBuilderClass(AdapterBuilder.class);
 		try {
 			umlWrapper.generateGraph();
+			System.out.println("done");
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();

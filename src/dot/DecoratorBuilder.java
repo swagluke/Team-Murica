@@ -24,8 +24,8 @@ public class DecoratorBuilder extends APatternBuilder {
 			Class<?> thisClass = Class
 					.forName(Type.getObjectType(record.getBaseRecord().getClassName()).getClassName());
 
-//			System.out.println("in is pattern");
-//			System.out.println(record.getBaseRecord().getClassName());
+			// System.out.println("in is pattern");
+			// System.out.println(record.getBaseRecord().getClassName());
 			HashSet<String> possibles = new HashSet<String>();
 			if (record.canConvertRecord(ExtendedClassRecord.class)) {
 				ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record
@@ -56,7 +56,7 @@ public class DecoratorBuilder extends APatternBuilder {
 									if (field.getType().equals(arg)) {
 										hasConstructorAndField = true;
 										// return true
-//										System.out.println(true);
+										// System.out.println(true);
 									}
 								}
 							}
@@ -64,10 +64,11 @@ public class DecoratorBuilder extends APatternBuilder {
 					}
 				}
 			}
-//			for (InstanceVarRecord field : record.getBaseRecord().getFieldsList()) {
-//				String fieldName = field.getType();
-//				System.out.println(fieldName);
-//			}
+			// for (InstanceVarRecord field :
+			// record.getBaseRecord().getFieldsList()) {
+			// String fieldName = field.getType();
+			// System.out.println(fieldName);
+			// }
 			if (!hasConstructorAndField) {
 				ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record
 						.tryConvertRecord(ExtendedClassRecord.class);
@@ -75,16 +76,20 @@ public class DecoratorBuilder extends APatternBuilder {
 				// System.out.println(recordMap.get(extendsName.replace("/",
 				// ".")));
 				if (recordMap.get(extendsName.replace("/", ".")) != null) {
-//					System.out.println("extends something");
+					// System.out.println("extends something");
 					if (this.isPattern(recordMap.get(extendsName.replace("/", ".")), recordMap)) {
 						extendsDecorator = true;
-//						System.out.println(record.getBaseRecord().getClassName() + " extends a decorator");
+						// System.out.println(record.getBaseRecord().getClassName()
+						// + " extends a decorator");
 					}
 				}
 			}
 			// has constructorfield or extends a decorator
-//			System.out.println("name: " + record.getBaseRecord().getClassName() + " hasConstructorAndField: "
-//					+ hasConstructorAndField + " extendsDecorator: " + extendsDecorator);
+			// System.out.println("name: " +
+			// record.getBaseRecord().getClassName() + " hasConstructorAndField:
+			// "
+			// + hasConstructorAndField + " extendsDecorator: " +
+			// extendsDecorator);
 			return hasConstructorAndField || extendsDecorator;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -96,6 +101,37 @@ public class DecoratorBuilder extends APatternBuilder {
 	@Override
 	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
 		System.out.println(record.getBaseRecord().getClassName() + " is a decorator");
+		record.getBaseRecord().setBoxColor("green");
+		record.getBaseRecord().addPattern("Decorator");
+
+		String extendsName = ((ExtendedClassRecord) record.tryConvertRecord(ExtendedClassRecord.class)).getExtendsName()
+				.replace("/", ".");
+		System.out.println(extendsName);
+		if (recordHashMap.get(extendsName) != null) {
+			// System.out.println("hello");
+			IClassRecord extendedRecord = recordHashMap.get(extendsName);
+			if (!this.isPattern(extendedRecord, recordHashMap)) {
+				System.out.println(extendsName + " is the component");
+			}
+		}
+
+		for (String implementsName : ((ImplementsClassRecord) record.tryConvertRecord(ImplementsClassRecord.class))
+				.getImplementsList()) {
+			implementsName = implementsName.replace("/", ".");
+			if (recordHashMap.get(implementsName) != null) {
+				IClassRecord implementsRecord = recordHashMap.get(implementsName);
+				if (!this.isPattern(implementsRecord, recordHashMap)) {
+					implementsRecord.getBaseRecord().addPattern("Component");
+					record.getBaseRecord().addEdge(
+			                record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
+			                        + " -> "
+			                        + implementsName.substring(implementsName.lastIndexOf('.') + 1)
+			                        + "[label=\"<<decorates>>\"]"
+			        );
+					System.out.println(implementsName + " is the component");
+				}
+			}
+		}
 	}
 
 	// /**
