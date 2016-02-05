@@ -22,8 +22,8 @@ public class AdapterTest {
 	@Test
 	public void testNotAdapter() throws IOException, ClassNotFoundException, InvocationTargetException,
 			NoSuchMethodException, InstantiationException, IllegalAccessException {
-		assertAdapter(new String[] { "java.util.Enumeration", "java.util.Iterator" },
-				new String[0], new String[0], new String[0], "");
+		assertAdapter(new String[] { "java.util.Enumeration", "java.util.Iterator" }, new String[0], new String[0],
+				new String[0], "");
 	}
 
 	@Test
@@ -36,14 +36,19 @@ public class AdapterTest {
 				+ "IteratorToEnumerationAdapter -> Iterator[label=\"<<adapts>>\"]edge [ arrowhead = \"empty\" style = \"dotted\"]\n"
 				+ "IteratorToEnumerationAdapter -> Enumeration\n"
 				+ "Iterator [color = \"red\" label = \"{Iterator\\n\\<\\<Adaptee\\>\\>||+ forEachRemainingjava.util.function.Consumer  : void\\l\n"
-				+ "+ hasNext : boolean\\l\n" + "+ next : java.lang.Object\\l\n" + "+ remove : void\\l\n"
-				+ "}\"]"
+				+ "+ hasNext : boolean\\l\n" + "+ next : java.lang.Object\\l\n" + "+ remove : void\\l\n" + "}\"]"
 				+ "Enumeration [color = \"red\" label = \"{Enumeration\\n\\<\\<Adapter Target\\>\\>||+ hasMoreElements : boolean\\l\n"
-				+ "+ nextElement : java.lang.Object\\l\n" + "}\"]"
-				+ "}";
+				+ "+ nextElement : java.lang.Object\\l\n" + "}\"]" + "}";
 		assertAdapter(classnames, new String[] { "problem.client.IteratorToEnumerationAdapter" },
 				new String[] { "java.util.Enumeration" }, new String[] { "java.util.Iterator" }, expectedUml);
+	}
 
+	@Test
+	public void testInputStreamReaderIsNotAnAdapter() {
+		assertAdapter(
+				new String[] { "java.io.InputStreamReader", "java.io.Closeable", "java.lang.AutoCloseable",
+						"java.lang.Readable", "java.io.FileReader", "java.io.Reader", "java.io.InputStream" },
+				new String[0], new String[0], new String[0], "");
 	}
 
 	// classname, the pattern that you expect
