@@ -107,8 +107,8 @@ public class DecoratorTest {
 
 	@Test
 	public void testLabDecorator() {
-		String[] classNames = new String[] { "problem.DecryptionInputStream", "problem.EncryptionOutputStream",
-				"problem.IDecryption", "problem.IEncryption", "problem.SubstitutionCipher", "problem.TextEditorApp" };
+		String[] classNames = new String[] { "src.problem.DecryptionInputStream", "src.problem.EncryptionOutputStream",
+				"src.problem.IDecryption", "src.problem.IEncryption", "src.problem.SubstitutionCipher", "src.problem.TextEditorApp" };
 		assertDecorator(classNames, new String[0], new String[0], classNames, "");
 	}
 
