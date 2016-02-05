@@ -14,6 +14,9 @@ public class ImplementsClassRecord implements IClassRecord {
 	public String getClassUml() {
 		StringBuilder s = new StringBuilder();
 		s.append(this.innerRecord.getClassUml());
+		if (this.implementsList.isEmpty()) {
+			return s.toString();
+		}
 		String className = this.getClassName();
 		s.append("edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
 		String[] shortClassNameList = className.replace("/", ".").split("\\.");
