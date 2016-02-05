@@ -18,6 +18,7 @@ public class UmlRunner {
 		umlWrapper.addBuilderClass(DecoratorBuilder.class);
 		umlWrapper.addBuilderClass(AdapterBuilder.class);
 		umlWrapper.addBuilderClass(SingletonBuilder.class);
+		umlWrapper.addBuilderClass(CompositeBuilder.class);
 		try {
 			umlWrapper.generateGraph();
 			System.out.println("done");
