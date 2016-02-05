@@ -105,13 +105,6 @@ public class DecoratorTest {
 		assertDecorator(classNames, new String[0], new String[0], classNames, "");
 	}
 
-	@Test
-	public void testLabDecorator() {
-		String[] classNames = new String[] { "src.problem.DecryptionInputStream", "src.problem.EncryptionOutputStream",
-				"src.problem.IDecryption", "src.problem.IEncryption", "src.problem.SubstitutionCipher", "src.problem.TextEditorApp" };
-		assertDecorator(classNames, new String[0], new String[0], classNames, "");
-	}
-
 	public void assertDecorator(String[] classNames, String[] decoratorClasses, String[] componentClasses,
 			String[] noPatternClasses, String expectedUml) {
 		try {
@@ -122,7 +115,6 @@ public class DecoratorTest {
 			umlWrapper.addBuilderClass(ImplementsBuilder.class);
 			umlWrapper.addBuilderClass(DecoratorBuilder.class);
 			String actualUml = umlWrapper.build();
-			// System.out.println(actualUml);
 			HashMap<String, IClassRecord> recordMap = umlWrapper.getRecords();
 
 			for (String className : decoratorClasses) {
@@ -142,7 +134,6 @@ public class DecoratorTest {
 				assertEquals(0, record.getPatternNames().size());
 			}
 
-			System.out.println(actualUml);
 			if (expectedUml.equals("")) {
 				UmlWrapper baseUmlWrapper = new UmlWrapper(classNames);
 				baseUmlWrapper.addBuilderClass(ExtensionBuilder.class);
