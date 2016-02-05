@@ -14,7 +14,7 @@ public class ImplementsBuilderTest {
 	@Test
 	public void testNoImplements() throws IOException {
 		assertImplements("java.lang.Object", new HashSet<String>(Arrays.asList(new String[] { "java.lang.Object" })),
-				new HashSet<String>(), "edge [ arrowhead = \"empty\" style = \"dotted\"]\n");
+				new HashSet<String>(), "");
 
 	}
 

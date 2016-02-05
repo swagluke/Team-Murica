@@ -51,7 +51,23 @@ public class AdapterTest {
 				new String[0], new String[0], new String[0], "");
 	}
 
-	// classname, the pattern that you expect
+	@Test
+	public void testOutputStreamWriterIsNotAnAdapter() {
+		assertAdapter(
+				new String[] { "java.io.OutputStreamWriter", "java.io.Closeable", "java.lang.AutoCloseable",
+						"java.io.Flushable", "java.lang.Appendable", "java.io.FileWriter", "java.io.OutputStream" },
+				new String[0], new String[0], new String[0], "");
+	}
+
+	@Test
+	public void testMouseAdapterIsNotAnAdapter() {
+		assertAdapter(
+				new String[] { "java.awt.event.MouseAdapter", "java.awt.event.MouseListener", "java.awt.event.MouseWheelListener",
+						"java.util.EventListener"
+					 },
+				new String[0], new String[0], new String[0], "");
+	}
+
 	public void assertAdapter(String[] classNames, String[] adapterClasses, String[] targetClasses,
 			String[] adapteeClasses, String expectedUml) {
 		try {
@@ -87,8 +103,8 @@ public class AdapterTest {
 			System.out.println(actualUml);
 			if (expectedUml.equals("")) {
 				UmlWrapper baseUmlWrapper = new UmlWrapper(classNames);
-				umlWrapper.addBuilderClass(ExtensionBuilder.class);
-				umlWrapper.addBuilderClass(ImplementsBuilder.class);
+				baseUmlWrapper.addBuilderClass(ExtensionBuilder.class);
+				baseUmlWrapper.addBuilderClass(ImplementsBuilder.class);
 				assertEquals(baseUmlWrapper.build(), actualUml);
 			} else {
 				assertEquals(expectedUml, actualUml);
