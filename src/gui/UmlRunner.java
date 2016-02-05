@@ -3,10 +3,7 @@ package gui;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-import dot.AssociationBuilder;
-import dot.DecoratorBuilder;
-import dot.ExtensionBuilder;
-import dot.ImplementsBuilder;
+import dot.*;
 
 public class UmlRunner {
 	public final static String fontName = "Comic Sans MS";
@@ -17,8 +14,8 @@ public class UmlRunner {
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
 //		umlWrapper.addBuilderClass(AssociationBuilder.class);
-		umlWrapper.addBuilderClass(DecoratorBuilder.class);
-//		umlWrapper.addBuilderClass(AdapterBuilder.class);
+//		umlWrapper.addBuilderClass(DecoratorBuilder.class);
+		umlWrapper.addBuilderClass(AdapterBuilder.class);
 		try {
 			umlWrapper.generateGraph();
 			System.out.println("done");
