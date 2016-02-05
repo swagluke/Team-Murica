@@ -76,7 +76,6 @@ public class AdapterTest {
 			umlWrapper.addBuilderClass(ImplementsBuilder.class);
 			umlWrapper.addBuilderClass(AdapterBuilder.class);
 			String actualUml = umlWrapper.build();
-			// System.out.println(actualUml);
 			HashMap<String, IClassRecord> recordMap = umlWrapper.getRecords();
 
 			for (String className : adapterClasses) {
@@ -100,7 +99,6 @@ public class AdapterTest {
 				assertTrue(record.getPatternNames().contains("Adaptee"));
 			}
 
-			System.out.println(actualUml);
 			if (expectedUml.equals("")) {
 				UmlWrapper baseUmlWrapper = new UmlWrapper(classNames);
 				baseUmlWrapper.addBuilderClass(ExtensionBuilder.class);
