@@ -98,7 +98,7 @@ public class DecoratorBuilder extends APatternBuilder {
 			return hasConstructorAndField || extendsDecorator;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("couldn't find a class");
+//			System.out.println("couldn't find a class");
 			return false;
 		}
 	}
@@ -112,12 +112,12 @@ public class DecoratorBuilder extends APatternBuilder {
 
 		String extendsName = ((ExtendedClassRecord) record.tryConvertRecord(ExtendedClassRecord.class)).getExtendsName()
 				.replace("/", ".");
-		System.out.println(extendsName);
+//		System.out.println(extendsName);
 		if (recordHashMap.get(extendsName) != null) {
 			// System.out.println("hello");
 			IClassRecord extendedRecord = recordHashMap.get(extendsName);
 			if (!this.isPattern(extendedRecord, recordHashMap)) {
-				System.out.println(extendsName + " is the component");
+//				System.out.println(extendsName + " is the component");
 			}
 		}
 
@@ -135,7 +135,7 @@ public class DecoratorBuilder extends APatternBuilder {
 			                        + implementsName.substring(implementsName.lastIndexOf('.') + 1)
 			                        + "[label=\"<<decorates>>\"]"
 			        );
-					System.out.println(implementsName + " is the component");
+//					System.out.println(implementsName + " is the component");
 				}
 			}
 		}
