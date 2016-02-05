@@ -1,9 +1,12 @@
 package records;
 
+import java.rmi.activation.UnknownObjectException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.objectweb.asm.Type;
+
+import javax.management.RuntimeErrorException;
 
 public class ClassRecord implements IClassRecord {
 	public String className;
@@ -94,7 +97,7 @@ public class ClassRecord implements IClassRecord {
 
 	@Override
 	public IClassRecord getInnerRecord() {
-		return null;
+		throw new RuntimeException("This is the base record, there is no more inner records.");
 	}
 
 	@Override
@@ -131,7 +134,7 @@ public class ClassRecord implements IClassRecord {
 		if (this.getClass() == classVar) {
 			return this;
 		}
-		return null;
+		throw new RuntimeException("Could not convert the record to type " + classVar);
 	}
 
 	@Override
