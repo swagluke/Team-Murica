@@ -50,6 +50,7 @@ abstract public class AbstractBuilderDecorator implements IBuilder {
 	public abstract IClassRecord applyDecoration(IClassRecord record);
 
 	public final void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {
+//		System.out.println();
 		if (this.isPattern(record, records)) {
 			this.applyPattern(record, records);
 		}

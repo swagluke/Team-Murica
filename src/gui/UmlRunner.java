@@ -1,9 +1,10 @@
 package gui;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
-import dot.AdapterBuilder;
 import dot.AssociationBuilder;
+import dot.DecoratorBuilder;
 import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
 
@@ -11,12 +12,13 @@ public class UmlRunner {
 	public final static String fontName = "Comic Sans MS";
 
 	public static void main(String[] args) {
+		System.out.println(Arrays.toString(args));
 		UmlWrapper umlWrapper = new UmlWrapper(args);
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
-		umlWrapper.addBuilderClass(AssociationBuilder.class);
-//		umlWrapper.addBuilderClass(DecoratorBuilder.class);
-		umlWrapper.addBuilderClass(AdapterBuilder.class);
+//		umlWrapper.addBuilderClass(AssociationBuilder.class);
+		umlWrapper.addBuilderClass(DecoratorBuilder.class);
+//		umlWrapper.addBuilderClass(AdapterBuilder.class);
 		try {
 			umlWrapper.generateGraph();
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException

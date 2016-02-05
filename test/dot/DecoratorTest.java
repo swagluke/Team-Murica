@@ -1,14 +1,16 @@
 package dot;
 
-import org.junit.Test;
-import records.ClassRecord;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import records.ClassRecord;
 
 /**
  * Created by lukezhang on 1/29/16.
@@ -39,6 +41,7 @@ public class DecoratorTest
 
     private void assertDecorator(String className, boolean expectedIsDecorator, String expectedUml)
     {
+    	fail();
         DecoratorBuilder builder = new DecoratorBuilder(new UmlBuilder(className,new HashSet<String>(Arrays.asList(className))));
         ClassRecord record = (ClassRecord) builder.build();
         assertTrue(expectedIsDecorator == record.getBaseRecord().getPatternNames().contains("Decorator"));

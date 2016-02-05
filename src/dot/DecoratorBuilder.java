@@ -3,9 +3,13 @@ package dot;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.objectweb.asm.Type;
+
 import records.ExtendedClassRecord;
 import records.IClassRecord;
 import records.ImplementsClassRecord;
+import records.InstanceVarRecord;
+import records.MethodRecord;
 
 public class DecoratorBuilder extends APatternBuilder {
 	public DecoratorBuilder(IBuilder b) {
@@ -14,32 +18,84 @@ public class DecoratorBuilder extends APatternBuilder {
 
 	@Override
 	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
-		boolean hasConstructorAndField = false;
-	
-		
-		System.out.println("\nin is pattern");
-		System.out.println(this.getClassRecord().getClassName());
-		HashSet<String> possible = new HashSet<String>();
-		if (record.canConvertRecord(ExtendedClassRecord.class)) {
-			System.out.println("can convert to the class");
-			ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record.tryConvertRecord(ExtendedClassRecord.class);
-			System.out.println(extendedClassRecord.getExtendsName());
-			possible.add(extendedClassRecord.getExtendsName());
+		try {
+			boolean hasConstructorAndField = false;
+			boolean extendsDecorator = false;
+			Class<?> thisClass = Class
+					.forName(Type.getObjectType(record.getBaseRecord().getClassName()).getClassName());
+
+//			System.out.println("in is pattern");
+//			System.out.println(record.getBaseRecord().getClassName());
+			HashSet<String> possibles = new HashSet<String>();
+			if (record.canConvertRecord(ExtendedClassRecord.class)) {
+				ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record
+						.tryConvertRecord(ExtendedClassRecord.class);
+				possibles.add(extendedClassRecord.getExtendsName());
+			}
+			if (record.canConvertRecord(ImplementsClassRecord.class)) {
+				ImplementsClassRecord implementsClassRecord = (ImplementsClassRecord) record
+						.tryConvertRecord(ImplementsClassRecord.class);
+				possibles.addAll(implementsClassRecord.getImplementsList());
+			}
+			possibles.removeIf(p -> !record.getClassList().contains(p.replace("/", ".")));
+			// System.out.println("possibles: " + "" + possibles);
+
+			for (String possible : possibles) {
+				Class<?> implemntingClass = Class.forName(Type.getObjectType(possible).getClassName());
+
+				for (MethodRecord methodRecord : record.getBaseRecord().getMethodsList()) {
+					if (methodRecord.getName().equals("<init>")) {
+						// System.out.println(methodRecord.getName() + ": " +
+						// methodRecord.getStypes());
+						for (String arg : methodRecord.getStypes()) {
+							if (Class.forName(arg).isAssignableFrom(thisClass)) {
+								// System.out.println(arg + " is assignable from
+								// " + record.getBaseRecord().getClassName());
+								for (InstanceVarRecord field : record.getBaseRecord().getFieldsList()) {
+									Class<?> fieldClass = Class.forName(field.getType());
+									if (field.getType().equals(arg)) {
+										hasConstructorAndField = true;
+										// return true
+//										System.out.println(true);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+//			for (InstanceVarRecord field : record.getBaseRecord().getFieldsList()) {
+//				String fieldName = field.getType();
+//				System.out.println(fieldName);
+//			}
+			if (!hasConstructorAndField) {
+				ExtendedClassRecord extendedClassRecord = (ExtendedClassRecord) record
+						.tryConvertRecord(ExtendedClassRecord.class);
+				String extendsName = extendedClassRecord.getExtendsName();
+				// System.out.println(recordMap.get(extendsName.replace("/",
+				// ".")));
+				if (recordMap.get(extendsName.replace("/", ".")) != null) {
+//					System.out.println("extends something");
+					if (this.isPattern(recordMap.get(extendsName.replace("/", ".")), recordMap)) {
+						extendsDecorator = true;
+//						System.out.println(record.getBaseRecord().getClassName() + " extends a decorator");
+					}
+				}
+			}
+			// has constructorfield or extends a decorator
+//			System.out.println("name: " + record.getBaseRecord().getClassName() + " hasConstructorAndField: "
+//					+ hasConstructorAndField + " extendsDecorator: " + extendsDecorator);
+			return hasConstructorAndField || extendsDecorator;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("couldn't find a class");
+			return false;
 		}
-		if (record.canConvertRecord(ImplementsClassRecord.class)) {
-			System.out.println("can convert to the class");
-			ImplementsClassRecord implementsClassRecord = (ImplementsClassRecord) record.tryConvertRecord(ImplementsClassRecord.class);
-			System.out.println(implementsClassRecord.getImplementsList());
-			possible.addAll(implementsClassRecord.getImplementsList());
-		}
-		System.out.println(possible);
-		// has constructorfield or extends a decorator
-		return hasConstructorAndField;
 	}
 
 	@Override
 	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
-		// TODO Auto-generated method stub
+		System.out.println(record.getBaseRecord().getClassName() + " is a decorator");
 	}
 
 	// /**
