@@ -2,7 +2,7 @@ package sdedit;
 
 import java.io.IOException;
 
-import jdk.internal.org.objectweb.asm.Type;
+import org.objectweb.asm.Type;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
