@@ -15,9 +15,9 @@ public class UmlRunner {
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
 //		umlWrapper.addBuilderClass(AssociationBuilder.class);
-//		umlWrapper.addBuilderClass(DecoratorBuilder.class);
-//		umlWrapper.addBuilderClass(AdapterBuilder.class);
-//		umlWrapper.addBuilderClass(SingletonBuilder.class);
+		umlWrapper.addBuilderClass(DecoratorBuilder.class);
+		umlWrapper.addBuilderClass(AdapterBuilder.class);
+		umlWrapper.addBuilderClass(SingletonBuilder.class);
 		umlWrapper.addBuilderClass(UsesBuilder.class);
 		umlWrapper.addBuilderClass(CompositeBuilder.class);
 		try {
