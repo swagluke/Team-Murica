@@ -72,13 +72,13 @@ public class CompositeTest {
 				ClassRecord record = umlWrapper.getRecords().get(className).getBaseRecord();
 				assertEquals(0, record.getPatternNames().size());
 			}
-
 			if (expectedUml.equals("")) {
 				UmlWrapper baseUmlWrapper = new UmlWrapper(classNames);
 				baseUmlWrapper.addBuilderClass(ExtensionBuilder.class);
 				baseUmlWrapper.addBuilderClass(ImplementsBuilder.class);
 				assertEquals(baseUmlWrapper.build(), actualUml);
 			} else {
+				System.out.println(expectedUml);
 				assertEquals(expectedUml, actualUml);
 			}
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException

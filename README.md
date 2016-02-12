@@ -99,3 +99,15 @@ Adapter and Decorator patterns Manual: Lujia Zhang
 Design: All three
 
 Automated tests: Philip Ross
+
+Milestone 6:
+
+README: Philip Ross
+
+Implementation: Primary Lucas Miller, Philip Ross helped out.
+
+Composite patterns Manual: Philip Ross
+
+Design: Lucas Miller and Philip Ross
+
+Automated tests: Philip Ross

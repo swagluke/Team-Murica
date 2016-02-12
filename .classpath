@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="src/com/facebook/|src/com/instagram/|src/problem/client/|src/problem/graphics/|src/problem/sprites/" kind="src" path="src"/>
 	<classpathentry kind="src" path="lab5-1-solution"/>
 	<classpathentry kind="src" path="lab2-1-solution"/>
 	<classpathentry kind="src" path="pizzafactory"/>
