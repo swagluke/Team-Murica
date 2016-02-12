@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="lab5-1-solution"/>
 	<classpathentry kind="src" path="lab2-1-solution"/>
 	<classpathentry kind="src" path="pizzafactory"/>
+	<classpathentry kind="src" path="menu"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="asm-all-5.0.4.jar"/>
 	<classpathentry kind="src" path="test"/>
