@@ -108,7 +108,9 @@ public class CompositeBuilder extends APatternBuilder {
 								record.getBaseRecord().setBoxColor("yellow");
 								//time to find leafs
 								for(IClassRecord possibleLeafRecords: recordHashMap.values()){
-									if(implementingClass.isAssignableFrom(Class.forName(possibleLeafRecords.getBaseRecord().getClassName().replace("/",".")))){
+									if(implementingClass.isAssignableFrom(Class.forName(possibleLeafRecords.getBaseRecord().getClassName().replace("/",".")))
+											&&implementsRecord!=possibleLeafRecords.getBaseRecord()
+											&&record.getBaseRecord()!=possibleLeafRecords.getBaseRecord()){
 										possibleLeafRecords.getBaseRecord().addPattern("Leaf");
 										possibleLeafRecords.getBaseRecord().setBoxColor("yellow");
 									}
