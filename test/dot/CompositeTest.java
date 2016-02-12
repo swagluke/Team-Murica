@@ -28,9 +28,10 @@ public class CompositeTest {
 				new String[]{"headfirst.composite.menu.MenuItem"}, new String[0], "");
 	}
 	
+	@Test
 	public void testSwingIsComposite() throws IOException, ClassNotFoundException {
-		assertComposite(new String[] { "java.awt.container", "java.awt.component", "java.awt.button"}, new String[]{"java.awt.component"}, new String[]{"java.awt.container"},
-				new String[]{"java.awt.button"}, new String[0], "");
+		assertComposite(new String[] { "java.awt.Container", "java.awt.Component", "java.awt.Button"}, new String[]{"java.awt.Component"}, new String[]{"java.awt.Container"},
+				new String[]{"java.awt.Button"}, new String[0], "");
 	}	
 
 	public void assertComposite(String[] classNames, String[] componentClasses, String[] compositeClasses,
@@ -47,6 +48,7 @@ public class CompositeTest {
 
 			for (String className : compositeClasses) {
 				ClassRecord record = umlWrapper.getRecords().get(className).getBaseRecord();
+				System.out.println(record.getPatternNames());
 				assertTrue(record.getPatternNames().contains("Composite"));
 				assertFalse(record.getPatternNames().contains("Component"));
 				assertFalse(record.getPatternNames().contains("Leaf"));
