@@ -46,27 +46,18 @@ public class CompositeBuilder extends APatternBuilder {
 				Class<?> implmentingClass = Class.forName(Type.getObjectType(possible).getClassName());
 
 				for (InstanceVarRecord fieldRecord : record.getBaseRecord().getFieldsList()) {
-					System.out.println("Checking: " + fieldRecord);
-					// if
-					// (recordMap.containsKey(fieldRecord.getType().replace("[]",
-					// ""))) {
-					try {
-						if (Class.forName("java.util.Collection")
-								.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))
-								|| fieldRecord.getType().contains("[]")) {
+					System.out.println("Checking: " + fieldRecord.getType());
+					if (recordMap.containsKey(fieldRecord.getType().replace("[]", ""))) {
+						if (Class.forName("java.util.Collection").isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", ""))) ||
+								fieldRecord.getType().contains("[]")
+								) {
 							System.out.println("      Is Assignable");
-							UsesClassRecord useRecord = (UsesClassRecord) record.tryConvertRecord(UsesClassRecord.class);
-							System.out.println(useRecord.getUsesNamesList());
-							System.out.println(useRecord.getUsesNamesList().contains(possible));
-							if (implmentingClass
-									.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", ""))) || useRecord.getUsesNamesList().contains(possible)) {
+							if (implmentingClass.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))) {
 								ClassRecord r = recordMap.get(possible.replace("/", ".")).getBaseRecord();
 								System.out.println("      Is super-field");
 								return true;
 							}
 						}
-					} catch (ClassNotFoundException e) {
-						// ignore
 					}
 				}
 			}
@@ -102,37 +93,28 @@ public class CompositeBuilder extends APatternBuilder {
 				Class<?> implementingClass = Class.forName(Type.getObjectType(possible).getClassName());
 
 				for (InstanceVarRecord fieldRecord : record.getBaseRecord().getFieldsList()) {
-					System.out.println("Checking: " + fieldRecord);
-					// if
-					// (recordHashMap.containsKey(fieldRecord.getType().replace("[]",
-					// ""))) {
-					System.out.println(fieldRecord);
-					if (Class.forName("java.util.Collection")
-							.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))
-							|| fieldRecord.getType().contains("[]")) {
-						System.out.println("      Is Assignable");
-						if (implementingClass
-								.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))) {
-							ClassRecord implementsRecord = recordHashMap.get(possible.replace("/", "."))
-									.getBaseRecord();
-							System.out.println("      Is super-field");
-							implementsRecord.addPattern("Component");
-							implementsRecord.setBoxColor("yellow");
-							record.getBaseRecord().addPattern("Composite");
-							record.getBaseRecord().setBoxColor("yellow");
-							// time to find leafs
-							for (IClassRecord possibleLeafRecord : recordHashMap.values()) {
-								if (implementingClass
-										.isAssignableFrom(Class.forName(
-												possibleLeafRecord.getBaseRecord().getClassName().replace("/", ".")))
-										&& !record.equals(possibleLeafRecord)
-										&& !implementsRecord.equals(possibleLeafRecord.getBaseRecord())) {
-									possibleLeafRecord.getBaseRecord().addPattern("Leaf");
-									possibleLeafRecord.getBaseRecord().setBoxColor("yellow");
+					System.out.println("Checking: " + fieldRecord.getType());
+					if (recordHashMap.containsKey(fieldRecord.getType().replace("[]", ""))) {
+						if (Class.forName("java.util.Collection").isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", ""))) ||
+								fieldRecord.getType().contains("[]")
+								) {
+							System.out.println("      Is Assignable");
+							if (implementingClass.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))) {
+								ClassRecord implementsRecord = recordHashMap.get(possible.replace("/", ".")).getBaseRecord();
+								System.out.println("      Is super-field");
+								implementsRecord.addPattern("Component");
+								implementsRecord.setBoxColor("yellow");
+								record.getBaseRecord().addPattern("Composite");
+								record.getBaseRecord().setBoxColor("yellow");
+								//time to find leafs
+								for(IClassRecord possibleLeafRecords: recordHashMap.values()){
+									if(implementingClass.isAssignableFrom(Class.forName(possibleLeafRecords.getBaseRecord().getClassName().replace("/",".")))){
+										possibleLeafRecords.getBaseRecord().addPattern("Leaf");
+										possibleLeafRecords.getBaseRecord().setBoxColor("yellow");
+									}
 								}
 							}
 						}
-						// }
 					}
 				}
 			}
