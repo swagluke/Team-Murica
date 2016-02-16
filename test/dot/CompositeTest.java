@@ -741,7 +741,6 @@ public class CompositeTest {
 
 			for (String className : compositeClasses) {
 				ClassRecord record = umlWrapper.getRecords().get(className).getBaseRecord();
-				System.out.println(record.getPatternNames());
 				assertTrue(record.getPatternNames().contains("Composite"));
 				assertFalse(record.getPatternNames().contains("Component"));
 				assertFalse(record.getPatternNames().contains("Leaf"));
@@ -772,7 +771,6 @@ public class CompositeTest {
 				baseUmlWrapper.addBuilderClass(UsesBuilder.class);
 				assertEquals(baseUmlWrapper.build(), actualUml);
 			} else {
-				System.out.println(expectedUml);
 				assertEquals(expectedUml, actualUml);
 			}
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException

@@ -86,7 +86,7 @@ public class UmlWrapper {
 		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o", "out.png");
 		Map<String, String> env = pb.environment();
 		// pb.directory();
-		System.out.println(System.getProperty("user.dir"));
+//		System.out.println(System.getProperty("user.dir"));
 		try {
 			// Process p = pb.start();
 			File log = new File("log");

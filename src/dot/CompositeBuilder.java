@@ -50,17 +50,17 @@ public class CompositeBuilder extends APatternBuilder {
                     orUses = usesClassRecord.getUsesNamesList().contains(possible);
                 }
                 for (InstanceVarRecord fieldRecord : record.getBaseRecord().getFieldsList()) {
-                    System.out.println("Checking: " + fieldRecord.getType());
+//                    System.out.println("Checking: " + fieldRecord.getType());
 
                     if (recordMap.containsKey(fieldRecord.getType().replace("[]", ""))|| orUses) {
                         if ((Class.forName("java.util.Collection").isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", ""))) ||  orUses)||
                                 fieldRecord.getType().contains("[]")
                                 ) {
-                            System.out.println("      Is Assignable");
+//                            System.out.println("      Is Assignable");
                             if (implmentingClass.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))||
                                     orUses) {
                                 ClassRecord r = recordMap.get(possible.replace("/", ".")).getBaseRecord();
-                                System.out.println("      Is super-field");
+//                                System.out.println("      Is super-field");
                                 return true;
                             }
                         }
@@ -105,15 +105,15 @@ public class CompositeBuilder extends APatternBuilder {
                 }
 
                 for (InstanceVarRecord fieldRecord : record.getBaseRecord().getFieldsList()) {
-                    System.out.println("Checking: " + fieldRecord.getType());
+//                    System.out.println("Checking: " + fieldRecord.getType());
                     if (recordHashMap.containsKey(fieldRecord.getType().replace("[]", ""))||orUses) {
                         if ((Class.forName("java.util.Collection").isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", ""))) ||  orUses)||
                                 fieldRecord.getType().contains("[]")
                                 ) {
-                            System.out.println("      Is Assignable");
+//                            System.out.println("      Is Assignable");
                             if (implementingClass.isAssignableFrom(Class.forName(fieldRecord.getType().replace("[]", "")))||orUses) {
                                 ClassRecord implementsRecord = recordHashMap.get(possible.replace("/", ".")).getBaseRecord();
-                                System.out.println("      Is super-field");
+//                                System.out.println("      Is super-field");
                                 implementsRecord.addPattern("Component");
                                 implementsRecord.setBoxColor("yellow");
                                 record.getBaseRecord().addPattern("Composite");
@@ -133,7 +133,6 @@ public class CompositeBuilder extends APatternBuilder {
                 }
             }
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 }
