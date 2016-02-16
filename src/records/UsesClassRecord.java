@@ -17,6 +17,7 @@ public class UsesClassRecord implements IClassRecord {
 		}
 		boolean firstTime = true;
 		StringBuilder s = new StringBuilder();
+		s.append(this.innerRecord.getClassUml());
 		for (String val : usesNamesList) {
 			String[] valList = val.replace("/", ".").split("\\.");
 			String shortValue = valList[valList.length - 1];
@@ -24,7 +25,6 @@ public class UsesClassRecord implements IClassRecord {
 				String[] n = innerRecord.getClassName().split("/");
 				String name = n[n.length - 1];
 				if (firstTime) {
-					s.append(this.innerRecord.getClassUml());
 					s.append("edge [ style = \"dotted\" arrowhead = \"open\"]\n");
 					firstTime = false;
 				}
