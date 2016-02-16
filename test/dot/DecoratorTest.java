@@ -34,49 +34,62 @@ public class DecoratorTest {
 	public void testIsDecorator() throws IOException, ClassNotFoundException {
 		String[] classNames = new String[] { "dot.DecoratorBuilder", "dot.APatternBuilder",
 				"dot.AbstractBuilderDecorator", "dot.IBuilder", "dot.UmlBuilder" };
-		String expectedUml = "digraph G {fontname = \"Comic Sans MS\"  fontsize = 8  node [ fontname = \"Comic Sans MS\" fontsize = 8 shape = \"record\"] edge [ fontname = \"Comic Sans MS\" fontsize = 8 ]\n"
-				+ "DecoratorBuilder [color = \"green\" label = \"{DecoratorBuilder\\n\\<\\<Decorator\\>\\>||+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n"
-				+ "+ lambda$0records.IClassRecord java.lang.String  : boolean\\l\n"
-				+ "+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
-				+ "}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" + "DecoratorBuilder -> APatternBuilder\n"
-				+ "IBuilder [color = \"green\" label = \"{IBuilder\\n\\<\\<Component\\>\\>||+ getClassRecord : records.ClassRecord\\l\n"
-				+ "+ build : records.IClassRecord\\l\n" + "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n"
-				+ "+ getClassUML : java.lang.String\\l\n"
-				+ "+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n"
-				+ "+ getClassList : java.util.HashSet\\l\n"
-				+ "+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n"
-				+ "+ calculatePatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
-				+ "}\"]UmlBuilder [label = \"{UmlBuilder|+classList : java.util.HashSet\\l\n"
-				+ "+record : records.ClassRecord\\l\n" + "+methodVisitor : asm.ClassMethodVisitor\\l\n"
-				+ "+declVisitor : asm.ClassDeclarationVisitor\\l\n" + "+fieldVisitor : asm.ClassFieldVisitor\\l\n"
-				+ "+reader : org.objectweb.asm.ClassReader\\l\n" + "|+ getClassRecord : records.ClassRecord\\l\n"
-				+ "+ build : records.IClassRecord\\l\n"
-				+ "+ buildorg.objectweb.asm.ClassVisitor  : records.ClassRecord\\l\n"
-				+ "+ setClassListjava.util.HashSet  : void\\l\n" + "+ getClassUML : java.lang.String\\l\n"
-				+ "+ getClassList : java.util.HashSet\\l\n"
-				+ "+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n"
-				+ "+ build : records.ClassRecord\\l\n" + "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n"
-				+ "+ getMethodVisitor : asm.ClassMethodVisitor\\l\n"
-				+ "+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n"
-				+ "+ calculatePatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
-				+ "}\"]edge [ arrowhead = \"empty\" style = \"dotted\"]\n" + "UmlBuilder -> IBuilder\n"
-				+ "AbstractBuilderDecorator [color = \"green\" label = \"{AbstractBuilderDecorator\\n\\<\\<Decorator\\>\\>|+builder : dot.IBuilder\\l\n"
-				+ "+record : records.IClassRecord\\l\n" + "|+ getClassRecord : records.ClassRecord\\l\n"
-				+ "+ build : records.IClassRecord\\l\n"
-				+ "+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n"
-				+ "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" + "+ getClassUML : java.lang.String\\l\n"
-				+ "+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
-				+ "+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n"
-				+ "+ getClassList : java.util.HashSet\\l\n"
-				+ "+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n"
-				+ "+ calculatePatternrecords.IClassRecord java.util.HashMap  : void\\l\n" + "}\"]\n"
-				+ "AbstractBuilderDecorator -> IBuilder[label=\"<<decorates>>\"]edge [ arrowhead = \"empty\" style = \"dotted\"]\n"
-				+ "AbstractBuilderDecorator -> IBuilder\n"
-				+ "APatternBuilder [color = \"green\" label = \"{APatternBuilder\\n\\<\\<Decorator\\>\\>||+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n"
-				+ "+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n"
-				+ "+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n"
-				+ "+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n"
-				+ "}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" + "APatternBuilder -> AbstractBuilderDecorator\n" + "}";
+		String expectedUml = "digraph G {fontname = \"Comic Sans MS\"  fontsize = 8  node [ fontname = \"Comic Sans MS\" fontsize = 8 shape = \"record\"] edge [ fontname = \"Comic Sans MS\" fontsize = 8 ]\n" +
+				"DecoratorBuilder [color = \"green\" label = \"{DecoratorBuilder\\n\\<\\<Decorator\\>\\>||+ lambda$isPattern$0records.IClassRecord java.lang.String  : boolean\\l\n" +
+				"+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n" +
+				"+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
+				"}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" +
+				"DecoratorBuilder -> APatternBuilder\n" +
+				"IBuilder [color = \"green\" label = \"{IBuilder\\n\\<\\<Component\\>\\>||+ getClassRecord : records.ClassRecord\\l\n" +
+				"+ build : records.IClassRecord\\l\n" +
+				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
+				"+ getClassUML : java.lang.String\\l\n" +
+				"+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n" +
+				"+ getClassList : java.util.HashSet\\l\n" +
+				"+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n" +
+				"+ calculatePatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
+				"}\"]UmlBuilder [label = \"{UmlBuilder|+classList : java.util.HashSet\\l\n" +
+				"+record : records.ClassRecord\\l\n" +
+				"+methodVisitor : asm.ClassMethodVisitor\\l\n" +
+				"+declVisitor : asm.ClassDeclarationVisitor\\l\n" +
+				"+fieldVisitor : asm.ClassFieldVisitor\\l\n" +
+				"+reader : org.objectweb.asm.ClassReader\\l\n" +
+				"|+ getClassRecord : records.ClassRecord\\l\n" +
+				"+ build : records.IClassRecord\\l\n" +
+				"+ buildorg.objectweb.asm.ClassVisitor  : records.ClassRecord\\l\n" +
+				"+ setClassListjava.util.HashSet  : void\\l\n" +
+				"+ getClassUML : java.lang.String\\l\n" +
+				"+ getClassList : java.util.HashSet\\l\n" +
+				"+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n" +
+				"+ build : records.ClassRecord\\l\n" +
+				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
+				"+ getMethodVisitor : asm.ClassMethodVisitor\\l\n" +
+				"+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n" +
+				"+ calculatePatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
+				"}\"]edge [ arrowhead = \"empty\" style = \"dotted\"]\n" +
+				"UmlBuilder -> IBuilder\n" +
+				"AbstractBuilderDecorator [color = \"green\" label = \"{AbstractBuilderDecorator\\n\\<\\<Decorator\\>\\>|+builder : dot.IBuilder\\l\n" +
+				"+record : records.IClassRecord\\l\n" +
+				"|+ getClassRecord : records.ClassRecord\\l\n" +
+				"+ build : records.IClassRecord\\l\n" +
+				"+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n" +
+				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
+				"+ getClassUML : java.lang.String\\l\n" +
+				"+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
+				"+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n" +
+				"+ getClassList : java.util.HashSet\\l\n" +
+				"+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n" +
+				"+ calculatePatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
+				"}\"]\n" +
+				"AbstractBuilderDecorator -> IBuilder[label=\"<<decorates>>\"]edge [ arrowhead = \"empty\" style = \"dotted\"]\n" +
+				"AbstractBuilderDecorator -> IBuilder\n" +
+				"APatternBuilder [color = \"green\" label = \"{APatternBuilder\\n\\<\\<Decorator\\>\\>||+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n" +
+				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
+				"+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
+				"+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n" +
+				"}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" +
+				"APatternBuilder -> AbstractBuilderDecorator\n" +
+				"}";
 		assertDecorator(classNames,
 				new String[] { "dot.DecoratorBuilder", "dot.APatternBuilder", "dot.AbstractBuilderDecorator" },
 				new String[] { "dot.IBuilder" }, new String[] { "dot.UmlBuilder" }, expectedUml);
