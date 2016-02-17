@@ -1,0 +1,125 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.border.Border;
+
+import dot.AdapterBuilder;
+import dot.CompositeBuilder;
+import dot.DecoratorBuilder;
+import dot.ExtensionBuilder;
+import dot.ImplementsBuilder;
+import dot.SingletonBuilder;
+import dot.UsesBuilder;
+
+public class Gui extends JFrame {
+	private static final long serialVersionUID = -3523684925580438861L;
+	private UmlWrapper wrapper;
+
+	public Gui() {
+		String[] args = new String[] { "headfirst.composite.menu.Menu", "headfirst.composite.menu.MenuComponent",
+				"headfirst.composite.menu.MenuItem" };
+		this.wrapper = new UmlWrapper(args);
+		this.wrapper.addBuilderClass(ExtensionBuilder.class);
+		this.wrapper.addBuilderClass(ImplementsBuilder.class);
+		// this.wrapper.addBuilderClass(AssociationBuilder.class);
+		this.wrapper.addBuilderClass(DecoratorBuilder.class);
+		this.wrapper.addBuilderClass(AdapterBuilder.class);
+		this.wrapper.addBuilderClass(SingletonBuilder.class);
+		this.wrapper.addBuilderClass(UsesBuilder.class);
+		this.wrapper.addBuilderClass(CompositeBuilder.class);
+
+		this.setPreferredSize(new Dimension(600, 600));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.loadInitialScreen();
+
+		this.setVisible(true);
+		this.toFront();
+	}
+
+	private void loadInitialScreen() {
+		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
+		this.add(Box.createVerticalGlue());
+		JPanel panel = new InitialPanel();
+
+		Box panelBox = Box.createHorizontalBox();
+		panelBox.add(Box.createHorizontalGlue());
+		panelBox.add(panel);
+		panelBox.add(Box.createHorizontalGlue());
+		this.add(panelBox);
+		this.add(Box.createVerticalGlue());
+		
+		this.pack();
+	}
+
+	private void generate() {
+		try {
+			this.createGraph(this.wrapper.build());
+			System.out.println("done");
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+			System.out
+					.println("Something went wrong constructing instances of builders from the given builder classes");
+			System.out.println(
+					"check to make sure that all the builder classes have a constructor that takes a IBuilder");
+		}
+
+	}
+
+	private void createGraph(String digraph) {
+		final Path path = Paths.get("temp.dot");
+
+		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
+				StandardOpenOption.CREATE);) {
+			writer.write(digraph);
+			writer.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o", "out.png");
+		Map<String, String> env = pb.environment();
+		// pb.directory();
+		// System.out.println(System.getProperty("user.dir"));
+		try {
+			// Process p = pb.start();
+			File log = new File("log");
+			pb.redirectErrorStream(true);
+			pb.redirectOutput(Redirect.appendTo(log));
+			Process p = pb.start();
+			// Files.delete(path);//uncomment to clean up after yourself
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

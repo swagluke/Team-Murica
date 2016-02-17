@@ -32,18 +32,24 @@ public class UmlWrapper {
 	private HashMap<String, IBuilder> decorators;
 	private ArrayList<Class<? extends IBuilder>> builderClasses;
 
-	public UmlWrapper(String[] classNames) {
-		this.classNames = new HashSet<>(Arrays.asList(classNames));
-		this.records = new HashMap<>();
-		this.decorators = new HashMap<>();
-		this.builderClasses = new ArrayList<>();
+	public UmlWrapper() {
+		this(new String[0]);
 	}
 
-	public void generateGraph() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public UmlWrapper(String[] classNames) {
+		this.classNames = new HashSet<String>(Arrays.asList(classNames));
+		this.records = new HashMap<String, IClassRecord>();
+		this.decorators = new HashMap<String, IBuilder>();
+		this.builderClasses = new ArrayList<Class<? extends IBuilder>>();
+	}
+
+	public void generateGraph() throws NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		this.createGraph(this.build());
 	}
 
-	public String build() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public String build() throws NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		for (String className : this.classNames) {
 			IBuilder builder = new UmlBuilder(className, this.classNames);
 			for (Class<? extends IBuilder> builderClass : this.builderClasses) {
@@ -72,6 +78,7 @@ public class UmlWrapper {
 		return s.toString();
 	}
 
+	// TODO refactor out
 	private void createGraph(String digraph) {
 		final Path path = Paths.get("temp.dot");
 
@@ -86,7 +93,7 @@ public class UmlWrapper {
 		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o", "out.png");
 		Map<String, String> env = pb.environment();
 		// pb.directory();
-//		System.out.println(System.getProperty("user.dir"));
+		// System.out.println(System.getProperty("user.dir"));
 		try {
 			// Process p = pb.start();
 			File log = new File("log");
@@ -103,16 +110,32 @@ public class UmlWrapper {
 	public void addBuilderClass(Class<? extends IBuilder> newBuilder) {
 		this.builderClasses.add(newBuilder);
 	}
-	
+
 	public ArrayList<Class<? extends IBuilder>> getBuilderClasses() {
 		return this.builderClasses;
 	}
-	
+
 	public boolean removeBuilderClass(Class<? extends IBuilder> toRemove) {
 		return this.builderClasses.remove(toRemove);
 	}
-	
+
 	public HashMap<String, IClassRecord> getRecords() {
 		return this.records;
+	}
+
+	public void addClass(String className) {
+		this.classNames.add(className);
+	}
+
+	public boolean removeClass(String className) {
+		return this.classNames.remove(className);
+	}
+
+	public boolean hasClass(String className) {
+		return this.classNames.contains(className);
+	}
+
+	public HashSet<String> getClassNames() {
+		return this.classNames;
 	}
 }
