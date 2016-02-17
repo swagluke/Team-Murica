@@ -35,8 +35,9 @@ public class DecoratorTest {
 		String[] classNames = new String[] { "dot.DecoratorBuilder", "dot.APatternBuilder",
 				"dot.AbstractBuilderDecorator", "dot.IBuilder", "dot.UmlBuilder" };
 		String expectedUml = "digraph G {fontname = \"Comic Sans MS\"  fontsize = 8  node [ fontname = \"Comic Sans MS\" fontsize = 8 shape = \"record\"] edge [ fontname = \"Comic Sans MS\" fontsize = 8 ]\n" +
-				"DecoratorBuilder [color = \"green\" label = \"{DecoratorBuilder\\n\\<\\<Decorator\\>\\>||+ lambda$isPattern$0records.IClassRecord java.lang.String  : boolean\\l\n" +
+				"DecoratorBuilder [color = \"green\" label = \"{DecoratorBuilder\\n\\<\\<Decorator\\>\\>||" +
 				"+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n" +
+				"+ lambda$0records.IClassRecord java.lang.String  : boolean\\l\n" +
 				"+ applyPatternrecords.IClassRecord java.util.HashMap  : void\\l\n" +
 				"}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" +
 				"DecoratorBuilder -> APatternBuilder\n" +
