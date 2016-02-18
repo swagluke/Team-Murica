@@ -1,14 +1,9 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import dot.*;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -21,26 +16,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.border.Border;
-
-import dot.AdapterBuilder;
-import dot.CompositeBuilder;
-import dot.DecoratorBuilder;
-import dot.ExtensionBuilder;
-import dot.ImplementsBuilder;
-import dot.SingletonBuilder;
-import dot.UsesBuilder;
-
 public class Gui extends JFrame {
-	private static final long serialVersionUID = -3523684925580438861L;
+	private static final long serialVersionUID = 1L;
 	private UmlWrapper wrapper;
 
 	public Gui() {
@@ -67,7 +44,7 @@ public class Gui extends JFrame {
 	private void loadInitialScreen() {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.add(Box.createVerticalGlue());
-		JPanel panel = new InitialPanel();
+		JPanel panel = new InitialPanel(this.wrapper);
 
 		Box panelBox = Box.createHorizontalBox();
 		panelBox.add(Box.createHorizontalGlue());

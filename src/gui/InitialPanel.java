@@ -21,8 +21,9 @@ public class InitialPanel extends JPanel {
 	private JLabel progressLabel;
 	private JProgressBar progressBar;
 	private boolean analying;
+	private UmlWrapper umlWrapper;
 
-	public InitialPanel() {
+	public InitialPanel(UmlWrapper umlWrapper) {
 		this.analying = false;
 		this.configPath = "N/A";
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -38,6 +39,7 @@ public class InitialPanel extends JPanel {
 		this.add(Box.createVerticalGlue());
 		this.setMaximumSize(new Dimension(600, 600));
 		this.setPreferredSize(new Dimension(400, 400));
+		this.umlWrapper=umlWrapper;
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -45,7 +47,7 @@ public class InitialPanel extends JPanel {
 
 	private Box generateDankTitle() {
 		Box titleBox = Box.createHorizontalBox();
-		JLabel titleLabel = new JLabel("Dank Title");
+		JLabel titleLabel = new JLabel("Title");
 		titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
 		titleBox.add(titleLabel);
 		return titleBox;
@@ -69,7 +71,13 @@ public class InitialPanel extends JPanel {
 		analyzeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				analyze();
+				new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						analyze();
+					}
+				}).start();
 			}
 		});
 		analyzeButton.setPreferredSize(new Dimension(150, 30));
@@ -124,6 +132,11 @@ public class InitialPanel extends JPanel {
 			this.progressBar.setVisible(true);
 		}
 		this.analying = !this.analying;
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void setConfigPath(String newPath) {
