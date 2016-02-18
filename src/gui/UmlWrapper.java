@@ -79,7 +79,7 @@ public class UmlWrapper {
 	}
 
 	// TODO refactor out
-	private void createGraph(String digraph) {
+	void createGraph(String digraph) {
 		final Path path = Paths.get("temp.dot");
 
 		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,

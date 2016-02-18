@@ -58,7 +58,7 @@ public class Gui extends JFrame {
 
 	private void generate() {
 		try {
-			this.createGraph(this.wrapper.build());
+			wrapper.createGraph(this.wrapper.build());
 			System.out.println("done");
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -71,32 +71,6 @@ public class Gui extends JFrame {
 
 	}
 
-	private void createGraph(String digraph) {
-		final Path path = Paths.get("temp.dot");
 
-		try (final BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
-				StandardOpenOption.CREATE);) {
-			writer.write(digraph);
-			writer.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o", "out.png");
-		Map<String, String> env = pb.environment();
-		// pb.directory();
-		// System.out.println(System.getProperty("user.dir"));
-		try {
-			// Process p = pb.start();
-			File log = new File("log");
-			pb.redirectErrorStream(true);
-			pb.redirectOutput(Redirect.appendTo(log));
-			Process p = pb.start();
-			// Files.delete(path);//uncomment to clean up after yourself
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 }
