@@ -35,8 +35,8 @@ public class Gui extends JFrame {
 	private void loadInitialScreen() {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.add(Box.createVerticalGlue());
-		// this.replacePanel(new InitialPanel(this));
-		this.replacePanel(new ResultPanel(this));
+		 this.replacePanel(new InitialPanel(this), true);
+//		this.replacePanel(new ResultPanel(this));
 	}
 
 	private void generate() {
