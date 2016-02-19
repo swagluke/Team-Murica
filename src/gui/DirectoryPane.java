@@ -162,12 +162,12 @@ public class DirectoryPane extends APanel {
 	}
 
 	public void reanalyze(JButton button) {
+		this.imagePanel.loading();
 		button.setText("TODO I'm analyzing");
 		System.out.println(this.getCheckedClasses());
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.imagePanel.changeImage("SDout.png");
