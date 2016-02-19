@@ -41,12 +41,13 @@ public class InitialPanel extends APanel {
 		this.add(this.generateProgressBox());
 		this.add(Box.createVerticalGlue());
 		this.add(Box.createVerticalGlue());
-		this.setMaximumSize(new Dimension(600, 600));
-		this.setPreferredSize(new Dimension(400, 400));
+		this.setMaximumSize(new Dimension(500, 500)); // actaully 500, 600??
+		this.setPreferredSize(new Dimension(500, 500));
+		this.setMinimumSize(new Dimension(500 ,500));
 //		this.umlWrapper=umlWrapper;
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.setAlignmentY(Component.CENTER_ALIGNMENT);
+//		this.setAlignmentY(Component.CENTER_ALIGNMENT);
 	}
 
 	private Box generateDankTitle() {

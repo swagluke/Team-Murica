@@ -39,6 +39,7 @@ public class DirectoryPane extends APanel {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setUpTree();
 		this.setBackground(Color.white);
+		this.setMinimumSize(new Dimension(200, 500));
 	}
 
 	private void setUpTree() {
@@ -68,13 +69,11 @@ public class DirectoryPane extends APanel {
 			@Override
 			public void treeExpanded(TreeExpansionEvent event) {
 				System.out.println("tree expanded");
-				resize();
 			}
 
 			@Override
 			public void treeCollapsed(TreeExpansionEvent event) {
 				System.out.println("tree collapsed");
-				resize();
 			}
 		});
 		tree.setCellEditor(editor);
@@ -112,25 +111,6 @@ public class DirectoryPane extends APanel {
 				System.out.println(System.currentTimeMillis() + ": structure changed");
 			}
 		});
-//		this.scrollPane = new JLabel("Hello");
-//		this.scrollPane.set
-//		this.scrollPane.setBackground(Color.cyan);
-//		this.scrollPane.setForeground(Color.cyan);
-//		this.scrollPane.set
-//		 this.scrollPane = new JScrollPane(tree);
-//		 this.scrollPane.setBackground(Color.cyan);
-//		 this.scrollPane.setLocation(new Point(0, 0));
-//		 this.tree.setPreferredSize(new Dimension(100, 1000));
-		 Dimension size = new Dimension(100, 1017);
-//		 this.scrollPane.setPreferredSize(size);
-//		 this.setMinimumSize(size);
-//		 this.tree.setPreferredSize(size);
-//		 this.scrollPane.setPreferredSize(size);
-		 size = new Dimension(100, 1017);
-//		 this.setPreferredSize(size);
-		 this.setMaximumSize(size);
-//		this.add(this.scrollPane);
-		System.out.println(this.getComponentCount());
 		 this.add(tree);
 	}
 
@@ -141,37 +121,4 @@ public class DirectoryPane extends APanel {
 		parent.add(node);
 		return node;
 	}
-	
-	private void resize() {
-//		 this.scrollPane.setLocation(new Point(0, 0));
-		System.out.println("gui");
-		System.out.println("width: " + this.getGui().getContentPane().getWidth());
-		System.out.println("height: " + this.getGui().getContentPane().getHeight());
-		System.out.println();
-		System.out.println("tree");
-		System.out.println(this.tree.getWidth());
-		System.out.println(this.tree.getHeight());
-
-		System.out.println();
-		System.out.println("scroll pane");
-//		System.out.println(this.scrollPane.getWidth());
-//		System.out.println(this.scrollPane.getHeight());
-		System.out.println(this.getLocation());
-//		System.out.println(this.scrollPane.getLocation());
-		System.out.println(this.tree.getLocation());
-
-//		System.out.println();
-//		System.out.println(this.tree.getWidth());
-//		System.out.println(this.tree.getHeight());
-//		this.scrollPane.setMaximumSize(new Dimension(this.getGui().getWidth() / 5, this.getGui().getHeight()));
-//		this.setPreferredSize(this.scrollPane.getPreferredSize());
-//		 this.setSize(500, 1080);
-		System.out.println();
-		System.out.println("direcotyr pane");
-		System.out.println(this.getWidth());
-		System.out.println(this.getHeight());
-//		revalidate();
-//		this.getGui().updatePaint();
-	}
-
 }

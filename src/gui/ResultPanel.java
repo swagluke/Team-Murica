@@ -26,22 +26,28 @@ public class ResultPanel extends APanel {
 	}
 
 	private void setUpDirectoryPane() {
-//		Box box = Box.createHorizontalBox();
-//		box.add(new DirectoryPane(this.getGui()));
-//		box.add(new ImagePanel(this.getGui()));
+		// Box box = Box.createHorizontalBox();
+		// box.add(new DirectoryPane(this.getGui()));
+		// box.add(new ImagePanel(this.getGui()));
 
-//		this.add(box);
+		// this.add(box);
 		DirectoryPane directoryPanel = new DirectoryPane(this.getGui());
+		JScrollPane scrollPane = new JScrollPane(directoryPanel);
+
+		scrollPane.setMinimumSize(directoryPanel.getMinimumSize());
 		ImagePanel imagePanel = new ImagePanel(this.getGui());
-		
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(directoryPanel), new JScrollPane(imagePanel));
+
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, imagePanel);
 		this.add(splitPane);
-//		this.add(new ImagePanel(this.getGui()));
-//		this.add(new DirectoryPane(this.getGui()));
-		for (Component c : this.getComponents()) {
-			System.out.println(c);
-		}
-		System.out.println(this.getLocation());
+		splitPane.setContinuousLayout(true);
+		// this.getGui().updatePaint();
+		splitPane.setDividerLocation(200);
+		splitPane.setDividerSize(5);
+		this.setMinimumSize(splitPane.getMinimumSize());
+		// splitPane.setDividerLocation(0.3);
+		// splitPane.setResizeWeight(0.8);
+		// this.add(new ImagePanel(this.getGui()));
+		// this.add(new DirectoryPane(this.getGui()));
 	}
 
 }
