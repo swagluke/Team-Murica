@@ -7,11 +7,16 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
 
 import gui.UmlWrapper;
+import phases.GenerateUML;
+import phases.IPhase;
+import phases.Load;
+import phases.PatternDetection;
 import records.ClassRecord;
 import records.IClassRecord;
 
@@ -42,7 +47,7 @@ public class DecoratorTest {
 				"}\"]edge [ style = \"normal\", arrowhead = \"normal\"]\n" +
 				"DecoratorBuilder -> APatternBuilder\n" +
 				"IBuilder [color = \"green\" label = \"{IBuilder\\n\\<\\<Component\\>\\>||+ getClassRecord : records.ClassRecord\\l\n" +
-				"+ load : records.IClassRecord\\l\n" +
+				"+ build : records.IClassRecord\\l\n" +
 				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
 				"+ getClassUML : java.lang.String\\l\n" +
 				"+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n" +
@@ -56,13 +61,13 @@ public class DecoratorTest {
 				"+fieldVisitor : asm.ClassFieldVisitor\\l\n" +
 				"+reader : org.objectweb.asm.ClassReader\\l\n" +
 				"|+ getClassRecord : records.ClassRecord\\l\n" +
-				"+ load : records.IClassRecord\\l\n" +
+				"+ build : records.IClassRecord\\l\n" +
 				"+ buildorg.objectweb.asm.ClassVisitor  : records.ClassRecord\\l\n" +
 				"+ setClassListjava.util.HashSet  : void\\l\n" +
 				"+ getClassUML : java.lang.String\\l\n" +
 				"+ getClassList : java.util.HashSet\\l\n" +
 				"+ applyDecorationrecords.IClassRecord  : records.IClassRecord\\l\n" +
-				"+ load : records.ClassRecord\\l\n" +
+				"+ build : records.ClassRecord\\l\n" +
 				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
 				"+ getMethodVisitor : asm.ClassMethodVisitor\\l\n" +
 				"+ buildorg.objectweb.asm.ClassVisitor  : records.IClassRecord\\l\n" +
@@ -72,7 +77,7 @@ public class DecoratorTest {
 				"AbstractBuilderDecorator [color = \"green\" label = \"{AbstractBuilderDecorator\\n\\<\\<Decorator\\>\\>|+builder : dot.IBuilder\\l\n" +
 				"+record : records.IClassRecord\\l\n" +
 				"|+ getClassRecord : records.ClassRecord\\l\n" +
-				"+ load : records.IClassRecord\\l\n" +
+				"+ build : records.IClassRecord\\l\n" +
 				"+ isPatternrecords.IClassRecord java.util.HashMap  : boolean\\l\n" +
 				"+ getVisitor : org.objectweb.asm.ClassVisitor\\l\n" +
 				"+ getClassUML : java.lang.String\\l\n" +
@@ -135,7 +140,14 @@ public class DecoratorTest {
 			umlWrapper.addBuilderClass(ExtensionBuilder.class);
 			umlWrapper.addBuilderClass(ImplementsBuilder.class);
 			umlWrapper.addBuilderClass(DecoratorBuilder.class);
-			String actualUml = "";//umlWrapper.load();
+			ArrayList<IPhase> phases = new ArrayList<IPhase>();
+			phases.add(new Load(umlWrapper));
+			phases.add(new PatternDetection(umlWrapper));
+			phases.add(new GenerateUML(umlWrapper));
+			for(IPhase p : phases) {
+				p.execute();
+			}
+			String actualUml = umlWrapper.getUmlString();
 			HashMap<String, IClassRecord> recordMap = umlWrapper.getRecords();
 
 			for (String className : decoratorClasses) {

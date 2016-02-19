@@ -52,8 +52,8 @@ public class DecoratorBuilder extends APatternBuilder {
 										}
 									}
 								}
-							}catch(ClassNotFoundException e){
-								System.err.println("Class Not Found: " + arg);
+							} catch (ClassNotFoundException e) {
+								// ignore
 							}
 						}
 					}
@@ -97,12 +97,10 @@ public class DecoratorBuilder extends APatternBuilder {
 				if (!this.isPattern(implementsRecord, recordHashMap)) {
 					implementsRecord.getBaseRecord().addPattern("Component");
 					implementsRecord.getBaseRecord().setBoxColor("green");
-					record.getBaseRecord().addEdge(
-			                record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
-			                        + " -> "
-			                        + implementsName.substring(implementsName.lastIndexOf('.') + 1)
-			                        + "[label=\"<<decorates>>\"]"
-			        );
+					record.getBaseRecord()
+							.addEdge(record.getClassName().substring(record.getClassName().lastIndexOf('/') + 1)
+									+ " -> " + implementsName.substring(implementsName.lastIndexOf('.') + 1)
+									+ "[label=\"<<decorates>>\"]");
 
 					implementsRecord.getBaseRecord().addPattern("Component");
 				}

@@ -7,11 +7,16 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
 
 import gui.UmlWrapper;
+import phases.GenerateUML;
+import phases.IPhase;
+import phases.Load;
+import phases.PatternDetection;
 import records.ClassRecord;
 import records.IClassRecord;
 
@@ -735,7 +740,14 @@ public class CompositeTest {
 			umlWrapper.addBuilderClass(ImplementsBuilder.class);
 			umlWrapper.addBuilderClass(UsesBuilder.class);
 			umlWrapper.addBuilderClass(CompositeBuilder.class);
-			String actualUml = "";// umlWrapper.load();
+			ArrayList<IPhase> phases = new ArrayList<IPhase>();
+			phases.add(new Load(umlWrapper));
+			phases.add(new PatternDetection(umlWrapper));
+			phases.add(new GenerateUML(umlWrapper));
+			for(IPhase p : phases) {
+				p.execute();
+			}
+			String actualUml = umlWrapper.getUmlString();
 			HashMap<String, IClassRecord> recordMap = umlWrapper.getRecords();
 
 			for (String className : compositeClasses) {

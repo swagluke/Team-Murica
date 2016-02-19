@@ -6,10 +6,15 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
 import gui.UmlWrapper;
+import phases.GenerateUML;
+import phases.IPhase;
+import phases.Load;
+import phases.PatternDetection;
 import records.ClassRecord;
 
 public class SingletonBuilderTest {
@@ -164,8 +169,16 @@ public class SingletonBuilderTest {
 		try {
 			UmlWrapper umlWrapper = new UmlWrapper(new String[] { className });
 			umlWrapper.addBuilderClass(SingletonBuilder.class);
-			String actualUml = "";umlWrapper.load();
+			ArrayList<IPhase> phases = new ArrayList<IPhase>();
+			phases.add(new Load(umlWrapper));
+			phases.add(new PatternDetection(umlWrapper));
+			phases.add(new GenerateUML(umlWrapper));
+			for(IPhase p : phases) {
+				p.execute();
+			}
+			String actualUml = umlWrapper.getUmlString();
 			ClassRecord record = umlWrapper.getRecords().get(className).getBaseRecord();
+
 			assertTrue(expectedIsSingleton == record.getPatternNames().contains("Singleton"));
 			if (expectedIsSingleton) {
 				assertEquals(expectedUml, actualUml);
