@@ -1,0 +1,7 @@
+#---No Comment---
+#Fri Feb 19 01:50:23 EST 2016
+Output-Directory=
+Phases=Load, PatternDetection, GenerateUML, Print
+Input-Folder=
+Dot-Path=C\:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe
+Input-Classes=

@@ -4,13 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import dot.AdapterBuilder;
-import dot.CompositeBuilder;
-import dot.DecoratorBuilder;
-import dot.ExtensionBuilder;
-import dot.ImplementsBuilder;
-import dot.SingletonBuilder;
-import dot.UsesBuilder;
+import dot.*;
 import phases.GenerateUML;
 import phases.IPhase;
 import phases.Load;
@@ -26,7 +20,7 @@ public class UmlRunner {
 		UmlWrapper umlWrapper = new UmlWrapper(args);
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
-		// umlWrapper.addBuilderClass(AssociationBuilder.class);
+		umlWrapper.addBuilderClass(AssociationBuilder.class);
 		umlWrapper.addBuilderClass(DecoratorBuilder.class);
 		umlWrapper.addBuilderClass(AdapterBuilder.class);
 		umlWrapper.addBuilderClass(SingletonBuilder.class);

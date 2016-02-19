@@ -1,8 +1,6 @@
 package gui;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.ProcessBuilder.Redirect;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,11 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 import dot.AdapterBuilder;
 import dot.AssociationBuilder;
@@ -28,22 +22,51 @@ import records.IClassRecord;
 public class UmlWrapper {
 	public final static String fontName = "Comic Sans MS";
 	private HashSet<String> classNames;
-	private HashMap<String, IClassRecord> records;
-	private HashMap<String, IBuilder> decorators;
-	private ArrayList<Class<? extends IBuilder>> builderClasses;
+	private HashMap<String, IClassRecord> records = new HashMap<>();
+	private HashMap<String, IBuilder> decorators = new HashMap<String, IBuilder>();
+	private ArrayList<Class<? extends IBuilder>> builderClasses = new ArrayList<Class<? extends IBuilder>>();
 	public String graph = "";
+
+	public UmlWrapper(String[] classNames, Properties config) {
+		this.classNames = new HashSet<>(Arrays.asList(classNames));
+		this.config = config;
+	}
+
+	Properties config;
 
 	public UmlWrapper() {
 		this(new String[0]);
 	}
 
 	public UmlWrapper(String[] classNames) {
+		this.config = new Properties(loadDefault());
 		this.classNames = new HashSet<String>(Arrays.asList(classNames));
-		this.records = new HashMap<String, IClassRecord>();
-		this.decorators = new HashMap<String, IBuilder>();
-		this.builderClasses = new ArrayList<Class<? extends IBuilder>>();
 	}
-
+	private Properties loadDefault(){
+		Properties prop = new Properties();
+		prop.setProperty("Input-Folder","");
+		prop.setProperty("Input-Classes","");
+		prop.setProperty("Output-Directory","");
+		prop.setProperty("Dot-Path","C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
+		prop.setProperty("Phases","Load, PatternDetection, GenerateUML, Print");
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream("appProperties");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			prop.store(out, "---No Comment---");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return prop;
+	}
 	public void generateGraph() throws NoSuchMethodException, SecurityException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		this.createGraph(this.graph);
@@ -95,7 +118,7 @@ public class UmlWrapper {
 			System.out.println("Could not find file at " + path.toString());
 			return;
 		}
-		ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "temp.dot", "-o", "out.png");
+		ProcessBuilder pb = new ProcessBuilder(config.getProperty("Dot-Path"), "-Tpng", "temp.dot", "-o", "out.png");
 		Map<String, String> env = pb.environment();
 		// pb.directory();
 		// System.out.println(System.getProperty("user.dir"));
