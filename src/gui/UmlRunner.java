@@ -16,7 +16,7 @@ public class UmlRunner {
 		UmlWrapper umlWrapper = new UmlWrapper(args);
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
-//		umlWrapper.addBuilderClass(AssociationBuilder.class);
+		umlWrapper.addBuilderClass(AssociationBuilder.class);
 		umlWrapper.addBuilderClass(DecoratorBuilder.class);
 		umlWrapper.addBuilderClass(AdapterBuilder.class);
 		umlWrapper.addBuilderClass(SingletonBuilder.class);
@@ -27,7 +27,8 @@ public class UmlRunner {
 		phases.add(new GenerateUML(umlWrapper));
 		phases.add(new Print(umlWrapper));
 
-		for(IPhase p : phases)
+		for(IPhase p : phases) {
 			p.execute();
+		}
 	}
 }
