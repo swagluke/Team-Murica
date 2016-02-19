@@ -1,13 +1,14 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Component;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
-
-import net.sf.sdedit.util.UIUtilities.Grid;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 
 public class ResultPanel extends APanel {
 	private static final long serialVersionUID = -8488698412916149660L;
@@ -18,31 +19,29 @@ public class ResultPanel extends APanel {
 
 	@Override
 	protected void setUp() {
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		this.setUpDirectoryPane();
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 
 	}
 
 	private void setUpDirectoryPane() {
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.3;
-		c.weighty = 1.0;
-		c.gridwidth = 1;
-		c.gridheight = GridBagConstraints.REMAINDER;
-//		c.anchor = GridBagConstraints.LINE_START;
-		c.fill = GridBagConstraints.VERTICAL;
-		this.add(new DirectoryPane(this.getGui()), c);
-		c = new GridBagConstraints();
-		c.gridx = 1;
-		c.gridy=0;
-		c.weightx = 0.7;
-		c.weighty=1.0;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.gridheight = GridBagConstraints.REMAINDER;
-		this.add(new ImagePanel(this.getGui()), c);
+//		Box box = Box.createHorizontalBox();
+//		box.add(new DirectoryPane(this.getGui()));
+//		box.add(new ImagePanel(this.getGui()));
+
+//		this.add(box);
+		DirectoryPane directoryPanel = new DirectoryPane(this.getGui());
+		ImagePanel imagePanel = new ImagePanel(this.getGui());
+		
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(directoryPanel), new JScrollPane(imagePanel));
+		this.add(splitPane);
+//		this.add(new ImagePanel(this.getGui()));
+//		this.add(new DirectoryPane(this.getGui()));
+		for (Component c : this.getComponents()) {
+			System.out.println(c);
+		}
+		System.out.println(this.getLocation());
 	}
 
 }

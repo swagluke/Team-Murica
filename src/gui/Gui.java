@@ -24,7 +24,7 @@ public class Gui extends JFrame {
 		this.wrapper.addBuilderClass(UsesBuilder.class);
 		this.wrapper.addBuilderClass(CompositeBuilder.class);
 
-		this.setPreferredSize(new Dimension(600, 600));
+//		this.setPreferredSize(new Dimension(600, 600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.loadInitialScreen();
 
@@ -34,8 +34,10 @@ public class Gui extends JFrame {
 
 	private void loadInitialScreen() {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
-		this.add(Box.createVerticalGlue());
-		 this.replacePanel(new InitialPanel(this), true);
+//		this.add(Box.createVerticalGlue());
+//		 this.replacePanel(new InitialPanel(this), true);
+		this.add(new ResultPanel(this));
+		this.pack();
 //		this.replacePanel(new ResultPanel(this));
 	}
 
@@ -84,6 +86,13 @@ public class Gui extends JFrame {
 		if (this.currentPanel != null) {
 			this.remove(this.currentPanel);
 		}
+	}
+	
+	public void updatePaint() {
+		if (this.currentPanel != null) {
+			this.currentPanel.revalidate();
+		}
+		this.pack();
 	}
 
 }

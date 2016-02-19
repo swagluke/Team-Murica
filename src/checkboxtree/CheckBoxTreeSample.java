@@ -31,6 +31,7 @@
 package checkboxtree;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -121,7 +122,7 @@ public class CheckBoxTreeSample {
 		final JScrollPane scrollPane = new JScrollPane(tree);
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 150);
+		frame.setSize(300, 550);
 		frame.setVisible(true);
 	}
 
