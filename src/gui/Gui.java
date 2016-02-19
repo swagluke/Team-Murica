@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private UmlWrapper wrapper;
+	private JPanel currentPanel;
 
 	public Gui() {
 		String[] args = new String[] { "headfirst.composite.menu.Menu", "headfirst.composite.menu.MenuComponent",
@@ -34,31 +35,51 @@ public class Gui extends JFrame {
 	private void loadInitialScreen() {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.add(Box.createVerticalGlue());
-		JPanel panel = new InitialPanel(this.wrapper);
-
-		Box panelBox = Box.createHorizontalBox();
-		panelBox.add(Box.createHorizontalGlue());
-		panelBox.add(panel);
-		panelBox.add(Box.createHorizontalGlue());
-		this.add(panelBox);
-		this.add(Box.createVerticalGlue());
-		
-		this.pack();
+		JPanel panel = new InitialPanel(this);
+		this.setCurrentPanel(panel);
+//		Box panelBox = Box.createHorizontalBox();
+//		panelBox.add(Box.createHorizontalGlue());
+//		panelBox.add(panel);
+//		panelBox.add(Box.createHorizontalGlue());
+//		this.add(panelBox);
+//		this.add(Box.createVerticalGlue());
+//		
+//		this.pack();
 	}
 
 	private void generate() {
 //		try {
 //			wrapper.createGraph();
-			System.out.println("done");
+//			System.out.println("done");
 //		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 //				| IllegalArgumentException | InvocationTargetException e) {
 //			e.printStackTrace();
-			System.out
-					.println("Something went wrong constructing instances of builders from the given builder classes");
-			System.out.println(
-					"check to make sure that all the builder classes have a constructor that takes a IBuilder");
+//			System.out
+//					.println("Something went wrong constructing instances of builders from the given builder classes");
+//			System.out.println(
+//					"check to make sure that all the builder classes have a constructor that takes a IBuilder");
 //		}
 
+	}
+	
+	public void setCurrentPanel(JPanel newPanel) {
+		if (this.currentPanel != null) {
+			this.remove(this.currentPanel);
+		}
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.add(Box.createHorizontalGlue());
+		horizontalBox.add(newPanel);
+		horizontalBox.add(Box.createHorizontalGlue());
+		
+		JPanel superPanel = new JPanel();
+		superPanel.add(Box.createVerticalGlue());
+		superPanel.add(horizontalBox);
+		superPanel.add(Box.createVerticalGlue());
+
+		this.currentPanel = superPanel;
+		this.add(this.currentPanel);
+		this.pack();
+		
 	}
 
 

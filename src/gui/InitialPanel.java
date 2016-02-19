@@ -21,9 +21,10 @@ public class InitialPanel extends JPanel {
 	private JLabel progressLabel;
 	private JProgressBar progressBar;
 	private boolean analying;
-	private UmlWrapper umlWrapper;
+//	private UmlWrapper umlWrapper;
+	private Gui gui;
 
-	public InitialPanel(UmlWrapper umlWrapper) {
+	public InitialPanel(Gui gui) {
 		this.analying = false;
 		this.configPath = "N/A";
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -39,7 +40,8 @@ public class InitialPanel extends JPanel {
 		this.add(Box.createVerticalGlue());
 		this.setMaximumSize(new Dimension(600, 600));
 		this.setPreferredSize(new Dimension(400, 400));
-		this.umlWrapper=umlWrapper;
+		this.gui = gui;
+//		this.umlWrapper=umlWrapper;
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setAlignmentY(Component.CENTER_ALIGNMENT);
