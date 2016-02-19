@@ -111,3 +111,23 @@ Composite patterns Manual: Philip Ross
 Design: Lucas Miller and Philip Ross
 
 Automated tests: Philip Ross
+
+Milestone 7:
+
+README: Luke Miller
+
+Implementation: Primary Philip Ross, Luke Miller helped out.
+
+Design: Lucas Miller and Philip Ross
+
+Our design changed slightly because we had to add processing phases to the core logic, and add a few getter methods to it, but our core logic did not change much due to the addition of the GUI
+
+The config file format is a series of key-value pairs comprising of Output-Directory, Phases, Input-Folder, Dot-Path, Input-Classes, Builder-Classes. An example of this is: 
+Output-Directory=.
+Phases=Load, PatternDetection, GenerateUML, Print
+Input-Folder=src
+Dot-Path=C\:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe
+Input-Classes=
+Builder-Classes=ExtensionBuilder, ImplementsBuilder, AssociationBuilder, DecoratorBuilder, AdapterBuilder, SingletonBuilder, UsesBuilder, CompositeBuilder
+
+Users can add any phases that implement IPhase, and any builders that implement IBuilder. If they wish to create a pattern detector, they must extend the abstract class AbstractBuilderDetector
