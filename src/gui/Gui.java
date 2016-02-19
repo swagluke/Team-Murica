@@ -35,54 +35,55 @@ public class Gui extends JFrame {
 	private void loadInitialScreen() {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.add(Box.createVerticalGlue());
-		APanel panel = new InitialPanel(this);
-		this.replacePanel(panel);
-//		Box panelBox = Box.createHorizontalBox();
-//		panelBox.add(Box.createHorizontalGlue());
-//		panelBox.add(panel);
-//		panelBox.add(Box.createHorizontalGlue());
-//		this.add(panelBox);
-//		this.add(Box.createVerticalGlue());
-//		
-//		this.pack();
+		 this.replacePanel(new InitialPanel(this), true);
+//		this.replacePanel(new ResultPanel(this));
 	}
 
 	private void generate() {
-//		try {
-//			wrapper.createGraph();
-//			System.out.println("done");
-//		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-//				| IllegalArgumentException | InvocationTargetException e) {
-//			e.printStackTrace();
-//			System.out
-//					.println("Something went wrong constructing instances of builders from the given builder classes");
-//			System.out.println(
-//					"check to make sure that all the builder classes have a constructor that takes a IBuilder");
-//		}
+		// try {
+		// wrapper.createGraph();
+		// System.out.println("done");
+		// } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+		// | IllegalArgumentException | InvocationTargetException e) {
+		// e.printStackTrace();
+		// System.out
+		// .println("Something went wrong constructing instances of builders from the given builder classes");
+		// System.out.println(
+		// "check to make sure that all the builder classes have a constructor that takes a IBuilder");
+		// }
 
 	}
-	
-	public void replacePanel(APanel newPanel) {
-		if (this.currentPanel != null) {
-			this.remove(this.currentPanel);
-		}
-		Box horizontalBox = Box.createHorizontalBox();
-		horizontalBox.add(Box.createHorizontalGlue());
-		horizontalBox.add(newPanel);
-		horizontalBox.add(Box.createHorizontalGlue());
-		
-		JPanel superPanel = new JPanel();
-		superPanel.add(Box.createVerticalGlue());
-		superPanel.add(horizontalBox);
-		superPanel.add(Box.createVerticalGlue());
 
-		this.currentPanel = superPanel;
+	public void replacePanel(APanel newPanel) {
+		this.replacePanel(newPanel, false);
+	}
+
+	public void replacePanel(APanel newPanel, boolean padding) {
+		this.removeCurrentPanel();
+		if (padding) {
+			Box horizontalBox = Box.createHorizontalBox();
+			horizontalBox.add(Box.createHorizontalGlue());
+			horizontalBox.add(newPanel);
+			horizontalBox.add(Box.createHorizontalGlue());
+
+			JPanel superPanel = new JPanel();
+			superPanel.add(Box.createVerticalGlue());
+			superPanel.add(horizontalBox);
+			superPanel.add(Box.createVerticalGlue());
+
+			this.currentPanel = superPanel;
+		} else {
+			this.currentPanel = newPanel;
+		}
 		this.add(this.currentPanel);
 		this.pack();
 		this.repaint();
-		
 	}
 
-
+	public void removeCurrentPanel() {
+		if (this.currentPanel != null) {
+			this.remove(this.currentPanel);
+		}
+	}
 
 }
