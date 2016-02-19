@@ -33,10 +33,11 @@ public class ResultPanel extends APanel {
 		// box.add(new ImagePanel(this.getGui()));
 
 		// this.add(box);
-		DirectoryPane directoryPanel = new DirectoryPane(this.getGui());
+		ImagePanel imagePanel = new ImagePanel(this.getGui());
+
+		DirectoryPane directoryPanel = new DirectoryPane(this.getGui(), imagePanel);
 		JScrollPane scrollPane = new JScrollPane(directoryPanel);
 		scrollPane.setMinimumSize(directoryPanel.getMinimumSize());
-		ImagePanel imagePanel = new ImagePanel(this.getGui());
 
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, imagePanel);
 		splitPane.setContinuousLayout(true);

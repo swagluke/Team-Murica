@@ -36,5 +36,10 @@ public class ImagePanel extends APanel {
 		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g2.drawImage(this.img,  0,  0,this.getWidth(), this.getHeight(), null);
 	}
+	
+	public void changeImage(String path) {
+		this.img = new ImageIcon(path).getImage();
+		this.repaint();
+	}
 
 }

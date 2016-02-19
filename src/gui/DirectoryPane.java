@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,11 +27,12 @@ import checkboxtree.CheckBoxNodeRenderer;
 
 public class DirectoryPane extends APanel {
 	private static final long serialVersionUID = -1869406409371334949L;
-	private Component scrollPane;
 	private DefaultTreeModel treeModel;
+	private ImagePanel imagePanel;
 
-	public DirectoryPane(Gui gui) {
+	public DirectoryPane(Gui gui, ImagePanel imagePanel) {
 		super(gui);
+		this.imagePanel = imagePanel;
 	}
 
 	@Override
@@ -170,6 +170,7 @@ public class DirectoryPane extends APanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.imagePanel.changeImage("SDout.png");
 	}
 
 	private ArrayList<String> getCheckedClasses() {
