@@ -12,19 +12,22 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-public class InitialPanel extends JPanel {
+public class InitialPanel extends APanel {
+	private static final long serialVersionUID = 6677489823561856215L;
 	private String configPath;
 	private JLabel configLabel;
 	private JLabel progressLabel;
 	private JProgressBar progressBar;
 	private boolean analying;
 //	private UmlWrapper umlWrapper;
-	private Gui gui;
 
 	public InitialPanel(Gui gui) {
+		super(gui);
+	}
+	
+	protected void setUp() {
 		this.analying = false;
 		this.configPath = "N/A";
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -40,7 +43,6 @@ public class InitialPanel extends JPanel {
 		this.add(Box.createVerticalGlue());
 		this.setMaximumSize(new Dimension(600, 600));
 		this.setPreferredSize(new Dimension(400, 400));
-		this.gui = gui;
 //		this.umlWrapper=umlWrapper;
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -126,19 +128,28 @@ public class InitialPanel extends JPanel {
 
 	private void analyze() {
 		System.out.println("TODO analyzing");
-		if (this.analying) {
-			this.setProgressText("Stopped Analyzes");
-			this.progressBar.setVisible(false);
-		} else {
-			this.setProgressText("Starting to Analyze");
-			this.progressBar.setVisible(true);
-		}
-		this.analying = !this.analying;
+		this.setProgressText("Currently analyzing");
+		this.progressBar.setVisible(true);
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		this.setProgressText("This text should not be here, did not go to the next panel");
+		this.replacePanel(new ResultPanel(this.getGui()));
+//		if (this.analying) {
+//			this.setProgressText("Stopped Analyzes");
+//			this.progressBar.setVisible(false);
+//		} else {
+//			this.setProgressText("Starting to Analyze");
+//			this.progressBar.setVisible(true);
+//		}
+//		this.analying = !this.analying;
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	private void setConfigPath(String newPath) {

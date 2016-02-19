@@ -35,8 +35,8 @@ public class Gui extends JFrame {
 	private void loadInitialScreen() {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.add(Box.createVerticalGlue());
-		JPanel panel = new InitialPanel(this);
-		this.setCurrentPanel(panel);
+		APanel panel = new InitialPanel(this);
+		this.replacePanel(panel);
 //		Box panelBox = Box.createHorizontalBox();
 //		panelBox.add(Box.createHorizontalGlue());
 //		panelBox.add(panel);
@@ -62,7 +62,7 @@ public class Gui extends JFrame {
 
 	}
 	
-	public void setCurrentPanel(JPanel newPanel) {
+	public void replacePanel(APanel newPanel) {
 		if (this.currentPanel != null) {
 			this.remove(this.currentPanel);
 		}
@@ -79,6 +79,7 @@ public class Gui extends JFrame {
 		this.currentPanel = superPanel;
 		this.add(this.currentPanel);
 		this.pack();
+		this.repaint();
 		
 	}
 
