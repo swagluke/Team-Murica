@@ -31,7 +31,7 @@ public class UmlWrapper {
     private HashMap<String, IClassRecord> records;
     private HashMap<String, IBuilder> decorators;
     private ArrayList<Class<? extends IBuilder>> builderClasses;
-    public String graph;
+    public String graph="";
 
     public UmlWrapper() {
         this(new String[0]);
