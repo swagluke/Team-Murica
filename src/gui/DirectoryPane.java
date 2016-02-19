@@ -6,6 +6,15 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -163,14 +172,50 @@ public class DirectoryPane extends APanel {
 
 	public void reanalyze(JButton button) {
 		this.imagePanel.loading();
-		button.setText("TODO I'm analyzing");
-		System.out.println(this.getCheckedClasses());
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
+			this.watchOutputFile();
+			this.getGui().cleanWrapper();
+			for (String className : this.getCheckedClasses()) {
+				this.getGui().addClass(className);
+			}
+			button.setText("I'm analyzing");
+			this.getGui().analyze();
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e1) {
+			e1.printStackTrace();
+			// invalid builders
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
+			// couldn't watch
 		}
-		this.imagePanel.changeImage("SDout.png");
+	}
+
+	private void watchOutputFile() throws IOException, InterruptedException {
+		String pathString = this.getGui().getProperty("Output-Directory");
+		WatchService watchService = FileSystems.getDefault().newWatchService();
+		Path path = Paths.get(pathString);
+		path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+					try {
+						WatchKey watchKey = watchService.take();
+						for (WatchEvent<?> event : watchKey.pollEvents()) {
+							Path changedFile = (Path) event.context();
+							System.out.println(changedFile);
+							if (changedFile.endsWith("out.png")) {
+								System.out.println("file was changed");
+								Thread.sleep(1000);
+								imagePanel.changeImage("out.png");
+							}
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		 }).start();
 	}
 
 	private ArrayList<String> getCheckedClasses() {
@@ -185,7 +230,6 @@ public class DirectoryPane extends APanel {
 				// checked leafs
 				strs.add(buildPath(node));
 			}
-//			System.out.println(node.getChildCount() + ": " + node);
 		}
 		return strs;
 	}
@@ -212,11 +256,6 @@ public class DirectoryPane extends APanel {
 			DefaultMutableTreeNode child = add(parent, fileName, true);
 			this.walk(child, new File(file, f.getName()));
 		}
-		// final DefaultMutableTreeNode accessibility = add(root, "Accessibility", true);
-		// add(accessibility, "Move system caret with focus/selection changes", false);
-		// add(accessibility, "Always expand alt text for images", true);
-		// root.add(accessibility);
-
 	}
 
 	private static DefaultMutableTreeNode add(final DefaultMutableTreeNode parent, final String text,

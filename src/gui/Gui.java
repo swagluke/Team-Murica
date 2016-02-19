@@ -50,14 +50,6 @@ public class Gui extends JFrame {
 			System.out.println("Default Properties file has invalid syntax");
 			System.exit(-1);
 		}
-		this.wrapper.addBuilderClass(ExtensionBuilder.class);
-		this.wrapper.addBuilderClass(ImplementsBuilder.class);
-		this.wrapper.addBuilderClass(AssociationBuilder.class);
-		this.wrapper.addBuilderClass(DecoratorBuilder.class);
-		this.wrapper.addBuilderClass(AdapterBuilder.class);
-		this.wrapper.addBuilderClass(SingletonBuilder.class);
-		this.wrapper.addBuilderClass(UsesBuilder.class);
-		this.wrapper.addBuilderClass(CompositeBuilder.class);
 
 //		for (String arg : args) {
 //			this.wrapper.addClass(arg);
@@ -164,5 +156,13 @@ public class Gui extends JFrame {
 	
 	public String getProperty(String name) {
 		return this.wrapper.getProperty(name);
+	}
+
+	public void cleanWrapper() {
+		this.wrapper.reset();
+	}
+
+	public void addClass(String className) {
+		this.wrapper.addClass(className);
 	}
 }

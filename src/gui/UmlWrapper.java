@@ -43,6 +43,14 @@ public class UmlWrapper {
 		this.classNames = new HashSet<String>();
 	}
 
+
+	public void reset() {
+		this.classNames.clear();
+		this.records.clear();
+		this.decorators.clear();
+		this.graph = "";
+	}
+
 	private Properties loadDefault() {
 		Properties prop = new Properties();
 		prop.setProperty("Input-Folder", "src");
@@ -50,6 +58,8 @@ public class UmlWrapper {
 		prop.setProperty("Output-Directory", ".");
 		prop.setProperty("Dot-Path", "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
 		prop.setProperty("Phases", "Load, PatternDetection, GenerateUML, Print");
+		prop.setProperty("Builder-Classes", "ExtensionBuilder, ImplementsBuilder, AssociationBuilder, "
+				+ "DecoratorBuilder, AdapterBuilder, SingletonBuilder, UsesBuilder, CompositeBuilder");
 		return prop;
 	}
 
@@ -174,6 +184,18 @@ public class UmlWrapper {
 		this.readInputClasses();
 		this.readPhases();
 		this.readInputFolder();
+		this.readBuilders();
+	}
+
+	private void readBuilders() throws ClassNotFoundException {
+		String buildString = (String) this.config.get("Builder-Classes");
+		if (buildString != null) {
+			String[] strs = buildString.split(", ");
+			for (String str : strs) {
+				Class<? extends IBuilder> clazz = (Class<? extends IBuilder>) Class.forName("dot." + str);
+				this.addBuilderClass(clazz);
+			}
+		}
 	}
 
 	private void readInputFolder() {

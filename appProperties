@@ -5,3 +5,4 @@ Phases=Load, PatternDetection, GenerateUML, Print
 Input-Folder=src
 Dot-Path=C\:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe
 Input-Classes=
+Builder-Classes= ExtensionBuilder, ImplementsBuilder, AssociationBuilder, DecoratorBuilder, AdapterBuilder, SingletonBuilder, UsesBuilder, CompositeBuilder

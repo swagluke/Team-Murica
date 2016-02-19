@@ -27,9 +27,7 @@ public class ImagePanel extends APanel implements ImageObserver {
 		this.setBorder(BorderFactory.createLineBorder(Color.green));
 		String imgPath = "out.png";
 		this.changeImage(imgPath);
-		// this.img = img.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT);
-		// this.add(new JLabel(img));
-		this.setPreferredSize(new Dimension(1000, 1000));
+		this.setPreferredSize(new Dimension(1700, 800));
 		this.setMinimumSize(new Dimension(500, 500));
 	}
 
@@ -37,26 +35,33 @@ public class ImagePanel extends APanel implements ImageObserver {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2.drawImage(this.img.getImage(), 0, 0, this.getWidth(), this.getHeight(), this.loading ? this : null);
-		System.out.println("paint");
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		g2.drawImage(this.img.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
 	}
 
 	public void loading() {
-		this.loading = true;
+		this.img.getImage().flush();
 		this.changeImage(this.loadingIconPath);
+		this.loading = true;
 		this.img.setImageObserver(this);
 	}
 
 	public void changeImage(String path) {
 		this.loading = false;
+		if (this.img != null) {
+			this.img.getImage().flush();
+		}
 		this.img = new ImageIcon(path);
 		this.repaint();
 	}
-
+	
 	@Override
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-		repaint();
+		if (this.loading) {
+			repaint();
+		}
 		return true;
 	}
 
