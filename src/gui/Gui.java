@@ -14,28 +14,20 @@ public class Gui extends JFrame {
 	private JPanel currentPanel;
 	private int padding;
 
-	public Gui() {
+	public Gui(String propertiesPath) throws IOException {
 		this.padding = 25;
-		//read out properties
+		// read out properties
 		Properties p = new Properties();
-		InputStream inputStream = null;
-		try {
-			inputStream = new FileInputStream("appProperties");//filename may change with whatever config file you choose
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			p.load(inputStream);
-			inputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		InputStream inputStream = new FileInputStream(propertiesPath);// filename may change with whatever config file you choose
+		p.load(inputStream);
+		inputStream.close();
+		
 		String[] args = new String[] { "headfirst.composite.menu.Menu", "headfirst.composite.menu.MenuComponent",
 				"headfirst.composite.menu.MenuItem" };
-		this.wrapper = new UmlWrapper(args,p);
+		this.wrapper = new UmlWrapper(args, p);
 		this.wrapper.addBuilderClass(ExtensionBuilder.class);
 		this.wrapper.addBuilderClass(ImplementsBuilder.class);
-		 this.wrapper.addBuilderClass(AssociationBuilder.class);
+		this.wrapper.addBuilderClass(AssociationBuilder.class);
 		this.wrapper.addBuilderClass(DecoratorBuilder.class);
 		this.wrapper.addBuilderClass(AdapterBuilder.class);
 		this.wrapper.addBuilderClass(SingletonBuilder.class);
