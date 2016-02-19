@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
@@ -38,19 +39,25 @@ public class DirectoryPane extends APanel {
 	}
 
 	private void setUpTree() {
-		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		String path = "src";
+		File dir = new File("").getAbsoluteFile();
+		File next = new File(dir, path);
+		System.out.println(dir);
+		System.out.println(next.listFiles());
+		final DefaultMutableTreeNode root = new DefaultMutableTreeNode(path);
+		this.walk(root, next);
 
-		final DefaultMutableTreeNode accessibility = add(root, "Accessibility", true);
-		add(accessibility, "Move system caret with focus/selection changes", false);
-		add(accessibility, "Always expand alt text for images", true);
-		root.add(accessibility);
-
-		final DefaultMutableTreeNode browsing = new DefaultMutableTreeNode("Browsing");
-		add(browsing, "Notify when downloads complete", true);
-		add(browsing, "Disable script debugging", true);
-		add(browsing, "Use AutoComplete", true);
-		add(browsing, "Browse in a new process", false);
-		root.add(browsing);
+//		final DefaultMutableTreeNode accessibility = add(root, "Accessibility", true);
+//		add(accessibility, "Move system caret with focus/selection changes", false);
+//		add(accessibility, "Always expand alt text for images", true);
+//		root.add(accessibility);
+//
+//		final DefaultMutableTreeNode browsing = new DefaultMutableTreeNode("Browsing");
+//		add(browsing, "Notify when downloads complete", true);
+//		add(browsing, "Disable script debugging", true);
+//		add(browsing, "Use AutoComplete", true);
+//		add(browsing, "Browse in a new process", false);
+//		root.add(browsing);
 
 		final DefaultTreeModel treeModel = new DefaultTreeModel(root);
 		this.tree = new JTree(treeModel);
@@ -107,6 +114,22 @@ public class DirectoryPane extends APanel {
 			}
 		});
 		 this.add(tree);
+	}
+
+	private void walk(DefaultMutableTreeNode parent, File file) {
+		File[] files = file.listFiles();
+		if (files == null) {
+			return;
+		}
+		for (File f: files) {
+			DefaultMutableTreeNode child = add(parent, f.getName(), true);
+			this.walk(child, new File(file, f.getName()));
+		}
+//		final DefaultMutableTreeNode accessibility = add(root, "Accessibility", true);
+//		add(accessibility, "Move system caret with focus/selection changes", false);
+//		add(accessibility, "Always expand alt text for images", true);
+//		root.add(accessibility);
+		
 	}
 
 	private static DefaultMutableTreeNode add(final DefaultMutableTreeNode parent, final String text,
