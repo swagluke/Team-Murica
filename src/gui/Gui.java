@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -23,21 +25,19 @@ import dot.UsesBuilder;
 
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static final String DEFAULT_PROPERTIES_PATH = "appProperties";
+
 	private UmlWrapper wrapper;
 	private JPanel currentPanel;
 	private int padding;
 
-	public Gui(String propertiesPath) throws IOException {
+	public Gui() throws IOException {
 		this.padding = 25;
 		// read out properties
-		Properties p = new Properties();
-		InputStream inputStream = new FileInputStream(propertiesPath);// filename may change with whatever config file you choose
-		p.load(inputStream);
-		inputStream.close();
-		
 		String[] args = new String[] { "headfirst.composite.menu.Menu", "headfirst.composite.menu.MenuComponent",
 				"headfirst.composite.menu.MenuItem" };
-		this.wrapper = new UmlWrapper(args, p);
+		this.wrapper = new UmlWrapper(args);
+		this.loadConfig(DEFAULT_PROPERTIES_PATH);
 		this.wrapper.addBuilderClass(ExtensionBuilder.class);
 		this.wrapper.addBuilderClass(ImplementsBuilder.class);
 		this.wrapper.addBuilderClass(AssociationBuilder.class);
@@ -126,5 +126,18 @@ public class Gui extends JFrame {
 			this.currentPanel.revalidate();
 		}
 		this.pack();
+	}
+	
+	public void loadConfig(String path) throws IOException {
+		this.loadConfig(new File(path));
+	}
+	
+	public void loadConfig(File path) throws IOException {
+		Properties p = new Properties();
+		InputStream inputStream = new FileInputStream(path);// filename may change with whatever config file you choose
+		p.load(inputStream);
+		inputStream.close();
+		this.wrapper.setProperties(p);
+
 	}
 }

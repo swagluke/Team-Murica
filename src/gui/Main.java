@@ -9,7 +9,7 @@ public class Main {
 		System.out.println(Arrays.toString(args));
 		// TODO load confic file
 		try {
-			Gui gui = new Gui("appProperties");
+			Gui gui = new Gui();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

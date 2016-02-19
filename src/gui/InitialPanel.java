@@ -1,35 +1,35 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
 public class InitialPanel extends APanel {
 	private static final long serialVersionUID = 6677489823561856215L;
-	private String configPath;
 	private JLabel configLabel;
 	private JLabel progressLabel;
 	private JProgressBar progressBar;
 	private boolean analying;
-//	private UmlWrapper umlWrapper;
+	// private UmlWrapper umlWrapper;
 
 	public InitialPanel(Gui gui) {
 		super(gui);
 	}
-	
+
 	protected void setUp() {
 		this.analying = false;
-		this.configPath = "N/A";
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		this.add(Box.createVerticalGlue());
@@ -43,11 +43,11 @@ public class InitialPanel extends APanel {
 		this.add(Box.createVerticalGlue());
 		this.setMaximumSize(new Dimension(500, 500)); // actaully 500, 600??
 		this.setPreferredSize(new Dimension(500, 500));
-		this.setMinimumSize(new Dimension(500 ,500));
-//		this.umlWrapper=umlWrapper;
+		this.setMinimumSize(new Dimension(500, 500));
+		// this.umlWrapper=umlWrapper;
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
-//		this.setAlignmentY(Component.CENTER_ALIGNMENT);
+		// this.setAlignmentY(Component.CENTER_ALIGNMENT);
 	}
 
 	private Box generateDankTitle() {
@@ -76,7 +76,7 @@ public class InitialPanel extends APanel {
 		analyzeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Thread(new Runnable(){
+				new Thread(new Runnable() {
 
 					@Override
 					public void run() {
@@ -93,7 +93,7 @@ public class InitialPanel extends APanel {
 
 	private Box generateConfigBox() {
 		Box configBox = Box.createHorizontalBox();
-		this.configLabel = new JLabel("Current Config: " + this.configPath);
+		this.configLabel = new JLabel("Current Config: N/A");
 		configBox.add(Box.createHorizontalStrut(20));
 		configBox.add(this.configLabel);
 		configBox.add(Box.createHorizontalGlue());
@@ -123,8 +123,17 @@ public class InitialPanel extends APanel {
 
 	private void loadConfig() {
 		System.out.println("TODO loading config");
-		this.setConfigPath("other stuff");
-		this.configPath = "other stuff";
+		JFileChooser fileChooser = new JFileChooser(new File("."));
+		int statusCode = fileChooser.showDialog(this, "OK");
+		if (statusCode == JFileChooser.APPROVE_OPTION) {
+			try {
+				this.getGui().loadConfig(fileChooser.getSelectedFile());
+				this.setConfigPath(fileChooser.getSelectedFile().getName());
+			} catch (IOException e) {
+				e.printStackTrace();
+				this.setConfigPath("Couldn't find the file: " + fileChooser.getSelectedFile());
+			}
+		}
 	}
 
 	private void analyze() {
@@ -138,26 +147,25 @@ public class InitialPanel extends APanel {
 		}
 		this.setProgressText("This text should not be here, did not go to the next panel");
 		this.replacePanel(new ResultPanel(this.getGui()));
-//		if (this.analying) {
-//			this.setProgressText("Stopped Analyzes");
-//			this.progressBar.setVisible(false);
-//		} else {
-//			this.setProgressText("Starting to Analyze");
-//			this.progressBar.setVisible(true);
-//		}
-//		this.analying = !this.analying;
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		// if (this.analying) {
+		// this.setProgressText("Stopped Analyzes");
+		// this.progressBar.setVisible(false);
+		// } else {
+		// this.setProgressText("Starting to Analyze");
+		// this.progressBar.setVisible(true);
+		// }
+		// this.analying = !this.analying;
+		// try {
+		// Thread.sleep(5000);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	private void setConfigPath(String newPath) {
-		this.configPath = newPath;
-		this.configLabel.setText("Current Config: " + this.configPath);
+		this.configLabel.setText("Current Config: " + newPath);
 	}
-	
+
 	private void setProgressText(String newText) {
 		this.progressLabel.setText(newText);
 	}

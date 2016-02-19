@@ -26,13 +26,12 @@ public class UmlWrapper {
 	private HashMap<String, IBuilder> decorators = new HashMap<String, IBuilder>();
 	private ArrayList<Class<? extends IBuilder>> builderClasses = new ArrayList<Class<? extends IBuilder>>();
 	public String graph = "";
+	Properties config;
 
 	public UmlWrapper(String[] classNames, Properties config) {
 		this.classNames = new HashSet<>(Arrays.asList(classNames));
 		this.config = config;
 	}
-
-	Properties config;
 
 	public UmlWrapper() {
 		this(new String[0]);
@@ -42,13 +41,14 @@ public class UmlWrapper {
 		this.config = new Properties(loadDefault());
 		this.classNames = new HashSet<String>(Arrays.asList(classNames));
 	}
-	private Properties loadDefault(){
+
+	private Properties loadDefault() {
 		Properties prop = new Properties();
-		prop.setProperty("Input-Folder","");
-		prop.setProperty("Input-Classes","");
-		prop.setProperty("Output-Directory","");
-		prop.setProperty("Dot-Path","C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
-		prop.setProperty("Phases","Load, PatternDetection, GenerateUML, Print");
+		prop.setProperty("Input-Folder", "");
+		prop.setProperty("Input-Classes", "");
+		prop.setProperty("Output-Directory", "");
+		prop.setProperty("Dot-Path", "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
+		prop.setProperty("Phases", "Load, PatternDetection, GenerateUML, Print");
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream("appProperties");
@@ -67,6 +67,7 @@ public class UmlWrapper {
 		}
 		return prop;
 	}
+
 	public void generateGraph() throws NoSuchMethodException, SecurityException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		this.createGraph(this.graph);
@@ -168,5 +169,13 @@ public class UmlWrapper {
 
 	public String getUmlString() {
 		return this.graph;
+	}
+
+	public void setProperties(Properties p) {
+		this.config = p;
+	}
+
+	public Properties getProperties() {
+		return this.config;
 	}
 }
