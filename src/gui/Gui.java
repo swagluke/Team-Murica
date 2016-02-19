@@ -4,17 +4,7 @@ import dot.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Map;
 
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -57,17 +47,17 @@ public class Gui extends JFrame {
 	}
 
 	private void generate() {
-		try {
-			wrapper.createGraph(this.wrapper.build());
+//		try {
+//			wrapper.createGraph();
 			System.out.println("done");
-		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-				| IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+//		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+//				| IllegalArgumentException | InvocationTargetException e) {
+//			e.printStackTrace();
 			System.out
 					.println("Something went wrong constructing instances of builders from the given builder classes");
 			System.out.println(
 					"check to make sure that all the builder classes have a constructor that takes a IBuilder");
-		}
+//		}
 
 	}
 

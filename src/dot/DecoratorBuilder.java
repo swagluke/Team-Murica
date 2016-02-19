@@ -116,8 +116,8 @@ public class DecoratorBuilder extends APatternBuilder {
 	// * @return
 	// */
 	// @Override
-	// public ClassRecord build(ClassVisitor visitor) {
-	// this.record = this.builder.build(visitor);
+	// public ClassRecord load(ClassVisitor visitor) {
+	// this.record = this.builder.load(visitor);
 	// if (this.isPattern()) {
 	// this.record.setBoxColor("red1");
 	// this.record.addPattern("Decorator");
