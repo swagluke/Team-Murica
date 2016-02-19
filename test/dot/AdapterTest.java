@@ -7,11 +7,16 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
 
 import gui.UmlWrapper;
+import phases.GenerateUML;
+import phases.IPhase;
+import phases.Load;
+import phases.PatternDetection;
 import records.ClassRecord;
 import records.IClassRecord;
 
@@ -71,11 +76,20 @@ public class AdapterTest {
 	public void assertAdapter(String[] classNames, String[] adapterClasses, String[] targetClasses,
 			String[] adapteeClasses, String expectedUml) {
 		try {
+			
 			UmlWrapper umlWrapper = new UmlWrapper(classNames);
 			umlWrapper.addBuilderClass(ExtensionBuilder.class);
 			umlWrapper.addBuilderClass(ImplementsBuilder.class);
 			umlWrapper.addBuilderClass(AdapterBuilder.class);
-			String actualUml ="";// umlWrapper.load();
+			ArrayList<IPhase> phases = new ArrayList<IPhase>();
+			phases.add(new Load(umlWrapper));
+			phases.add(new PatternDetection(umlWrapper));
+			phases.add(new GenerateUML(umlWrapper));
+			for(IPhase p : phases) {
+				p.execute();
+			}
+
+			String actualUml = umlWrapper.getUmlString();
 			HashMap<String, IClassRecord> recordMap = umlWrapper.getRecords();
 
 			for (String className : adapterClasses) {

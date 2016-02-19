@@ -9,18 +9,15 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class Print implements IPhase {
 
-    private UmlWrapper wrapper;
+	private UmlWrapper wrapper;
 
-    public Print(UmlWrapper wrapper) {
-        this.wrapper = wrapper;
-    }
+	public Print(UmlWrapper wrapper) {
+		this.wrapper = wrapper;
+	}
 
-    @Override
-    public void execute() {
-        try {
-            wrapper.generateGraph();
-        } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void execute() throws NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		wrapper.generateGraph();
+	}
 }

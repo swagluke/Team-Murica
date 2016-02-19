@@ -4,13 +4,23 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import dot.*;
-import phases.*;
-import singleton.Singleton;
+import dot.AdapterBuilder;
+import dot.CompositeBuilder;
+import dot.DecoratorBuilder;
+import dot.ExtensionBuilder;
+import dot.ImplementsBuilder;
+import dot.SingletonBuilder;
+import dot.UsesBuilder;
+import phases.GenerateUML;
+import phases.IPhase;
+import phases.Load;
+import phases.PatternDetection;
+import phases.Print;
 
 public class UmlRunner {
 	public final static String fontName = "Comic Sans MS";
-	private static ArrayList<IPhase> phases=new ArrayList<>();
+	private static ArrayList<IPhase> phases = new ArrayList<>();
+
 	public static void main(String[] args) {
 		System.out.println(Arrays.toString(args));
 		UmlWrapper umlWrapper = new UmlWrapper(args);
@@ -27,8 +37,14 @@ public class UmlRunner {
 		phases.add(new GenerateUML(umlWrapper));
 		phases.add(new Print(umlWrapper));
 
-		for(IPhase p : phases) {
-			p.execute();
+		for (IPhase p : phases) {
+			try {
+				p.execute();
+			} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+				break;
+			}
 		}
 	}
 }
