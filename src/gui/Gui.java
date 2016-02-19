@@ -4,7 +4,9 @@ import dot.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Properties;
 
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -12,12 +14,26 @@ public class Gui extends JFrame {
 	private JPanel currentPanel;
 
 	public Gui() {
+		//read out properties
+		Properties p = new Properties();
+		InputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream("appProperties");//filename may change with whatever config file you choose
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			p.load(inputStream);
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		String[] args = new String[] { "headfirst.composite.menu.Menu", "headfirst.composite.menu.MenuComponent",
 				"headfirst.composite.menu.MenuItem" };
-		this.wrapper = new UmlWrapper(args);
+		this.wrapper = new UmlWrapper(args,p);
 		this.wrapper.addBuilderClass(ExtensionBuilder.class);
 		this.wrapper.addBuilderClass(ImplementsBuilder.class);
-		// this.wrapper.addBuilderClass(AssociationBuilder.class);
+		 this.wrapper.addBuilderClass(AssociationBuilder.class);
 		this.wrapper.addBuilderClass(DecoratorBuilder.class);
 		this.wrapper.addBuilderClass(AdapterBuilder.class);
 		this.wrapper.addBuilderClass(SingletonBuilder.class);
