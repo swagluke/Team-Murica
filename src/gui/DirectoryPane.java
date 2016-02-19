@@ -1,11 +1,19 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Enumeration;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
@@ -32,8 +40,11 @@ public class DirectoryPane extends APanel {
 	@Override
 	protected void setUp() {
 //		this.setBorder(BorderFactory.createLineBorder(Color.red, 5));
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+//		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+		this.setLayout(new BorderLayout());
 		this.setUpTree();
+//		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setUpButton();
 		this.setBackground(Color.white);
 		this.setMinimumSize(new Dimension(200, 500));
 	}
@@ -96,6 +107,20 @@ public class DirectoryPane extends APanel {
 			@Override
 			public void treeNodesChanged(final TreeModelEvent e) {
 				System.out.println(System.currentTimeMillis() + ": nodes changed");
+				Object[] children = e.getChildren();
+				for (Object obj : children) {
+					DefaultMutableTreeNode c = (DefaultMutableTreeNode) obj;
+					CheckBoxNodeData directoryData = (CheckBoxNodeData) c.getUserObject();
+					boolean isChecked = directoryData.isChecked();
+					
+					Enumeration<DefaultMutableTreeNode> en = c.breadthFirstEnumeration();
+					while (en.hasMoreElements()) {
+						DefaultMutableTreeNode node = en.nextElement();
+						CheckBoxNodeData data = (CheckBoxNodeData) node.getUserObject();
+						data.setChecked(isChecked);
+					}
+				}
+				repaint();
 			}
 
 			@Override
@@ -115,6 +140,47 @@ public class DirectoryPane extends APanel {
 		});
 		 this.add(tree);
 	}
+	
+	private void setUpButton() {
+		Box box = Box.createHorizontalBox();
+		JButton button = this.generateButton();
+		button.setMaximumSize(new Dimension(197, 25));
+//		button.setPreferredSize(button.getMaximumSize());
+		box.add(button);
+		this.add(box, BorderLayout.PAGE_END);
+	}
+
+	private JButton generateButton() {
+		JButton button = new JButton("Reanalyze");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						button.setEnabled(false);
+						String initialText = button.getText();
+						reanalyze(button);
+						button.setText(initialText);
+						button.setEnabled(true);
+					}
+				}).start();
+			}
+		});
+		return button;
+	}
+	
+	public void reanalyze(JButton button) {
+		System.out.println("reanalying");
+		button.setText("I'm analyzing");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 	private void walk(DefaultMutableTreeNode parent, File file) {
 		File[] files = file.listFiles();

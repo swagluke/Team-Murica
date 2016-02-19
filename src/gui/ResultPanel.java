@@ -1,10 +1,14 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
@@ -31,25 +35,21 @@ public class ResultPanel extends APanel {
 		// this.add(box);
 		DirectoryPane directoryPanel = new DirectoryPane(this.getGui());
 		JScrollPane scrollPane = new JScrollPane(directoryPanel);
-
 		scrollPane.setMinimumSize(directoryPanel.getMinimumSize());
 		ImagePanel imagePanel = new ImagePanel(this.getGui());
 
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, imagePanel);
-		this.add(splitPane);
 		splitPane.setContinuousLayout(true);
-		// this.getGui().updatePaint();
 		splitPane.setDividerLocation(200);
 		splitPane.setDividerSize(5);
+		this.add(splitPane);
+		
+
 		int width = (int) (directoryPanel.getMinimumSize().getWidth() + imagePanel.getMinimumSize().getWidth()) + 50;
 		int height = (int) Math.max(directoryPanel.getMinimumSize().getHeight(),
 				imagePanel.getMinimumSize().getHeight());
 		Dimension minSize = new Dimension(width, height);
 		this.setMinimumSize(minSize);
-		// splitPane.setDividerLocation(0.3);
-		// splitPane.setResizeWeight(0.8);
-		// this.add(new ImagePanel(this.getGui()));
-		// this.add(new DirectoryPane(this.getGui()));
 	}
 
 }
