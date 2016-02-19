@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import dot.AdapterBuilder;
 import dot.AssociationBuilder;
@@ -17,6 +18,7 @@ import dot.ExtensionBuilder;
 import dot.IBuilder;
 import dot.ImplementsBuilder;
 import dot.UmlBuilder;
+import phases.IPhase;
 import records.IClassRecord;
 
 public class UmlWrapper {
@@ -25,46 +27,29 @@ public class UmlWrapper {
 	private HashMap<String, IClassRecord> records = new HashMap<>();
 	private HashMap<String, IBuilder> decorators = new HashMap<String, IBuilder>();
 	private ArrayList<Class<? extends IBuilder>> builderClasses = new ArrayList<Class<? extends IBuilder>>();
+	private ArrayList<IPhase> phases;
 	public String graph = "";
 	Properties config;
 
-	public UmlWrapper(String[] classNames, Properties config) {
-		this.classNames = new HashSet<>(Arrays.asList(classNames));
-		this.config = config;
-	}
-
 	public UmlWrapper() {
-		this(new String[0]);
-	}
-
-	public UmlWrapper(String[] classNames) {
-		this.config = new Properties(loadDefault());
-		this.classNames = new HashSet<String>(Arrays.asList(classNames));
+		try {
+			this.setProperties(new Properties(loadDefault()));
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+			System.out.println("Default properties are invalid");
+			System.exit(-1);
+		}
+		this.classNames = new HashSet<String>();
 	}
 
 	private Properties loadDefault() {
 		Properties prop = new Properties();
-		prop.setProperty("Input-Folder", "");
+		prop.setProperty("Input-Folder", "src");
 		prop.setProperty("Input-Classes", "");
-		prop.setProperty("Output-Directory", "");
+		prop.setProperty("Output-Directory", ".");
 		prop.setProperty("Dot-Path", "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
 		prop.setProperty("Phases", "Load, PatternDetection, GenerateUML, Print");
-		FileOutputStream out = null;
-		try {
-			out = new FileOutputStream("appProperties");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			prop.store(out, "---No Comment---");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return prop;
 	}
 
@@ -129,10 +114,19 @@ public class UmlWrapper {
 			pb.redirectErrorStream(true);
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
+			p.waitFor();
 			// Files.delete(path);//uncomment to clean up after yourself
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void execute() throws NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		for (IPhase p : this.phases) {
+			p.execute();
+		}
+		System.out.println("done");
 	}
 
 	public void addBuilderClass(Class<? extends IBuilder> newBuilder) {
@@ -171,11 +165,87 @@ public class UmlWrapper {
 		return this.graph;
 	}
 
-	public void setProperties(Properties p) {
+	public void setProperties(Properties p) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		this.builderClasses = new ArrayList<Class<? extends IBuilder>>();
+		this.classNames = new HashSet<String>();
+		this.phases = new ArrayList<IPhase>();
 		this.config = p;
+		this.readInputClasses();
+		this.readPhases();
+		this.readInputFolder();
+	}
+
+	private void readInputFolder() {
+		String path = this.config.getProperty("Input-Folder");
+		File file = new File(path);
+		for (File f : file.listFiles()) {
+			this.walk(f, f.getName());
+		}
+		// this.walk(file, path);
+		System.out.println(this.classNames);
+	}
+
+	private void walk(File file, String path) {
+		File[] files = file.listFiles();
+		if (files == null) {
+			return;
+		}
+		for (File f : files) {
+			if (f.isDirectory()) {
+				this.walk(f, path + "." + f.getName());
+			} else {
+				if (f.getName().endsWith(".java")) {
+					this.classNames.add(path + "." + f.getName().substring(0, f.getName().length() - 5));
+				}
+			}
+		}
+	}
+
+	private void readPhases() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		String phaseString = (String) this.config.get("Phases");
+		if (phaseString != null) {
+			String[] strs = phaseString.split(", ");
+			for (String str : strs) {
+				Class<? extends IPhase> clazz = (Class<? extends IPhase>) Class.forName("phases." + str);
+				Constructor<? extends IPhase> constructor = clazz.getConstructor(this.getClass());
+				this.addPhase(constructor.newInstance(this));
+			}
+		}
+	}
+
+	private void readInputClasses() {
+		String classString = (String) this.config.get("Input-Classes");
+		if (classString != null && !classString.equals("")) {
+			String[] strs = classString.split(", ");
+			for (String str : strs) {
+				this.addClass(str);
+			}
+		}
 	}
 
 	public Properties getProperties() {
 		return this.config;
+	}
+
+	public void addPhase(IPhase phase) {
+		this.phases.add(phase);
+	}
+
+	public boolean removePhase(String phase) {
+		return this.phases.remove(phase);
+	}
+
+	public boolean hasPhase(IPhase phase) {
+		return this.phases.contains(phase);
+	}
+
+	public ArrayList<IPhase> getPhases() {
+		return this.phases;
+	}
+
+	public String getProperty(String name) {
+		return (String) this.config.get(name);
 	}
 }

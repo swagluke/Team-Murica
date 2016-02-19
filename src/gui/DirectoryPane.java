@@ -48,7 +48,7 @@ public class DirectoryPane extends APanel {
 	}
 
 	private JTree generateTree() {
-		String path = "src";
+		String path = this.getGui().getProperty("Input-Folder");
 		File dir = new File("").getAbsoluteFile();
 		File next = new File(dir, path);
 		System.out.println("generating tree with root \"" + dir + "\"");

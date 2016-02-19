@@ -17,7 +17,10 @@ public class UmlRunner {
 
 	public static void main(String[] args) {
 		System.out.println(Arrays.toString(args));
-		UmlWrapper umlWrapper = new UmlWrapper(args);
+		UmlWrapper umlWrapper = new UmlWrapper();
+		for (String arg : args) {
+			umlWrapper.addClass(arg);
+		}
 		umlWrapper.addBuilderClass(ExtensionBuilder.class);
 		umlWrapper.addBuilderClass(ImplementsBuilder.class);
 		umlWrapper.addBuilderClass(AssociationBuilder.class);
@@ -26,19 +29,17 @@ public class UmlRunner {
 		umlWrapper.addBuilderClass(SingletonBuilder.class);
 		umlWrapper.addBuilderClass(UsesBuilder.class);
 		umlWrapper.addBuilderClass(CompositeBuilder.class);
-		phases.add(new Load(umlWrapper));
-		phases.add(new PatternDetection(umlWrapper));
-		phases.add(new GenerateUML(umlWrapper));
-		phases.add(new Print(umlWrapper));
+		umlWrapper.addPhase(new Load(umlWrapper));
+		umlWrapper.addPhase(new PatternDetection(umlWrapper));
+		umlWrapper.addPhase(new GenerateUML(umlWrapper));
+		umlWrapper.addPhase(new Print(umlWrapper));
 
-		for (IPhase p : phases) {
-			try {
-				p.execute();
-			} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
-				break;
-			}
+		try {
+			umlWrapper.execute();
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
 		}
+
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -122,7 +123,6 @@ public class InitialPanel extends APanel {
 	}
 
 	private void loadConfig() {
-		System.out.println("TODO loading config");
 		JFileChooser fileChooser = new JFileChooser(new File("."));
 		int statusCode = fileChooser.showDialog(this, "OK");
 		if (statusCode == JFileChooser.APPROVE_OPTION) {
@@ -132,6 +132,11 @@ public class InitialPanel extends APanel {
 			} catch (IOException e) {
 				e.printStackTrace();
 				this.setConfigPath("Couldn't find the file: " + fileChooser.getSelectedFile());
+			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException
+					| InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				e.printStackTrace();
+				this.setConfigPath("Config file has invalid syntax");
 			}
 		}
 	}
@@ -140,10 +145,18 @@ public class InitialPanel extends APanel {
 		System.out.println("TODO analyzing");
 		this.setProgressText("Currently analyzing. Going to result Panel");
 		this.progressBar.setVisible(true);
+		// try {
+		// Thread.sleep(1000);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
+			this.getGui().analyze();
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
+			this.setProgressText("Something went wrong");
+			this.progressBar.setVisible(false);
 		}
 		this.setProgressText("This text should not be here, did not go to the next panel");
 		this.replacePanel(new ResultPanel(this.getGui()));

@@ -1,12 +1,12 @@
 package gui;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.Box;
@@ -22,6 +22,11 @@ import dot.ExtensionBuilder;
 import dot.ImplementsBuilder;
 import dot.SingletonBuilder;
 import dot.UsesBuilder;
+import phases.GenerateUML;
+import phases.IPhase;
+import phases.Load;
+import phases.PatternDetection;
+import phases.Print;
 
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -36,8 +41,15 @@ public class Gui extends JFrame {
 		// read out properties
 		String[] args = new String[] { "headfirst.composite.menu.Menu", "headfirst.composite.menu.MenuComponent",
 				"headfirst.composite.menu.MenuItem" };
-		this.wrapper = new UmlWrapper(args);
-		this.loadConfig(DEFAULT_PROPERTIES_PATH);
+		this.wrapper = new UmlWrapper();
+		try {
+			this.loadConfig(DEFAULT_PROPERTIES_PATH);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+			System.out.println("Default Properties file has invalid syntax");
+			System.exit(-1);
+		}
 		this.wrapper.addBuilderClass(ExtensionBuilder.class);
 		this.wrapper.addBuilderClass(ImplementsBuilder.class);
 		this.wrapper.addBuilderClass(AssociationBuilder.class);
@@ -46,6 +58,10 @@ public class Gui extends JFrame {
 		this.wrapper.addBuilderClass(SingletonBuilder.class);
 		this.wrapper.addBuilderClass(UsesBuilder.class);
 		this.wrapper.addBuilderClass(CompositeBuilder.class);
+
+//		for (String arg : args) {
+//			this.wrapper.addClass(arg);
+//		}
 
 		// this.setPreferredSize(new Dimension(600, 600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,7 +123,8 @@ public class Gui extends JFrame {
 					(int) (this.padding * 4 + newPanel.getMinimumSize().getHeight())));
 		} else {
 			this.currentPanel = newPanel;
-			this.setMinimumSize(new Dimension(this.currentPanel.getMinimumSize().width, this.currentPanel.getMinimumSize().height + 50));
+			this.setMinimumSize(new Dimension(this.currentPanel.getMinimumSize().width,
+					this.currentPanel.getMinimumSize().height + 50));
 			this.getContentPane().setMinimumSize(this.currentPanel.getMinimumSize());
 		}
 		this.add(this.currentPanel);
@@ -127,17 +144,25 @@ public class Gui extends JFrame {
 		}
 		this.pack();
 	}
-	
-	public void loadConfig(String path) throws IOException {
+
+	public void loadConfig(String path) throws IOException, ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		this.loadConfig(new File(path));
 	}
-	
-	public void loadConfig(File path) throws IOException {
+
+	public void loadConfig(File path) throws IOException, ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Properties p = new Properties();
 		InputStream inputStream = new FileInputStream(path);// filename may change with whatever config file you choose
 		p.load(inputStream);
 		inputStream.close();
 		this.wrapper.setProperties(p);
 
+	}
+
+	public void analyze() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		this.wrapper.execute();
+	}
+	
+	public String getProperty(String name) {
+		return this.wrapper.getProperty(name);
 	}
 }
