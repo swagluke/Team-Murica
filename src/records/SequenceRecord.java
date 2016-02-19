@@ -58,7 +58,7 @@ public class SequenceRecord implements ISequenceRecord {
 				sbb.deleteCharAt(sbb.length()-1);
 				sbb.deleteCharAt(sbb.length()-1);//removes the ", " 
 			}
-			//build returns (or not)
+			//load returns (or not)
 			String ret = ":";
 			if(!n.data.getReturnType().getClassName().equals("void")){
 //				System.out.println("return type: "+n.data.getReturnType().getClassName()) ;
