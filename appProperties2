@@ -1,0 +1,8 @@
+#---No Comment---
+#Fri Feb 19 10:55:39 EST 2016
+Output-Directory=.
+Phases=Load, GenerateUML, Print
+Input-Folder=src/dot
+Dot-Path=C\:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe
+Input-Classes=
+Builder-Classes= ExtensionBuilder, ImplementsBuilder, AssociationBuilder, DecoratorBuilder, AdapterBuilder, SingletonBuilder, UsesBuilder, CompositeBuilder

@@ -20,6 +20,7 @@ import java.util.Enumeration;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
@@ -148,7 +149,7 @@ public class DirectoryPane extends APanel {
 	}
 
 	private Box generateButton() {
-		Box box = Box.createHorizontalBox();
+		Box box = Box.createVerticalBox();
 		JButton button = new JButton("Reanalyze");
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -166,8 +167,21 @@ public class DirectoryPane extends APanel {
 			}
 		});
 		button.setMaximumSize(new Dimension(197, 25));
+
+		JLabel label = new JLabel("Current Config: " + this.getGui().getCurrentConfigPath());
+		ConfigButton configButton = new ConfigButton(this, label);
+
+		box.add(label);
+		box.add(configButton);
+
 		box.add(button);
 		return box;
+	}
+
+	@Override
+	public void reloadConfig() {
+		this.removeAll();
+		this.setUp();
 	}
 
 	public void reanalyze(JButton button) {
@@ -183,10 +197,12 @@ public class DirectoryPane extends APanel {
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e1) {
 			e1.printStackTrace();
+			System.out.println(32342341);
 			// invalid builders
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 			// couldn't watch
+			System.out.println(2);
 		}
 	}
 
@@ -202,12 +218,15 @@ public class DirectoryPane extends APanel {
 					try {
 						WatchKey watchKey = watchService.take();
 						for (WatchEvent<?> event : watchKey.pollEvents()) {
+							System.out.println(event);
 							Path changedFile = (Path) event.context();
-							System.out.println(changedFile);
+							System.out.println("changed: " + changedFile);
 							if (changedFile.endsWith("out.png")) {
 								System.out.println("file was changed");
-								Thread.sleep(1000);
+								Thread.sleep(2000);
+
 								imagePanel.changeImage("out.png");
+								new File("done.temp").delete();
 							}
 						}
 					} catch (InterruptedException e) {
@@ -215,7 +234,7 @@ public class DirectoryPane extends APanel {
 					}
 				}
 			}
-		 }).start();
+		}).start();
 	}
 
 	private ArrayList<String> getCheckedClasses() {
@@ -228,14 +247,28 @@ public class DirectoryPane extends APanel {
 
 			if (node.getChildCount() == 0 && data.isChecked()) {
 				// checked leafs
-				strs.add(buildPath(node));
+				strs.add(appendBase(buildPath(node)));
 			}
 		}
 		return strs;
 	}
 
+	private String appendBase(String buildPath) {
+		String property = this.getGui().getProperty("Input-Folder");
+		String[] strs = property.split("/");
+		String fullPath = "";
+		for (int i = 1; i < strs.length; i++) {
+			String str = strs[i];
+			fullPath += str + ".";
+		}
+		return fullPath + buildPath;
+	}
+
 	private String buildPath(DefaultMutableTreeNode node) {
 		CheckBoxNodeData data = (CheckBoxNodeData) node.getUserObject();
+		DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+		CheckBoxNodeData parentData = (CheckBoxNodeData) parent.getUserObject();
+		// if (!parentData.getText().equals("src")){
 		if (node.getParent() != this.treeModel.getRoot()) {
 			return this.buildPath((DefaultMutableTreeNode) node.getParent()) + "." + data.getText();
 		} else {

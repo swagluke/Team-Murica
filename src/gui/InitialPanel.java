@@ -36,19 +36,19 @@ public class InitialPanel extends APanel {
 		this.add(Box.createVerticalGlue());
 		this.add(this.generateDankTitle());
 		this.add(Box.createVerticalStrut(25));
-		this.add(this.generateButtonsBox());
-		this.add(this.generateConfigBox());
+		Box configBox = this.generateConfigBox();
+		Box buttonsBox = this.generateButtonsBox();
+		this.add(buttonsBox);
+		this.add(configBox);
 		this.add(Box.createVerticalStrut(25));
 		this.add(this.generateProgressBox());
 		this.add(Box.createVerticalGlue());
 		this.add(Box.createVerticalGlue());
-		this.setMaximumSize(new Dimension(500, 500)); // actaully 500, 600??
+		this.setMaximumSize(new Dimension(500, 500));
 		this.setPreferredSize(new Dimension(500, 500));
 		this.setMinimumSize(new Dimension(500, 500));
-		// this.umlWrapper=umlWrapper;
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		// this.setAlignmentY(Component.CENTER_ALIGNMENT);
 	}
 
 	private Box generateDankTitle() {
@@ -62,13 +62,7 @@ public class InitialPanel extends APanel {
 	private Box generateButtonsBox() {
 		Box buttonsBox = Box.createHorizontalBox();
 		buttonsBox.add(Box.createHorizontalGlue());
-		JButton loadConfigButton = new JButton("Load Config");
-		loadConfigButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loadConfig();
-			}
-		});
+		JButton loadConfigButton = new ConfigButton(this, this.configLabel);
 		loadConfigButton.setPreferredSize(new Dimension(150, 30));
 		buttonsBox.add(loadConfigButton);
 		buttonsBox.add(Box.createHorizontalStrut(10));
@@ -78,7 +72,6 @@ public class InitialPanel extends APanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Thread(new Runnable() {
-
 					@Override
 					public void run() {
 						analyze();
@@ -122,34 +115,9 @@ public class InitialPanel extends APanel {
 		return progressBox;
 	}
 
-	private void loadConfig() {
-		JFileChooser fileChooser = new JFileChooser(new File("."));
-		int statusCode = fileChooser.showDialog(this, "OK");
-		if (statusCode == JFileChooser.APPROVE_OPTION) {
-			try {
-				this.getGui().loadConfig(fileChooser.getSelectedFile());
-				this.setConfigPath(fileChooser.getSelectedFile().getName());
-			} catch (IOException e) {
-				e.printStackTrace();
-				this.setConfigPath("Couldn't find the file: " + fileChooser.getSelectedFile());
-			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException
-					| InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
-				e.printStackTrace();
-				this.setConfigPath("Config file has invalid syntax");
-			}
-		}
-	}
-
 	private void analyze() {
-		System.out.println("TODO analyzing");
-		this.setProgressText("Currently analyzing. Going to result Panel");
+		this.setProgressText("Currently analyzing.");
 		this.progressBar.setVisible(true);
-		// try {
-		// Thread.sleep(1000);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
 		try {
 			this.getGui().analyze();
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
@@ -158,25 +126,7 @@ public class InitialPanel extends APanel {
 			this.setProgressText("Something went wrong");
 			this.progressBar.setVisible(false);
 		}
-		this.setProgressText("This text should not be here, did not go to the next panel");
 		this.replacePanel(new ResultPanel(this.getGui()));
-		// if (this.analying) {
-		// this.setProgressText("Stopped Analyzes");
-		// this.progressBar.setVisible(false);
-		// } else {
-		// this.setProgressText("Starting to Analyze");
-		// this.progressBar.setVisible(true);
-		// }
-		// this.analying = !this.analying;
-		// try {
-		// Thread.sleep(5000);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
-	}
-
-	private void setConfigPath(String newPath) {
-		this.configLabel.setText("Current Config: " + newPath);
 	}
 
 	private void setProgressText(String newText) {

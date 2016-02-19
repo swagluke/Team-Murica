@@ -20,4 +20,7 @@ abstract public class APanel extends JPanel {
 	}
 
 	abstract protected void setUp();
+
+	public void reloadConfig() {
+	}
 }

@@ -49,6 +49,7 @@ public class ImagePanel extends APanel implements ImageObserver {
 	}
 
 	public void changeImage(String path) {
+		System.out.println(path);
 		this.loading = false;
 		if (this.img != null) {
 			this.img.getImage().flush();

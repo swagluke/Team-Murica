@@ -125,6 +125,8 @@ public class UmlWrapper {
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
 			p.waitFor();
+//			FileWriter file = new FileWriter(new File("done.temp"));
+//			file.write('1');
 			// Files.delete(path);//uncomment to clean up after yourself
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();

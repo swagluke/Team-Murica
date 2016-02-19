@@ -35,6 +35,7 @@ public class Gui extends JFrame {
 	private UmlWrapper wrapper;
 	private JPanel currentPanel;
 	private int padding;
+	private String configPath;
 
 	public Gui() throws IOException {
 		this.padding = 25;
@@ -143,10 +144,12 @@ public class Gui extends JFrame {
 
 	public void loadConfig(File path) throws IOException, ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Properties p = new Properties();
+		this.configPath = path.getName();
 		InputStream inputStream = new FileInputStream(path);// filename may change with whatever config file you choose
 		p.load(inputStream);
 		inputStream.close();
 		this.wrapper.setProperties(p);
+		System.out.println("loaded config");
 
 	}
 
@@ -164,5 +167,9 @@ public class Gui extends JFrame {
 
 	public void addClass(String className) {
 		this.wrapper.addClass(className);
+	}
+	
+	public String getCurrentConfigPath() {
+		return this.configPath;
 	}
 }
