@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.swing.Box;
@@ -27,7 +28,6 @@ import checkboxtree.CheckBoxNodeRenderer;
 
 public class DirectoryPane extends APanel {
 	private static final long serialVersionUID = -1869406409371334949L;
-	private JTree tree;
 	private Component scrollPane;
 	private DefaultTreeModel treeModel;
 
@@ -51,14 +51,13 @@ public class DirectoryPane extends APanel {
 		String path = "src";
 		File dir = new File("").getAbsoluteFile();
 		File next = new File(dir, path);
-		System.out.println(dir);
-		System.out.println(next.listFiles());
+		System.out.println("generating tree with root \"" + dir + "\"");
 		final CheckBoxNodeData data = new CheckBoxNodeData(path, true);
 		final DefaultMutableTreeNode root = new DefaultMutableTreeNode(data);
 		this.walk(root, next);
 
 		this.treeModel = new DefaultTreeModel(root);
-		tree = new JTree(treeModel);
+		JTree tree = new JTree(treeModel);
 
 		final CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
 		tree.setCellRenderer(renderer);
@@ -136,7 +135,7 @@ public class DirectoryPane extends APanel {
 			CheckBoxNodeData data = (CheckBoxNodeData) node.getUserObject();
 			data.setChecked(checked);
 		}
-		
+
 	}
 
 	private Box generateButton() {
@@ -164,11 +163,38 @@ public class DirectoryPane extends APanel {
 
 	public void reanalyze(JButton button) {
 		button.setText("TODO I'm analyzing");
+		System.out.println(this.getCheckedClasses());
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	private ArrayList<String> getCheckedClasses() {
+		ArrayList<String> strs = new ArrayList<String>();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.treeModel.getRoot();
+		Enumeration<DefaultMutableTreeNode> en = root.depthFirstEnumeration();
+		while (en.hasMoreElements()) {
+			DefaultMutableTreeNode node = en.nextElement();
+			CheckBoxNodeData data = (CheckBoxNodeData) node.getUserObject();
+
+			if (node.getChildCount() == 0 && data.isChecked()) {
+				// checked leafs
+				strs.add(buildPath(node));
+			}
+//			System.out.println(node.getChildCount() + ": " + node);
+		}
+		return strs;
+	}
+
+	private String buildPath(DefaultMutableTreeNode node) {
+		CheckBoxNodeData data = (CheckBoxNodeData) node.getUserObject();
+		if (node.getParent() != this.treeModel.getRoot()) {
+			return this.buildPath((DefaultMutableTreeNode) node.getParent()) + "." + data.getText();
+		} else {
+			return data.getText();
 		}
 	}
 
@@ -178,7 +204,11 @@ public class DirectoryPane extends APanel {
 			return;
 		}
 		for (File f : files) {
-			DefaultMutableTreeNode child = add(parent, f.getName(), true);
+			String fileName = f.getName();
+			if (!f.isDirectory()) {
+				fileName = fileName.substring(0, fileName.length() - 5);
+			}
+			DefaultMutableTreeNode child = add(parent, fileName, true);
 			this.walk(child, new File(file, f.getName()));
 		}
 		// final DefaultMutableTreeNode accessibility = add(root, "Accessibility", true);
