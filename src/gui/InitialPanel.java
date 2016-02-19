@@ -128,7 +128,7 @@ public class InitialPanel extends APanel {
 
 	private void analyze() {
 		System.out.println("TODO analyzing");
-		this.setProgressText("Currently analyzing");
+		this.setProgressText("Currently analyzing. Going to result Panel");
 		this.progressBar.setVisible(true);
 		try {
 			Thread.sleep(1000);
