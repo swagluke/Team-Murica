@@ -1,12 +1,10 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.util.Arrays;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
@@ -43,7 +41,11 @@ public class ResultPanel extends APanel {
 		// this.getGui().updatePaint();
 		splitPane.setDividerLocation(200);
 		splitPane.setDividerSize(5);
-		this.setMinimumSize(splitPane.getMinimumSize());
+		int width = (int) (directoryPanel.getMinimumSize().getWidth() + imagePanel.getMinimumSize().getWidth()) + 50;
+		int height = (int) Math.max(directoryPanel.getMinimumSize().getHeight(),
+				imagePanel.getMinimumSize().getHeight());
+		Dimension minSize = new Dimension(width, height);
+		this.setMinimumSize(minSize);
 		// splitPane.setDividerLocation(0.3);
 		// splitPane.setResizeWeight(0.8);
 		// this.add(new ImagePanel(this.getGui()));

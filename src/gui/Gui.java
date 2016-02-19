@@ -1,12 +1,25 @@
 package gui;
 
-import dot.*;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import dot.AdapterBuilder;
+import dot.AssociationBuilder;
+import dot.CompositeBuilder;
+import dot.DecoratorBuilder;
+import dot.ExtensionBuilder;
+import dot.ImplementsBuilder;
+import dot.SingletonBuilder;
+import dot.UsesBuilder;
 
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -94,7 +107,8 @@ public class Gui extends JFrame {
 					(int) (this.padding * 4 + newPanel.getMinimumSize().getHeight())));
 		} else {
 			this.currentPanel = newPanel;
-			this.setMinimumSize(this.currentPanel.getMinimumSize());
+			this.setMinimumSize(new Dimension(this.currentPanel.getMinimumSize().width, this.currentPanel.getMinimumSize().height + 50));
+			this.getContentPane().setMinimumSize(this.currentPanel.getMinimumSize());
 		}
 		this.add(this.currentPanel);
 		this.pack();
@@ -113,5 +127,4 @@ public class Gui extends JFrame {
 		}
 		this.pack();
 	}
-
 }
