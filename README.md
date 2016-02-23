@@ -131,3 +131,8 @@ Input-Classes=
 Builder-Classes=ExtensionBuilder, ImplementsBuilder, AssociationBuilder, DecoratorBuilder, AdapterBuilder, SingletonBuilder, UsesBuilder, CompositeBuilder
 
 Users can add any phases that implement IPhase, and any builders that implement IBuilder. If they wish to create a pattern detector, they must extend the abstract class AbstractBuilderDetector
+The current phases that should be run in the following order is:
+Load: loads the classes in and runs the initial pass of record generation
+PatternDetection: runs our pattern detection code, will return nothing if load isn't run
+GenerateUML: generates the actual uml and saves it to a .dot file, will save an empty file if load isn't run
+Print: runs dot on the file that generateUML creates. Will have an empty image if Load and GenerateUML aren't run

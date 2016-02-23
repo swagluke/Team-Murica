@@ -118,6 +118,7 @@ public class InitialPanel extends APanel {
 	private void analyze() {
 		this.setProgressText("Currently analyzing.");
 		this.progressBar.setVisible(true);
+		this.getGui().cleanWrapper();
 		try {
 			this.getGui().analyze();
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException

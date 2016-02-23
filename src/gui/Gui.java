@@ -1,32 +1,21 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import dot.AdapterBuilder;
-import dot.AssociationBuilder;
-import dot.CompositeBuilder;
-import dot.DecoratorBuilder;
-import dot.ExtensionBuilder;
-import dot.ImplementsBuilder;
-import dot.SingletonBuilder;
-import dot.UsesBuilder;
-import phases.GenerateUML;
-import phases.IPhase;
-import phases.Load;
-import phases.PatternDetection;
-import phases.Print;
 
 public class Gui extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -59,6 +48,20 @@ public class Gui extends JFrame {
 		// this.setPreferredSize(new Dimension(600, 600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(400, 400));
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent windowEvent) {
+		    	Path path = Paths.get("temp.dot");
+		    	try {
+					Files.delete(path);
+				} catch (IOException e) {}
+		    	path = Paths.get("out.png");
+		    	try {
+					Files.delete(path);
+				} catch (IOException e) {}
+
+		    }
+		});
 		this.loadInitialScreen();
 
 		this.setVisible(true);

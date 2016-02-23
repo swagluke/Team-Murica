@@ -1,5 +1,0 @@
-package checkboxtree.longNamesdkfjlasdfjlkasjdlkfjaklsdf;
-
-public class longFileNamesddddddddddddddddddddddddddddddddddddddddddddddddddddd {
-	
-}
