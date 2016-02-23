@@ -2,6 +2,7 @@ package dot;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
 import org.objectweb.asm.Type;
 
@@ -17,7 +18,7 @@ public class DecoratorBuilder extends APatternBuilder {
 	}
 
 	@Override
-	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
+	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap, Properties properties) {
 		try {
 			boolean hasConstructorAndField = false;
 			boolean extendsDecorator = false;
@@ -64,7 +65,7 @@ public class DecoratorBuilder extends APatternBuilder {
 						.tryConvertRecord(ExtendedClassRecord.class);
 				String extendsName = extendedClassRecord.getExtendsName();
 				if (recordMap.get(extendsName.replace("/", ".")) != null) {
-					if (this.isPattern(recordMap.get(extendsName.replace("/", ".")), recordMap)) {
+					if (this.isPattern(recordMap.get(extendsName.replace("/", ".")), recordMap, properties)) {
 						extendsDecorator = true;
 					}
 				}
@@ -77,7 +78,7 @@ public class DecoratorBuilder extends APatternBuilder {
 	}
 
 	@Override
-	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
+	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap, Properties properties) {
 		record.getBaseRecord().setBoxColor("green");
 		record.getBaseRecord().addPattern("Decorator");
 
@@ -85,7 +86,7 @@ public class DecoratorBuilder extends APatternBuilder {
 				.replace("/", ".");
 		if (recordHashMap.get(extendsName) != null) {
 			IClassRecord extendedRecord = recordHashMap.get(extendsName);
-			if (!this.isPattern(extendedRecord, recordHashMap)) {
+			if (!this.isPattern(extendedRecord, recordHashMap, properties)) {
 			}
 		}
 
@@ -94,7 +95,7 @@ public class DecoratorBuilder extends APatternBuilder {
 			implementsName = implementsName.replace("/", ".");
 			if (recordHashMap.get(implementsName) != null) {
 				IClassRecord implementsRecord = recordHashMap.get(implementsName);
-				if (!this.isPattern(implementsRecord, recordHashMap)) {
+				if (!this.isPattern(implementsRecord, recordHashMap, properties)) {
 					implementsRecord.getBaseRecord().addPattern("Component");
 					implementsRecord.getBaseRecord().setBoxColor("green");
 					record.getBaseRecord()

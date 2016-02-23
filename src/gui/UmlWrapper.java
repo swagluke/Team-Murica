@@ -1,6 +1,8 @@
 package gui;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -9,14 +11,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Properties;
 
-import dot.AdapterBuilder;
-import dot.AssociationBuilder;
-import dot.ExtensionBuilder;
 import dot.IBuilder;
-import dot.ImplementsBuilder;
 import dot.UmlBuilder;
 import phases.IPhase;
 import records.IClassRecord;
@@ -71,7 +72,7 @@ public class UmlWrapper {
 	public void load() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 		for (String className : this.classNames) {
-			IBuilder builder = new UmlBuilder(className, this.classNames);
+			IBuilder builder = new UmlBuilder(className, this.classNames, this.config);
 			for (Class<? extends IBuilder> builderClass : this.builderClasses) {
 				Constructor<? extends IBuilder> constructor = builderClass.getConstructor(IBuilder.class);
 				builder = constructor.newInstance(builder); // should work
@@ -86,7 +87,7 @@ public class UmlWrapper {
 			// for (IBuilder decorator : this.decorators) {
 			IBuilder decorator = this.decorators.get(className);
 			IClassRecord record = this.records.get(className);
-			decorator.calculatePattern(record, this.records);
+			decorator.calculatePattern(record, this.records, this.config);
 		}
 	}
 

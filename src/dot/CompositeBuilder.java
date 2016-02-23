@@ -1,10 +1,17 @@
 package dot;
 
-import org.objectweb.asm.Type;
-import records.*;
-
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
+
+import org.objectweb.asm.Type;
+
+import records.ClassRecord;
+import records.ExtendedClassRecord;
+import records.IClassRecord;
+import records.ImplementsClassRecord;
+import records.InstanceVarRecord;
+import records.UsesClassRecord;
 
 /**
  * Created by MillerLJ on 2/5/2016.
@@ -22,7 +29,7 @@ public class CompositeBuilder extends APatternBuilder {
      * @return
      */
     @Override
-    public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
+    public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap, Properties properties) {
         try {
             boolean hasConstructorAndField = false;
             boolean extendsDecorator = false;
@@ -75,7 +82,7 @@ public class CompositeBuilder extends APatternBuilder {
     }
 
     @Override
-    public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
+    public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap, Properties properties) {
         try {
             boolean hasConstructorAndField = false;
             boolean extendsDecorator = false;

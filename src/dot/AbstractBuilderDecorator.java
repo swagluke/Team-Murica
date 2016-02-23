@@ -2,6 +2,7 @@ package dot;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
 import org.objectweb.asm.ClassVisitor;
 
@@ -12,8 +13,8 @@ abstract public class AbstractBuilderDecorator implements IBuilder {
 	protected IBuilder builder;
 	protected IClassRecord record;
 
-	public AbstractBuilderDecorator(String className, HashSet<String> classNames) {
-		this(new UmlBuilder(className, classNames));
+	public AbstractBuilderDecorator(String className, HashSet<String> classNames, Properties properties) {
+		this(new UmlBuilder(className, classNames, properties));
 	}
 
 	public AbstractBuilderDecorator(IBuilder b) {
@@ -26,14 +27,11 @@ abstract public class AbstractBuilderDecorator implements IBuilder {
 
 	public IClassRecord build(ClassVisitor visitor) {
 		this.record = this.builder.build(visitor);
-		this.record = this.applyDecoration(this.record);
+		this.record = this.applyDecoration(this.record, this.getProperties());
 		return this.record;
 	}
 
 	abstract public ClassVisitor getVisitor();
-	// public ClassVisitor getVisitor() {
-	// return builder.getVisitor();
-	// }
 
 	public String getClassUML() {
 		return this.record.getClassUml();
@@ -47,21 +45,24 @@ abstract public class AbstractBuilderDecorator implements IBuilder {
 		return this.builder.getClassRecord();
 	}
 
-	public abstract IClassRecord applyDecoration(IClassRecord record);
+	public abstract IClassRecord applyDecoration(IClassRecord record, Properties properties);
 
-	public final void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {
-//		System.out.println();
-		builder.calculatePattern(record,records);
-		if (this.isPattern(record, records)) {
-			this.applyPattern(record, records);
+	public final void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records, Properties properties) {
+		builder.calculatePattern(record,records, properties);
+		if (this.isPattern(record, records, properties)) {
+			this.applyPattern(record, records, properties);
 		}
 	}
 
-	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
+	public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap, Properties properties) {
 		return false;
 	};
 
-	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
+	public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap, Properties properties) {
 	};
+	
+	public Properties getProperties() {
+		return this.builder.getProperties();
+	}
 
 }

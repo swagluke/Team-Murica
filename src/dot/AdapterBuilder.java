@@ -2,8 +2,13 @@ package dot;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
-import records.*;
+import records.ExtendedClassRecord;
+import records.IClassRecord;
+import records.ImplementsClassRecord;
+import records.InstanceVarRecord;
+import records.MethodRecord;
 
 public class AdapterBuilder extends APatternBuilder {
     private HashSet<String> adapteeNames;
@@ -17,7 +22,7 @@ public class AdapterBuilder extends APatternBuilder {
 
 
     @Override
-    public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap) {
+    public boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap, Properties properties) {
         boolean hasAdapteeFieldAndConstructor = false;
         boolean extendsImplementsOtherClass = false;
         HashSet<String> possibles = new HashSet<>();
@@ -77,7 +82,7 @@ public class AdapterBuilder extends APatternBuilder {
     }
 
     @Override
-    public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap) {
+    public void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap, Properties properties) {
 //    	System.out.println("apply adapter");
 //    	System.out.println(targetNames);
 //    	System.out.println(adapteeNames);

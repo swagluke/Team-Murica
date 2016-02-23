@@ -1,10 +1,11 @@
 package dot;
 
+import java.util.HashMap;
+import java.util.Properties;
+
 import org.objectweb.asm.ClassVisitor;
 
 import records.IClassRecord;
-
-import java.util.HashMap;
 
 abstract public class APatternBuilder extends AbstractBuilderDecorator {
 
@@ -18,13 +19,10 @@ abstract public class APatternBuilder extends AbstractBuilderDecorator {
 	}
 	
 	@Override
-	public IClassRecord applyDecoration(IClassRecord record) {
-//		if (this.isPattern(record)) {
-//			this.applyPattern(record);
-//		}
+	public IClassRecord applyDecoration(IClassRecord record, Properties properties) {
 		return record;
 	}
 	
-	public abstract boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap);
-	public abstract void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap);
+	public abstract boolean isPattern(IClassRecord record, HashMap<String, IClassRecord> recordMap, Properties properties);
+	public abstract void applyPattern(IClassRecord record, HashMap<String, IClassRecord> recordHashMap, Properties properties);
 }

@@ -1,6 +1,7 @@
 package dot;
 
 import java.util.HashSet;
+import java.util.Properties;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
@@ -12,8 +13,8 @@ import records.IClassRecord;
 public class AssociationBuilder extends AbstractBuilderDecorator {
 	private ClassFieldSignatureVisitor visitor;
 
-	public AssociationBuilder(String className, HashSet<String> classNames) {
-		this(new UmlBuilder(className, classNames));
+	public AssociationBuilder(String className, HashSet<String> classNames, Properties properties) {
+		this(new UmlBuilder(className, classNames, properties));
 	}
 
 	public AssociationBuilder(IBuilder b) {
@@ -28,7 +29,7 @@ public class AssociationBuilder extends AbstractBuilderDecorator {
 	}
 
 	@Override
-	public IClassRecord applyDecoration(IClassRecord record) {
+	public IClassRecord applyDecoration(IClassRecord record, Properties properties) {
 		AssociationClassRecord associationRecord = new AssociationClassRecord(record);
 		associationRecord.setAssociationNames(this.visitor.getAssociationNames());
 		return associationRecord;

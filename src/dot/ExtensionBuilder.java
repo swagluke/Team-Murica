@@ -1,19 +1,19 @@
 package dot;
 
 import java.util.HashSet;
+import java.util.Properties;
 
 import org.objectweb.asm.ClassVisitor;
 
 import asm.ClassDeclarationVisitor;
-import records.ClassRecord;
 import records.ExtendedClassRecord;
 import records.IClassRecord;
 
 public class ExtensionBuilder extends AbstractBuilderDecorator{
 	private ClassDeclarationVisitor visitor;
 
-	public ExtensionBuilder(String className, HashSet<String> classNames) {
-		this(new UmlBuilder(className, classNames));
+	public ExtensionBuilder(String className, HashSet<String> classNames, Properties properties) {
+		this(new UmlBuilder(className, classNames, properties));
 	}
 	
 	public ExtensionBuilder(IBuilder b) {
@@ -27,7 +27,7 @@ public class ExtensionBuilder extends AbstractBuilderDecorator{
 	}
 
 	@Override
-	public IClassRecord applyDecoration(IClassRecord record) {
+	public IClassRecord applyDecoration(IClassRecord record, Properties properties) {
 		ExtendedClassRecord extendedRecord = new ExtendedClassRecord(record);
 		extendedRecord.setExtendsName(this.visitor.getExtendsName());
 		return extendedRecord;

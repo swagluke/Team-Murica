@@ -3,6 +3,7 @@ package dot;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -16,14 +17,16 @@ import records.IClassRecord;
 
 public class UmlBuilder implements IBuilder {
 	private ClassRecord record;
+	private Properties properties;
 	HashSet<String> classList;
 	ClassReader reader = null;
 	ClassDeclarationVisitor declVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 	ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, declVisitor);
 	ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor);
 
-	public UmlBuilder(String className, HashSet<String> classNameList) {
+	public UmlBuilder(String className, HashSet<String> classNameList, Properties properties) {
 		this.classList = classNameList;
+		this.properties = properties;
 		try {
 			reader = new ClassReader(className);
 		} catch (IOException e) {
@@ -81,10 +84,14 @@ public class UmlBuilder implements IBuilder {
 	}
 
 	@Override
-	public IClassRecord applyDecoration(IClassRecord record) {
+	public IClassRecord applyDecoration(IClassRecord record, Properties properties) {
 		return record;
 	}
 
 	@Override
-	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records) {}
+	public void calculatePattern(IClassRecord record, HashMap<String, IClassRecord> records, Properties properties) {}
+	
+	public Properties getProperties() {
+		return this.properties;
+	}
 }
